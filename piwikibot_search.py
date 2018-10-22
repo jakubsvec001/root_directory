@@ -101,6 +101,30 @@ SELECT DISTINCT ?item ?itemLabel ?linkTo WHERE {
 }
 """
 
+# Academics / People (140,837 nodes)
+"""
+SELECT ?person WHERE {
+  { ?person wdt:P106 wd:Q901. }
+  UNION
+  { ?person wdt:P106 wd:Q170790. }
+  UNION
+  { ?person wdt:P106 wd:Q169470. }
+  UNION
+  { ?person wdt:P106 wd:Q864503. }
+  UNION
+  { ?person wdt:P106 wd:Q593644. }
+  UNION
+  { ?person wdt:P106 wd:Q11063. }
+  UNION
+  { ?person wdt:P106 wd:Q4964182. }
+  UNION
+  { ?person wdt:P106 wd:Q82594. }
+  UNION
+  { ?person wdt:P106 wd:Q201788. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
+"""
+
 
 
 
@@ -108,6 +132,7 @@ SELECT DISTINCT ?item ?itemLabel ?linkTo WHERE {
 import pywikibot
 from pywikibot import pagegenerators
 
+PYWIKIBOT_NO_USER_CONFIG=1
 site = pywikibot.Site()
 repo = site.data_repository()
 query = """SELECT distinct ?item ?itemLabel ?linkTo WHERE {
@@ -124,5 +149,12 @@ query = """SELECT distinct ?item ?itemLabel ?linkTo WHERE {
 }"""
 generator = pagegenerators.WikidataSPARQLPageGenerator(query, site=repo)
 
-for item in generator:
-    print(item)
+for i in generator:
+    print(i)
+# i = 0
+
+# while i < 10:
+#       item = next(generator)
+#       print(item)
+#       i += 1
+
