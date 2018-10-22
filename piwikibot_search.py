@@ -1,3 +1,109 @@
+
+# Mathematics (20306 nodes) 
+"""
+SPARQL Query:
+SELECT distinct ?item ?itemLabel ?linkTo WHERE {
+  { ?item wdt:P361* wd:Q395 .}
+  union
+  { ?item wdt:P361/wdt:P279* wd:Q395 .}
+  union
+  { ?item wdt:P31/wdt:P279* wd:Q1936384 .}
+  union
+  { ?item wdt:P921/wdt:P279* wd:Q395 .}
+  
+  OPTIONAL { ?item wdt:P361 ?linkTo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+"""
+
+# History (138,504 nodes)
+"""
+SELECT DISTINCT ?item ?itemLabel ?linkTo WHERE {
+  { ?item wdt:P361* wd:Q309. }
+  UNION
+  { ?item (wdt:P361/wdt:P279*) wd:Q309. }
+  UNION
+  { ?item (wdt:P31/wdt:P279*) wd:Q309. }
+  UNION
+  { ?item (wdt:P921/wdt:P279*) wd:Q309. }
+  OPTIONAL { ?item wdt:P361 ?linkTo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+"""
+
+# Biology (61,674 nodes)
+"""
+SELECT DISTINCT ?item ?itemLabel ?linkTo WHERE {
+  { ?item wdt:P361* wd:Q420. }
+  UNION
+  { ?item (wdt:P361/wdt:P279*) wd:Q420. }
+  UNION
+  { ?item (wdt:P31/wdt:P279*) wd:Q420. }
+  UNION
+  { ?item (wdt:P921/wdt:P279*) wd:Q420. }
+  OPTIONAL { ?item wdt:P361 ?linkTo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+"""
+
+# Chemistry (15,674 nodes)
+"""
+SELECT DISTINCT ?item ?itemLabel ?linkTo WHERE {
+  { ?item wdt:P361* wd:Q2329. }
+  UNION
+  { ?item (wdt:P361/wdt:P279*) wd:Q2329. }
+  UNION
+  { ?item (wdt:P31/wdt:P279*) wd:Q2329. }
+  UNION
+  { ?item (wdt:P921/wdt:P279*) wd:Q2329. }
+  OPTIONAL { ?item wdt:P361 ?linkTo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+"""
+
+# Machine Learning (5,035 nodes)
+"""
+SELECT DISTINCT ?item ?itemLabel ?linkTo WHERE {
+  { ?item wdt:P361* wd:Q2539. }
+  UNION
+  { ?item (wdt:P361/wdt:P279*) wd:Q2539. }
+  #UNION
+  #{ ?item (wdt:P31/wdt:P279*) wd:Q2539. }
+  UNION
+  { ?item (wdt:P921/wdt:P279*) wd:Q2539. }
+  OPTIONAL { ?item wdt:P361 ?linkTo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+"""
+
+# Engineering / Applied Science (32,600 nodes)
+"""
+SELECT DISTINCT ?item ?itemLabel ?linkTo WHERE {
+  { ?item wdt:P361* wd:Q11023. }
+  UNION
+  { ?item (wdt:P361/wdt:P279*) wd:Q11023. }
+  UNION
+  { ?item (wdt:P31/wdt:P279*) wd:Q11023. }
+  UNION
+  { ?item (wdt:P921/wdt:P279*) wd:Q11023. }
+  UNION
+  { ?item (wdt:P921/wdt:P279*) wd:Q11023. }
+  UNION
+  { ?item (wdt:P361/wdt:P279*) wd:Q28797. }
+  UNION
+  { ?item (wdt:P31/wdt:P279*) wd:Q28797. }
+  UNION
+  { ?item (wdt:P921/wdt:P279*) wd:Q28797. }
+  UNION
+  { ?item (wdt:P921/wdt:P279*) wd:Q28797. }
+  OPTIONAL { ?item wdt:P361 ?linkTo. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+"""
+
+
+
+
 # https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot
 import pywikibot
 from pywikibot import pagegenerators
