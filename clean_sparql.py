@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def clean_sparqle(infile, outfile)
+def clean_sparqle(infile, outfile):
     data = pd.read_csv(infile)
     wikidata_url_base = 'http://www.wikidata.org/entity/'
     url_length = len(wikidata_url_base)
