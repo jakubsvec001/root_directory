@@ -1,6 +1,6 @@
 #Data files
 data/
-
+wiki_dump/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
