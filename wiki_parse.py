@@ -13,6 +13,8 @@ from functools import partial
 import pandas as pd
 import glob
 from pymongo import MongoClient
+from gensim.corpora import wikicorpus
+
 
 def get_lines_bz2(filename, limit=None): 
     """yield each uncompressed line from bz2 file"""
@@ -53,15 +55,31 @@ def find_pages(lines, input_titles, limit=None):
 target = 'math'
 
 def parse_page(raw_xml, input_titles):
-    """Return a dict of page content"""
+    """Return a dict of page content
+    
+    title
+    timestamp
+    id
+    raw_xml
+    markup_text
+    cleaned_text
+    links
+    target
+
+    
+    """
     global target
     soup = bs(raw_xml, 'lxml')
     title = soup.select_one('title').text
     if title in input_titles:
         id = soup.select_one('id').text
         markup_text = soup.select_one('text').text
+        #use regex to delete 'Category' tags and text from raw_xml
+        re_categories = wikicorpus.RE_P14
+        categories = re_categories.findall(raw_xml)
+        for category in categories:
+            raw_xml = raw_xml.replace(category, ' ')
         timestamp = soup.select_one('timestamp').text
-        revision = soup.select_one('revision').text
         wiki = mwparserfromhell.parse(markup_text)
         cleaned_text = []
         kw = ('Category:', 'thumb')
@@ -82,7 +100,6 @@ def parse_page(raw_xml, input_titles):
 
         return {
             'title': title,
-            'revision': revision,
             'timestamp': timestamp ,
             'id': id, 
             'raw_xml': raw_xml,
@@ -90,6 +107,7 @@ def parse_page(raw_xml, input_titles):
             'cleaned_text': ' '.join(cleaned_text),
             'links': wikilinks,
             'target': target,
+            'categories': categories,
         }
 
 
