@@ -14,19 +14,7 @@ import pandas as pd
 import glob
 from pymongo import MongoClient
 
-
-# Find math content:
-re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
-
-re_all_other_tags = re.compile(r'<(.*?)>', re.DOTALL|re.UNICODE)
-# Find category markup:
-re_categories = re.compile(r'\[\[Category:[^][]*\]\]', re.UNICODE)
-# rm File and Image templates:
-re_rm_file_image = re.compile(r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
-# Capture interlinks text and article linked:
-re_interlinkstext_link = re.compile(r'\[{2}(.*?)\]{2}', re.UNICODE)
-# Simplify links, keep description:
-re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL|re.UNICODE)
+from gensim.corpora import wikicorpus
 
 
 
@@ -82,6 +70,26 @@ def parse_page(raw_xml, input_titles):
 
     
     """
+
+    # Find math content:
+    re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
+    # Find all other tags:
+    re_all_tags = re.compile(r'<(.*?)>', re.DOTALL|re.UNICODE)
+    # Find category markup:
+    re_categories = re.compile(r'\[\[Category:[^][]*\]\]', re.UNICODE)
+    # rm File and Image templates:
+    re_rm_file_image = re.compile(r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
+    # Capture interlinks text and article linked:
+    re_interlinkstext_link = re.compile(r'\[{2}(.*?)\]{2}', re.UNICODE)
+    # Simplify links, keep description:
+    re_simplify_link = re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL|re.UNICODE)
+    # Keep image Description:
+    re_image_description = re.compile(r'\n\[\[[iI]mage(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
+    # Keep file descirption:
+    re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
+    # External links:
+    re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
+    
     global target
     soup = bs(raw_xml, 'lxml')
     title = soup.select_one('title').text
@@ -89,18 +97,32 @@ def parse_page(raw_xml, input_titles):
         id = soup.select_one('id').text
         markup_text = soup.select_one('text').text
         #use regex to delete 'Category' tags and text from raw_xml
-        re_categories = wikicorpus.RE_P14
+        cleaned_text = []
+        kw = ('[[Category:', 'thumb')
+        for line in markup_text.split('\n'):
+            if line.startswith(kw):
+                continue
+            cleaned_text.append(line)
         categories = re_categories.findall(raw_xml)
+        tags = re_all_tags.findall(raw_xml)
+        file_desc = re_file_description.findall(raw_xml)
+        if file_desc != []:
+            file_desc = ' '.join(file_desc[0][1:])[1:]
+            file_desc = wikicorpus.remove_markup(file_desc)
+        image_desc = re_image_description.findall(raw_xml)
+        if image_desc != []:
+            image_desc = ' '.join(image_desc[0][2:])
+            image_desc = wikicorpus.remove_markup(image_desc)
+        external_links = re_external_links.findall(raw_xml)
+        simple_links = re_simplify_link.findall(raw_xml)
+        interlinks = re_interlinkstext_link.findall(raw_xml)
+        math = wikicorpus.RE_P10.findall(markup_text)
+
         for category in categories:
             raw_xml = raw_xml.replace(category, ' ')
         timestamp = soup.select_one('timestamp').text
         wiki = mwparserfromhell.parse(markup_text)
-        cleaned_text = []
-        kw = ('Category:', 'thumb')
-        for line in wiki.split('\n'):
-            if line.startswith(kw):
-                continue
-            cleaned_text.append(line) 
+         
 
         wikilinks = []
         for link in wiki.filter_wikilinks():
@@ -116,12 +138,20 @@ def parse_page(raw_xml, input_titles):
             'title': title,
             'timestamp': timestamp ,
             'id': id, 
-            'raw_xml': raw_xml,
-            'markup_text': ''.join(markup_text),
-            'cleaned_text': ' '.join(cleaned_text),
+            'full_raw_xml': raw_xml,
+            'full_markup_text': ''.join(markup_text),
+            'cleaned_markup_text': ' '.join(cleaned_text),
             'links': wikilinks,
             'target': target,
             'categories': categories,
+            'tags': tags,
+            'file_desc': file_desc,
+            'image_desc': image_desc,
+            'external_links': external_links,
+            'simple_links': simple_links,
+            'interlinks': interlinks,
+            'math': math,
+
         }
 
 
