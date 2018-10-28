@@ -13,7 +13,21 @@ from functools import partial
 import pandas as pd
 import glob
 from pymongo import MongoClient
-from gensim.corpora import wikicorpus
+
+
+# Find math content:
+re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
+
+re_all_other_tags = re.compile(r'<(.*?)>', re.DOTALL|re.UNICODE)
+# Find category markup:
+re_categories = re.compile(r'\[\[Category:[^][]*\]\]', re.UNICODE)
+# rm File and Image templates:
+re_rm_file_image = re.compile(r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
+# Capture interlinks text and article linked:
+re_interlinkstext_link = re.compile(r'\[{2}(.*?)\]{2}', re.UNICODE)
+# Simplify links, keep description:
+re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL|re.UNICODE)
+
 
 
 def get_lines_bz2(filename, limit=None): 
@@ -169,7 +183,6 @@ def multi_process_corpus(dump_file, title_file):
     end = timer()
     stopwatch = round((start - end)/60, 2) 
     print(f'{stopwatch} seconds elapsed.')
-
 
 if __name__ == '__main__':
     
