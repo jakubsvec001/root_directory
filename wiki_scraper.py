@@ -1,27 +1,74 @@
+import os
+import time
+import sys
+import pandas as pd
+from selenium.webdriver import Firefox
 from pymongo import MongoClient
-client = MongoClient('localhost', 27017)
-db = client.oleg
+from timeit import default_timer
 
-# get the raw html 
-url = "http://www.crummy.com/software/BeautifulSoup/bs4/doc/#"
-import urllib2
-html = urllib2.urlopen(url).read()
-html[:100]
+def get_expand_buttons(browser):
+    """Return a list of expand buttons to click on."""
+    return browser.find_elements_by_xpath("//span[@title='expand']")
 
-#'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"\n  "http://www.w3.org/TR/xhtml1/DTD/xh'
+def expand_all_categories(browser, category, search_depth=3, save='csv'):
+    """Expand all categories on the page."""
+    expand_buttons = get_expand_buttons(browser)
+    time.sleep(3)
+    depth = 0
+    print('num expand buttons ', len(expand_buttons))
+    while depth < search_depth:
+        start = default_timer()
+        for button in expand_buttons:
+            if button.is_displayed():
+                button.click()
+        time.sleep(3)
+        expand_buttons = get_expand_buttons(browser)
+        end = default_timer()
+        print(f'depth of {depth} took {str(round((end-start)/60, 2))} minutes to open')
+        depth += 1       
+    if save == 'csv':
+        start = default_timer()
+        lst = []
+        for a in browser.find_elements_by_xpath('.//a'):
+            lst.append(a.get_attribute('href'))
+        links = pd.DataFrame(lst)
+        links = links.iloc[7:-32,:]
+        links.to_csv(f'seed_data/{category}_d{depth}_{len(links)}.csv', sep=',', encoding='utf-8', header=None, index=False)  
+        end = default_timer()
+        print(depth, str(round((end-start)/60, 2)) + f' minutes to save to csv {len(links)} hrefs')
 
-# store the <key:value> -> <url:html> into mongo for later use
-db.tikhonov.insert({"url":url, "html":html})
-ObjectId('532e6904866cd3431a90c618')
-# retrieve the stored html by search the url
-record = db.tikhonov.find_one({"url":url})
-record['url']
 
-# u'http://www.crummy.com/software/BeautifulSoup/bs4/doc/#'
+def get_links(category, search_depth=3, save='csv'):
+    """
+    category= string
+    search_depth = 3
+    save = 'csv'
 
-# turn html txt into soup and start parsing
-from bs4 import BeautifulSoup
-soup = BeautifulSoup(record['html'])
-soup.find("h1").text
+    gets the links from wikipedia's hidden category tree finder
+    """
+    browser = Firefox()
+    time.sleep(0.5)
+    browser.get(f'https://en.wikipedia.org/wiki/Special:CategoryTree?target={category}&mode=all&namespaces=&title=Special%3ACategoryTree')
+    time.sleep(0.5)
+    category = category.replace(' ','_')
+    return expand_all_categories(browser, category, search_depth, save='csv')
 
-# u'Beautiful Soup Documentation\xb6'
+def get_categories(category, search_depth=5, save='csv'):
+    """
+    category= string
+    search_depth = 3
+    save = 'csv'
+     
+    gets the links from wikipedia's hidden category tree finder
+    """
+    browser = Firefox()
+    time.sleep(0.5)
+    browser.get(f'https://en.wikipedia.org/wiki/Special:CategoryTree?target={category}&mode=categories&namespaces=&title=Special%3ACategoryTree')
+    time.sleep(0.5)
+    category = category.replace(' ','_')
+    return expand_all_categories(browser, category, search_depth, save='csv')
+# def main():
+#     """Open the page and expand all categories."""
+#     browser = Firefox()
+#     browser.get('https://en.wikipedia.org/wiki/Special:CategoryTree?target=mathematics&mode=all&namespaces=&title=Special%3ACategoryTree')
+#     expand_all_categories(browser, 'physics', search_depth=3, save='csv')
