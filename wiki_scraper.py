@@ -39,7 +39,6 @@ def expand_all_categories(browser, category, search_depth=3, save='csv', all_cat
         end = default_timer()
         print(str(round((end-start)/60, 2)) + f' minutes to save to csv {len(links)} hrefs')
 
-
 def get_links(category, search_depth=3, save='csv'):
     """get the links from wikipedia's hidden category tree finder"""
     browser = Firefox()
