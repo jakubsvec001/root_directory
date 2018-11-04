@@ -9,8 +9,9 @@ def get_expand_buttons(browser):
     """Return a list of expand buttons to click on."""
     return browser.find_elements_by_xpath("//span[@title='expand']")
 
-def expand_all_categories(browser, category, search_depth=3, save='csv', all_cats_pages=False):
+def expand_all_categories(browser, category, search_depth=3, save='csv', all_pages=True):
     """Expand all categories on the page."""
+    start_time = default_timer()
     expand_buttons = get_expand_buttons(browser)
     time.sleep(3)
     depth = 0
@@ -32,12 +33,20 @@ def expand_all_categories(browser, category, search_depth=3, save='csv', all_cat
             lst.append(a.get_attribute('href'))
         links = pd.DataFrame(lst)
         links = links.iloc[7:-32,:]
-        if all_cats_pages:
-            links.to_csv(f'seed_data/cat_only_{category}_d{depth}_{len(links)}.csv', sep=',', encoding='utf-8', header=None, index=False)
+        if all_pages:
+            links.to_csv(f'seed_data/all_pages_{category}_d{depth}_{len(links)}.csv', sep=',', encoding='utf-8', header=None, index=False)
         else:
-            links.to_csv(f'seed_categories/all_pages{category}_d{depth}_{len(links)}.csv', sep=',', encoding='utf-8', header=None, index=False)
+            links.to_csv(f'seed_categories/cat_pages_{category}_d{depth}_{len(links)}.csv', sep=',', encoding='utf-8', header=None, index=False)
         end = default_timer()
-        print(str(round((end-start)/60, 2)) + f' minutes to save to csv {len(links)} hrefs')
+        end_time = default_timer()
+        print(str(round((end-start)/60, 2)) + f' minutes to save to csv {len(links)} links')
+        print(str(round((end_time-start_time)/60, 2)) + f' minutes to finish entire search')
+        
+    if save == False:
+        pass
+    
+    
+
 
 def get_links(category, search_depth=3, save='csv'):
     """get the links from wikipedia's hidden category tree finder"""
@@ -46,22 +55,24 @@ def get_links(category, search_depth=3, save='csv'):
     browser.get(f'https://en.wikipedia.org/wiki/Special:CategoryTree?target={category}&mode=all&namespaces=&title=Special%3ACategoryTree')
     time.sleep(0.5)
     category = category.replace(' ','_')
-    expand_all_categories(browser, category, search_depth, save='csv', all_cats_pages=True)
+    expand_all_categories(browser, category, search_depth, save='csv', all_pages=True)
 
 def get_categories(category, search_depth=5, save='csv'):
-    """
-    category= string
-    search_depth = 3
-    save = 'csv'
-     
-    gets the links from wikipedia's hidden category tree finder
-    """
+    """gets the links from wikipedia's hidden category tree finder"""
     browser = Firefox()
     time.sleep(0.5)
     browser.get(f'https://en.wikipedia.org/wiki/Special:CategoryTree?target={category}&mode=categories&namespaces=&title=Special%3ACategoryTree')
     time.sleep(0.5)
     category = category.replace(' ','_')
-    expand_all_categories(browser, category, search_depth, save='csv')
+    expand_all_categories(browser, category, search_depth, save='csv', all_pages=False)
+
+def only_open(category, search_depth=5):
+    browser = Firefox()
+    time.sleep(0.5)
+    browser.get(f'https://en.wikipedia.org/wiki/Special:CategoryTree?target={category}&mode=all&namespaces=&title=Special%3ACategoryTree')
+    time.sleep(0.5)
+    category = category.replace(' ','_')
+    expand_all_categories(browser, category, search_depth, save=False, all_pages=False)
 
 
 # def main():
