@@ -7,16 +7,6 @@ from selenium.webdriver import Firefox
 from timeit import default_timer
 from urllib.parse import unquote
 
-
-import os
-import time
-import sys
-import csv
-import pandas as pd
-from selenium.webdriver import Firefox
-from timeit import default_timer
-from urllib.parse import unquote
-
 class wikiScraper(object):
     """Scrape Wikipedia's Special Category Tree page: 
     https://en.wikipedia.org/wiki/Special:CategoryTree
@@ -87,8 +77,3 @@ class wikiScraper(object):
             time.sleep(1)
             self._expand_all_categories()
         
-# def main():
-#     """Open the page and expand all categories."""
-#     browser = Firefox()
-#     browser.get('https://en.wikipedia.org/wiki/Special:CategoryTree?target=mathematics&mode=all&namespaces=&title=Special%3ACategoryTree')
-#     expand_all_categories(browser, 'physics', search_depth=3, save='csv')
