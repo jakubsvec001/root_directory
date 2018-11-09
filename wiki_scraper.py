@@ -4,6 +4,7 @@ import sys
 import csv
 import pandas as pd
 from selenium.webdriver import Firefox
+from bs4 import BeautifulSoup as bs
 from timeit import default_timer
 from urllib.parse import unquote
 
@@ -19,6 +20,7 @@ class wikiScraper(object):
     
     def __init__(self, all_pages=True):
         self.all_pages = all_pages
+        
         
     def _get_expand_buttons(self):
         """Return a list of expand buttons to click on."""
@@ -41,23 +43,30 @@ class wikiScraper(object):
             end = default_timer()
             print(f'depth of { self.depth } took {str(round((end-start)/60, 2))} minutes to open')
             self.depth += 1
+        html = self.browser.page_source
+        soup = bs(html, 'html.parser')
+        self.html = soup.find_all('a', class_='CategoryTreeLabel')
+        self.href_count = len(self.html)
         if self.save=='csv':
             start = default_timer()
             self.save_csv()
             end = default_timer()
             print(str(round((end-start)/60, 2)) + f' minutes to save to csv')
             
+    #  browser.page_source <--- converts to html that can be made into soup
+
     def save_csv(self):
         if self.all_pages==True:
-            with open(f'seed_pages/all_pages_{ self.category }_d{ self.depth }.csv', 'w') as out:
+            with open(f'seed_pages/all_pages_{ self.category }_d{ self.depth }_{ self.href_count }.csv', 'w') as out:
                 writer = csv.writer(out, lineterminator='\n')
-                for a in self.browser.find_elements_by_xpath('.//a'):
-                    writer.writerow([a.get_attribute('href')])
+                for a in self.html:
+                    writer.writerow([a['href']])
         else:
-            with open(f'seed_categories/cat_pages_{ self.category }_d { self.depth }.csv', 'w') as out:
+            with open(f'seed_categories/cat_pages_{ self.category }_d { self.depth }_{ self.href_count }.csv', 'w') as out:
                 writer = csv.writer(out, lineterminator='\n')
-                for a in self.browser.find_elements_by_xpath('.//a'):
-                    writer.writerow([a.get_attribute('href')])    
+                for a in self.html:
+                    writer.writerow([a['href']])
+
     
     def scrape(self, category, search_depth=3, save='csv'):
         """Scrape for either categories or all categories and pages"""
@@ -65,7 +74,6 @@ class wikiScraper(object):
         self.search_depth = search_depth
         self.save = save
         self.browser = Firefox()
-        print(self.all_pages)
         if self.all_pages==True:
             time.sleep(1)
             self.browser.get(f'https://en.wikipedia.org/wiki/Special:CategoryTree?target={ self.category }&mode=all&namespaces=&title=Special%3ACategoryTree')
