@@ -32,11 +32,9 @@ class wikiScraper(object):
         expand_buttons = self._get_expand_buttons()
         time.sleep(3)
         self.depth = 0
-        print('num expand buttons ', len(expand_buttons))
         while self.depth < self.search_depth:
             start = default_timer()
             for button in expand_buttons:
-                time.sleep(.05)
                 if button.is_displayed():
                     button.click()
             time.sleep(3)
