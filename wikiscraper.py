@@ -9,7 +9,7 @@ from urllib.parse import unquote
 from bs4 import BeautifulSoup as bs
 from selenium.webdriver import Firefox
 
-class WikiTreeScraper(object):
+class TreeScraper(object):
     """Scrape Wikipedia's Special Category Tree page: https://en.wikipedia.org/wiki/Special:CategoryTree
     
     EXAMPLE USE:
@@ -46,13 +46,15 @@ class WikiTreeScraper(object):
             self.depth += 1
         html = self.browser.page_source
         soup = bs(html, 'html.parser')
-        self.html = soup.find_all('a', class_='CategoryTreeLabel')
-        self.href_count = len(self.html)
+        self.atag = soup.find_all('a', class_='CategoryTreeLabel')
+        self.href_count = len(self.atag)
         if self.save=='csv':
             start = default_timer()
             self._save_csv()
             end = default_timer()
             print(str(round((end-start)/60, 2)) + f' minutes to save to csv')
+        elif self.save==False:
+            return self._href_list()
             
 
     def _save_csv(self):
@@ -61,15 +63,20 @@ class WikiTreeScraper(object):
         if self.all_pages==True:
             with open(f'seed_pages/all_pages_{ self.category }_d{ self.depth }_{ self.href_count }.csv', 'w') as out:
                 writer = csv.writer(out, lineterminator='\n')
-                for a in self.html:
+                for a in self.atag:
                     writer.writerow([a['href']])
         # Save only categories to a 'seed_categories' dir
         else:
             with open(f'seed_categories/cat_pages_{ self.category }_d { self.depth }_{ self.href_count }.csv', 'w') as out:
                 writer = csv.writer(out, lineterminator='\n')
-                for a in self.html:
+                for a in self.atag:
                     writer.writerow([a['href']])
-
+    
+    def _href_list(self):
+        """save hrefs as an attribute"""
+        self.hrefs = []
+        for a in self.atag:
+            self.hrefs.append(a['href'])
     
     def scrape(self, category, search_depth=3, save='csv'):
         """Scrape for either categories or all categories and pages"""
@@ -89,38 +96,56 @@ class WikiTreeScraper(object):
             self._expand_all_categories()
 
 
-class WikiVitalScraper(object):
+class VitalScraper(object):
     """Scrape the highly curated "Wikipedia:Vital articles" pages
     https://en.wikipedia.org/wiki/Wikipedia:Vital_articles"""
 
-    # Vital Articles Category Links:    
-    engineering = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Technology'
-    mathematics = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Mathematics'
-    physics = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Physics'
-    earth_science = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Earth_science'
-    chemistry = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Chemistry'
-    astronomy = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Astronomy'
-    arts = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Arts'
+    # Vital Articles Category Links:
+    def __init__(self):    
+        self.links_dict = dict(engineering = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Technology',
+                    mathematics = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Mathematics',
+                    physics = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Physics',
+                    earth_science = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Earth_science',
+                    chemistry = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Chemistry',
+                    astronomy = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Astronomy',
+                    arts = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Arts',
+                    )
 
-    def scrape(self, url):
-        """simply navigate to the provided url and scrape all '/wiki/' links"""
+    def scrape(self, category):
+        """scrape all '/wiki/' links from the given category and its associated url"""
+        url = self.links_dict[category]
         response = requests.get(url)
         soup = bs(response.content, 'html.parser')
         links = []
         for a in soup.find_all('a', href=True):
-            link = 
-                links.append(a['href'])
+            # links.append(a['href'])
+            link = self.filter_links(a['href'])
+            if link:
+                links.append(link)
         return links
-
-    def filter_links(link):
+    
+    def filter_links(self, link):
+        """consume a link and return if link does not contain excluded items"""
         exclude_list = ['Wikipedia:Vital_articles', 
-                        'wiki/Template:', 
-                        'wiki/Special:', 
-                        'Wikipedia:Featured_articles',
-                        ]
+                        'Template:', 
+                        'Special:', 
+                        'Featured_articles',
+                        'Good_articles',
+                        'General_disclaimer',
+                        'User:',
+                        'Portal',
+                        'Help:',
+                        'Wikipedia:Community_portal',
+                        'Category:',
+                        '/Main_Page',
+                        'Wikipedia_talk:',
+                        'Wikipedia:',
+                        'Template_talk:']
+        flag = False
         for item in exclude_list:
             if item in link:
-                return continue
-        return link
-            
-            
+                flag = True
+        if link.startswith(('#', '//', 'https:')):
+            flag = True
+        if flag == False:
+            return link
