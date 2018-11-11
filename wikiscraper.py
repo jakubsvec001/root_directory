@@ -32,9 +32,11 @@ class WikiTreeScraper(object):
         expand_buttons = self._get_expand_buttons()
         time.sleep(3)
         self.depth = 0
+        print('num expand buttons ', len(expand_buttons))
         while self.depth < self.search_depth:
             start = default_timer()
             for button in expand_buttons:
+                time.sleep(.05)
                 if button.is_displayed():
                     button.click()
             time.sleep(3)
@@ -86,27 +88,39 @@ class WikiTreeScraper(object):
             time.sleep(1)
             self._expand_all_categories()
 
-# Vital Articles Category Links:    
-engineering = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Technology'
-mathematics = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Mathematics'
-physics = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Physics'
-earth_science = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Earth_science'
-chemistry = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Chemistry'
-astronomy = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Astronomy'
-
-
-
 
 class WikiVitalScraper(object):
     """Scrape the highly curated "Wikipedia:Vital articles" pages
     https://en.wikipedia.org/wiki/Wikipedia:Vital_articles"""
+
+    # Vital Articles Category Links:    
+    engineering = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Technology'
+    mathematics = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Mathematics'
+    physics = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Physics'
+    earth_science = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Earth_science'
+    chemistry = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Chemistry'
+    astronomy = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Physical_sciences/Astronomy'
+    arts = 'https://en.wikipedia.org/wiki/Wikipedia:Vital_articles/Level/5/Arts'
+
     def scrape(self, url):
         """simply navigate to the provided url and scrape all '/wiki/' links"""
         response = requests.get(url)
         soup = bs(response.content, 'html.parser')
         links = []
         for a in soup.find_all('a', href=True):
-            if 'Vital_articles/' not in a['href']:
+            link = 
                 links.append(a['href'])
         return links
+
+    def filter_links(link):
+        exclude_list = ['Wikipedia:Vital_articles', 
+                        'wiki/Template:', 
+                        'wiki/Special:', 
+                        'Wikipedia:Featured_articles',
+                        ]
+        for item in exclude_list:
+            if item in link:
+                return continue
+        return link
+            
             
