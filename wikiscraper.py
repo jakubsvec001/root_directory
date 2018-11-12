@@ -28,7 +28,6 @@ class TreeScraper(object):
     
     def _expand_all_categories(self):
         """Expand all categories on page."""
-        start_time = default_timer()
         expand_buttons = self._get_expand_buttons()
         time.sleep(3)
         self.depth = 0
