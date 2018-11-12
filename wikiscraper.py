@@ -40,7 +40,7 @@ class TreeScraper(object):
             url_list.append(a['href'])
             depth_list.append(self.depth)
         self.depth += 1
-        while self.depth < self.search_depth:
+        while self.depth <= self.search_depth:
             start = default_timer()
             time.sleep(1)
             expand_buttons = self._get_expand_buttons()
@@ -67,7 +67,7 @@ class TreeScraper(object):
         #     self._save_csv()
         #     end = default_timer()
         #     print(str(round((end-start)/60, 2)) + f' minutes to save to csv')
-        # elif self.save==False:
+        # elif self.save==False:q
         #     return self._href_list()
             
 
