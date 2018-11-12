@@ -28,33 +28,49 @@ class TreeScraper(object):
     
     def _expand_all_categories(self):
         """Expand all categories on page."""
-        expand_buttons = self._get_expand_buttons()
-        time.sleep(3)
         self.depth = 0
-        print('num expand buttons ', len(expand_buttons))
+        self.df = pd.DataFrame(columns=['url','depth'])
+        self.duplicated = 0
+        url_list = []
+        depth_list = []
+        html = self.browser.page_source
+        soup = bs(html, 'html.parser')
+        atag = soup.find_all('a', class_='CategoryTreeLabel')
+        for a in atag:
+            url_list.append(a['href'])
+            depth_list.append(self.depth)
+        self.depth += 1
         while self.depth < self.search_depth:
             start = default_timer()
+            time.sleep(1)
+            expand_buttons = self._get_expand_buttons()
             for button in expand_buttons:
                 time.sleep(.05)
                 if button.is_displayed():
                     button.click()
-            time.sleep(3)
-            expand_buttons = self._get_expand_buttons()
             end = default_timer()
             print(f'depth of { self.depth } took {str(round((end-start)/60, 2))} minutes to open')
+            html = self.browser.page_source
+            soup = bs(html, 'html.parser')
+            atag = soup.find_all('a', class_='CategoryTreeLabel')
+            for a in atag:
+                link = a['href']
+                if link not in url_list:
+                    url_list.append(a['href'])
+                    depth_list.append(self.depth)
+                elif link in url_list:
+                    self.duplicated += 1
             self.depth += 1
-        html = self.browser.page_source
-        soup = bs(html, 'html.parser')
-        self.atag = soup.find_all('a', class_='CategoryTreeLabel')
-        self.href_count = len(self.atag)
-        if self.save=='csv':
-            start = default_timer()
-            self._save_csv()
-            end = default_timer()
-            print(str(round((end-start)/60, 2)) + f' minutes to save to csv')
-        elif self.save==False:
-            return self._href_list()
+        self.df = pd.DataFrame(list(zip(url_list, depth_list)), columns=['url','depth'])
+        # if self.save=='csv':
+        #     start = default_timer()
+        #     self._save_csv()
+        #     end = default_timer()
+        #     print(str(round((end-start)/60, 2)) + f' minutes to save to csv')
+        # elif self.save==False:
+        #     return self._href_list()
             
+
 
     def _save_csv(self):
         """Save to a csv file"""
