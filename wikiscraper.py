@@ -40,7 +40,7 @@ class TreeScraper(object):
             url_list.append(a['href'])
             depth_list.append(self.depth)
         self.depth += 1
-        while self.depth <= self.search_depth:
+        while self.depth < self.search_depth:
             start = default_timer()
             time.sleep(1)
             expand_buttons = self._get_expand_buttons()
@@ -62,36 +62,21 @@ class TreeScraper(object):
                     self.duplicated += 1
             self.depth += 1
         self.df = pd.DataFrame(list(zip(url_list, depth_list)), columns=['url','depth'])
-        # if self.save=='csv':
-        #     start = default_timer()
-        #     self._save_csv()
-        #     end = default_timer()
-        #     print(str(round((end-start)/60, 2)) + f' minutes to save to csv')
-        # elif self.save==False:q
-        #     return self._href_list()
+        self._convert_utf8()
+        if self.save=='csv':
+            start = default_timer()
+            self._save_csv()
+            end = default_timer()
+            print(str(round((end-start)/60, 2)) + f' minutes to save to csv')
             
-
-
     def _save_csv(self):
         """Save to a csv file"""
         # Save pages and categories to a 'seed_pages' dir
-        if self.all_pages==True:
-            with open(f'seed_pages/all_pages_{ self.category }_d{ self.depth }_{ self.href_count }.csv', 'w') as out:
-                writer = csv.writer(out, lineterminator='\n')
-                for a in self.atag:
-                    writer.writerow([a['href']])
-        # Save only categories to a 'seed_categories' dir
-        else:
-            with open(f'seed_categories/cat_pages_{ self.category }_d { self.depth }_{ self.href_count }.csv', 'w') as out:
-                writer = csv.writer(out, lineterminator='\n')
-                for a in self.atag:
-                    writer.writerow([a['href']])
-    
-    def _href_list(self):
-        """save hrefs as an attribute"""
-        self.hrefs = []
-        for a in self.atag:
-            self.hrefs.append(a['href'])
+        self.df.to_csv(f'seed/{ self.category }_d{ self.depth }.csv', sep='\t', encoding='utf-8', index=False)
+                
+    def _convert_utf8(self):
+        """Convert the url column to utf-8 encoding"""
+        self.df['url'] = self.df['url'].map(unquote)
     
     def scrape(self, category, search_depth=3, save='csv'):
         """Scrape for either categories or all categories and pages"""
