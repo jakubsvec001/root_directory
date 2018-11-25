@@ -16,63 +16,13 @@ from pymongo import MongoClient
 from gensim.corpora import wikicorpus
 
 
-class PageFinder(object):
+class WikiFinder(object):
     """Parse Wikipedia data dump files located at 
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for page tags"""
 
-    def __init__(self, target=None, input_titles=None, save=True, limit=None, dir_out='temp_results'):
-        self.input_titles = target
-        self.target = input_titles
-        self.save = save
-        self.limit = limit
-        self.dir_out = dir_out
-
-    def multi_process_corpus(self, dump_file, title_file, dump_search_limit=None):
-        """creates a multiprocessing pool to search multiple
-        files with multiple workers."""
-        start = timer()
-        input_titles = title_file
-        dump_list = glob.glob(dump_file + '*.bz2')
-        input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8', header=None)[0].tolist()
-        pool = Pool(processes = os.cpu_count())
-
-        # Map (service, tasks), applies function to each partition
-        if not dump_search_limit:
-            pool.map(self.create_corpus, dump_list)
-        else:
-            pool.map(self.create_corpus, dump_list[:dump_search_limit])
-
-        pool.close()
-        pool.join()
-
-        end = timer()
-        stopwatch = round((start - end)/60, 2) 
-        print(f'{stopwatch} seconds elapsed.')
-
-    def create_corpus(self, filein):
-        '''Return a list of articles in a dictionary format OR
-        save articles to a mongodb database'''
-        start = timer()
-        name_str = filein.partition('-')[-1].split('.')[-3]
-        lines = self._get_lines_bz2(filein)
-        pages = self._find_pages(lines)
-        if self.save:
-            mc = MongoClient()
-            db = mc['cache']
-            collection = db[self.target]
-            for page in pages:
-                cached_article = collection.find_one({'title': page['title']})
-                if cached_article is None:
-                    collection.insert_one(page)
-        else:
-            pages = list(pages)
-            return pages
-        end = timer()
-        time = round((end - start) / 60)
-        stopwatch = f'It took {time} minutes to complete the search'
-        print(' SAVED TO: ' + self.dir_out + name_str + '.json')
-        return stopwatch
+    def __init__(self):
+        pass
 
     def _get_lines_bz2(self, filename): 
         """yield each uncompressed line from bz2 file"""
@@ -98,7 +48,7 @@ class PageFinder(object):
                 search_count += 1
                 inpage = False
                 raw_xml = ''.join(page)
-                parsed = self._parse_page(raw_xml)
+                parsed = self._identify_page(raw_xml)
                 if parsed:
                     found_count += 1
                     yield parsed
@@ -110,17 +60,8 @@ class PageFinder(object):
             elif inpage:
                 page.append(line)
 
-    def _parse_page(self, raw_xml):
-        """Return a dict of page content 
-        title
-        timestamp
-        id
-        raw_xml
-        markup_text
-        cleaned_text
-        links
-        target
-        """
+    def _identify_page(self, raw_xml):
+        """Indentify whether or not article is in self.titles_to_find"""
         
         # Find math content:
         re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
@@ -143,7 +84,7 @@ class PageFinder(object):
         
         soup = bs(raw_xml, 'lxml')
         title = soup.select_one('title').text
-        if title in self.input_titles:
+        if title in self.titles_to_find:
             id = soup.select_one('id').text
             markup_text = soup.select_one('text').text
             #use regex to delete 'Category' tags and text from raw_xml
@@ -172,7 +113,6 @@ class PageFinder(object):
                 raw_xml = raw_xml.replace(category, ' ')
             timestamp = soup.select_one('timestamp').text
             wiki = mwparserfromhell.parse(markup_text)
-            
 
             wikilinks = []
             for link in wiki.filter_wikilinks():
@@ -189,20 +129,59 @@ class PageFinder(object):
                 'timestamp': timestamp ,
                 'id': id, 
                 'full_raw_xml': raw_xml,
-                'full_markup_text': ''.join(markup_text),
-                'cleaned_markup_text': ' '.join(cleaned_text),
-                'links': wikilinks,
                 'target': self.target,
-                'categories': categories,
-                'tags': tags,
-                'file_desc': file_desc,
-                'image_desc': image_desc,
-                'external_links': external_links,
-                'simple_links': simple_links,
-                'interlinks': interlinks,
-                'math': math,}
+                }
 
-    
+class PageFinder(WikiFinder):
+    """uses all the tools in the WikiFinder to retrieve pages from a list"""   
+    def create_corpus(self, filein, target, titles_to_find, save=True, limit=None):
+        self.titles_to_find = pd.read_csv(titles_to_find, sep='\t', encoding='utf-8')
+        self.target = target
+        self.save = save
+        self.limit = limit
+        '''Return a list of articles in a dictionary format OR
+        save articles to a mongodb database'''
+        start = timer()
+        lines = self._get_lines_bz2(filein)
+        pages = self._find_pages(lines)
+        if self.save:
+            mc = MongoClient()
+            db = mc['cache']
+            collection = db['target_pages']
+            for page in pages:
+                cached_article = collection.find_one({'title': page['title']})
+                if cached_article is None:
+                    collection.insert_one(page)
+        else:
+            pages = list(pages)
+            return pages
+        end = timer()
+        time = round((end - start) / 60)
+        stopwatch = f'It took {time} minutes to complete the search'
+        return stopwatch
+
+
+def multi_process_corpus(self, dump_file, title_file, dump_search_limit=None):
+    """creates a multiprocessing pool to search multiple
+    files with multiple workers."""
+    start = timer()
+    input_titles = title_file
+    dump_list = glob.glob(dump_file + '*.bz2')
+    input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8')['cleaned_url'].tolist()
+    pool = Pool(processes = os.cpu_count())
+
+    # Map (service, tasks), applies function to each partition
+    if not dump_search_limit:
+        pool.map(self.create_corpus, dump_list)
+    else:
+        pool.map(self.create_corpus, dump_list[:dump_search_limit])
+
+    pool.close()
+    pool.join()
+
+    end = timer()
+    stopwatch = round((start - end)/60, 2) 
+    print(f'{stopwatch} seconds elapsed.')   
 
 # if __name__ == '__main__':
     
