@@ -16,7 +16,7 @@ from pymongo import MongoClient
 from gensim.corpora import wikicorpus
 
 
-class DumpParser(object):
+class PageFinder(object):
     """Parse Wikipedia data dump files located at 
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for page tags"""
@@ -57,26 +57,22 @@ class DumpParser(object):
         name_str = filein.partition('-')[-1].split('.')[-3]
         lines = self._get_lines_bz2(filein)
         pages = self._find_pages(lines)
+        if self.save:
+            mc = MongoClient()
+            db = mc['cache']
+            collection = db[self.target]
+            for page in pages:
+                cached_article = collection.find_one({'title': page['title']})
+                if cached_article is None:
+                    collection.insert_one(page)
+        else:
+            pages = list(pages)
+            return pages
         end = timer()
         time = round((end - start) / 60)
         stopwatch = f'It took {time} minutes to complete the search'
         print(' SAVED TO: ' + self.dir_out + name_str + '.json')
         return stopwatch
-
-
-# CONTIUNE HERE TO SAVE INTO MONGODB
-        # if save:
-        #     mc = MongoClient()
-        #     db = mc['cache']
-        #     math = db['math']
-        #     for page in pages:
-        #         cached_article = math.find_one({'title': page['title']})
-        #         if cashed_article is None:
-        #             math.insert_one(page)
-        # else:
-        #     pages = list(pages)
-        #     return pages
-
 
     def _get_lines_bz2(self, filename): 
         """yield each uncompressed line from bz2 file"""
