@@ -21,8 +21,33 @@ class WikiFinder(object):
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for page tags"""
 
-    def __init__(self):
-        pass
+    def __init__(self, target=None, titles_to_find=None, save=True, limit=None):
+        self.titles_to_find = pd.read_csv(titles_to_find, sep='\t', encoding='utf-8')['cleaned_url']
+        self.target = target
+        self.save = save
+        self.limit = limit
+
+    def create_corpus(self, filein):
+        '''Return a list of articles in a dictionary format OR
+        save articles to a mongodb database'''
+        start = timer()
+        lines = self._get_lines_bz2(filein)
+        pages = self._find_pages(lines)
+        if self.save:
+            mc = MongoClient()
+            db = mc['cache']
+            collection = db['pages']
+            for page in pages:
+                cached_article = collection.find_one({'title': page['title']})
+                if cached_article is None:
+                    collection.insert_one(page)
+        else:
+            pages = list(pages)
+            return pages
+        end = timer()
+        time = round((end - start) / 60)
+        stopwatch = f'It took {time} minutes to complete the search'
+        return stopwatch
 
     def _get_lines_bz2(self, filename): 
         """yield each uncompressed line from bz2 file"""
@@ -85,7 +110,7 @@ class WikiFinder(object):
         soup = bs(raw_xml, 'lxml')
         title = soup.select_one('title').text
         if title in self.titles_to_find:
-            id = soup.select_one('id').text
+            id_ = soup.select_one('id').text
             markup_text = soup.select_one('text').text
             #use regex to delete 'Category' tags and text from raw_xml
             cleaned_text = []
@@ -127,61 +152,34 @@ class WikiFinder(object):
             return {
                 'title': title,
                 'timestamp': timestamp ,
-                'id': id, 
+                'id_': id_, 
                 'full_raw_xml': raw_xml,
                 'target': self.target,
                 }
 
-class PageFinder(WikiFinder):
-    """uses all the tools in the WikiFinder to retrieve pages from a list"""   
-    def create_corpus(self, filein, target, titles_to_find, save=True, limit=None):
-        self.titles_to_find = pd.read_csv(titles_to_find, sep='\t', encoding='utf-8')
-        self.target = target
-        self.save = save
-        self.limit = limit
-        '''Return a list of articles in a dictionary format OR
-        save articles to a mongodb database'''
-        start = timer()
-        lines = self._get_lines_bz2(filein)
-        pages = self._find_pages(lines)
-        if self.save:
-            mc = MongoClient()
-            db = mc['cache']
-            collection = db['target_pages']
-            for page in pages:
-                cached_article = collection.find_one({'title': page['title']})
-                if cached_article is None:
-                    collection.insert_one(page)
-        else:
-            pages = list(pages)
-            return pages
-        end = timer()
-        time = round((end - start) / 60)
-        stopwatch = f'It took {time} minutes to complete the search'
-        return stopwatch
 
 
 def multi_process_corpus(self, dump_file, title_file, dump_search_limit=None):
-    """creates a multiprocessing pool to search multiple
-    files with multiple workers."""
-    start = timer()
-    input_titles = title_file
-    dump_list = glob.glob(dump_file + '*.bz2')
-    input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8')['cleaned_url'].tolist()
-    pool = Pool(processes = os.cpu_count())
+        """creates a multiprocessing pool to search multiple
+        files with multiple workers."""
+        start = timer()
+        input_titles = title_file
+        dump_list = glob.glob(dump_file + '*.bz2')
+        input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8')['cleaned_url'].tolist()
+        pool = Pool(processes = os.cpu_count())
 
-    # Map (service, tasks), applies function to each partition
-    if not dump_search_limit:
-        pool.map(self.create_corpus, dump_list)
-    else:
-        pool.map(self.create_corpus, dump_list[:dump_search_limit])
+        # Map (service, tasks), applies function to each partition
+        if not dump_search_limit:
+            pool.map(self.create_corpus, dump_list)
+        else:
+            pool.map(self.create_corpus, dump_list[:dump_search_limit])
 
-    pool.close()
-    pool.join()
+        pool.close()
+        pool.join()
 
-    end = timer()
-    stopwatch = round((start - end)/60, 2) 
-    print(f'{stopwatch} seconds elapsed.')   
+        end = timer()
+        stopwatch = round((start - end)/60, 2) 
+        print(f'{stopwatch} seconds elapsed.')   
 
 # if __name__ == '__main__':
     
