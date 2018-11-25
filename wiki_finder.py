@@ -21,11 +21,11 @@ class WikiFinder(object):
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for page tags"""
 
-    def __init__(self, target=None, titles_to_find=None, save=True, limit=None):
-        self.titles_to_find = pd.read_csv(titles_to_find, sep='\t', encoding='utf-8')['cleaned_url']
+    def __init__(self, target=None, titles_to_find=None, save=True, page_limit=None):
+        self.titles_to_find = pd.read_csv(titles_to_find, sep='\t', encoding='utf-8')['cleaned_url'].values
         self.target = target
         self.save = save
-        self.limit = limit
+        self.page_limit = page_limit
 
     def create_corpus(self, filein):
         '''Return a list of articles in a dictionary format OR
@@ -56,7 +56,7 @@ class WikiFinder(object):
                                     stdout = subprocess.PIPE
                                     ).stdout):
             yield line.decode()
-            if self.limit and i >= self.limit:
+            if self.page_limit and i >= self.page_limit:
                 break
 
     def _find_pages(self, lines):
@@ -79,15 +79,14 @@ class WikiFinder(object):
                     yield parsed
                 page = []
                 sys.stdout.write('\r' + f'Found articles: {found_count} Search count: {search_count}')
-                if self.limit:
-                    if found_count >= self.limit:
+                if self.page_limit:
+                    if found_count >= self.page_limit:
                         break
             elif inpage:
                 page.append(line)
 
     def _identify_page(self, raw_xml):
         """Indentify whether or not article is in self.titles_to_find"""
-        
         # Find math content:
         re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
         # Find all other tags:
@@ -160,26 +159,26 @@ class WikiFinder(object):
 
 
 def multi_process_corpus(self, dump_file, title_file, dump_search_limit=None):
-        """creates a multiprocessing pool to search multiple
-        files with multiple workers."""
-        start = timer()
-        input_titles = title_file
-        dump_list = glob.glob(dump_file + '*.bz2')
-        input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8')['cleaned_url'].tolist()
-        pool = Pool(processes = os.cpu_count())
+    """creates a multiprocessing pool to search multiple
+    files with multiple workers."""
+    start = timer()
+    input_titles = title_file
+    dump_list = glob.glob(dump_file + '*.bz2')
+    input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8')['cleaned_url'].tolist()
+    pool = Pool(processes = os.cpu_count())
 
-        # Map (service, tasks), applies function to each partition
-        if not dump_search_limit:
-            pool.map(self.create_corpus, dump_list)
-        else:
-            pool.map(self.create_corpus, dump_list[:dump_search_limit])
+    # Map (service, tasks), applies function to each partition
+    if not dump_search_limit:
+        pool.map(self.create_corpus, dump_list)
+    else:
+        pool.map(self.create_corpus, dump_list[:dump_search_limit])
 
-        pool.close()
-        pool.join()
+    pool.close()
+    pool.join()
 
-        end = timer()
-        stopwatch = round((start - end)/60, 2) 
-        print(f'{stopwatch} seconds elapsed.')   
+    end = timer()
+    stopwatch = round((start - end)/60, 2) 
+    print(f'{stopwatch} seconds elapsed.')   
 
 # if __name__ == '__main__':
     
