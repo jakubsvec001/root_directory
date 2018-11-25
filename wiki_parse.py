@@ -13,7 +13,6 @@ from functools import partial
 import pandas as pd
 import glob
 from pymongo import MongoClient
-
 from gensim.corpora import wikicorpus
 
 
@@ -197,6 +196,8 @@ def strip_stripped_code(wiki):
         
 
 def multi_process_corpus(dump_file, title_file):
+    """creates a multiprocessing pool to search multiple
+    files with multiple workers."""
     start = timer()
     global input_titles
     input_titles = title_file
