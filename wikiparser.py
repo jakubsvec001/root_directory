@@ -21,16 +21,35 @@ class DumpParser(object):
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for page tags"""
 
-    def __init__(self, input_titles, target, save=True, limit=None, dir_out='temp_results'):
-        """initialize with list of input titles to match articles on, 
-        plus add the target classification of the articles"""
-        self.target = target
+    def __init__(self, target=None, input_titles=None, save=True, limit=None, dir_out='temp_results'):
+        self.input_titles = target
+        self.target = input_titles
         self.save = save
-        self.input_titles = input_titles
         self.limit = limit
         self.dir_out = dir_out
 
-                
+    def multi_process_corpus(self, dump_file, title_file, dump_search_limit=None):
+        """creates a multiprocessing pool to search multiple
+        files with multiple workers."""
+        start = timer()
+        input_titles = title_file
+        dump_list = glob.glob(dump_file + '*.bz2')
+        input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8', header=None)[0].tolist()
+        pool = Pool(processes = os.cpu_count())
+
+        # Map (service, tasks), applies function to each partition
+        if not dump_search_limit:
+            pool.map(self.create_corpus, dump_list)
+        else:
+            pool.map(self.create_corpus, dump_list[:dump_search_limit])
+
+        pool.close()
+        pool.join()
+
+        end = timer()
+        stopwatch = round((start - end)/60, 2) 
+        print(f'{stopwatch} seconds elapsed.')
+
     def create_corpus(self, filein):
         '''Return a list of articles in a dictionary format OR
         save articles to a mongodb database'''
@@ -38,7 +57,14 @@ class DumpParser(object):
         name_str = filein.partition('-')[-1].split('.')[-3]
         lines = self._get_lines_bz2(filein)
         pages = self._find_pages(lines)
-        # CONTIUNE HERE TO SAVE INTO MONGODB
+        end = timer()
+        time = round((end - start) / 60)
+        stopwatch = f'It took {time} minutes to complete the search'
+        print(' SAVED TO: ' + self.dir_out + name_str + '.json')
+        return stopwatch
+
+
+# CONTIUNE HERE TO SAVE INTO MONGODB
         # if save:
         #     mc = MongoClient()
         #     db = mc['cache']
@@ -50,31 +76,7 @@ class DumpParser(object):
         # else:
         #     pages = list(pages)
         #     return pages
-        end = timer()
-        time = round((end - start) / 60)
-        stopwatch = f'It took {time} minutes to complete the search'
-        print(' SAVED TO: ' + self.dir_out + name_str + '.json')
-        return stopwatch
 
-    def multi_process_corpus(self, dump_file, title_file):
-        """creates a multiprocessing pool to search multiple
-        files with multiple workers."""
-        start = timer()
-        global input_titles
-        input_titles = title_file
-        dump_list = glob.glob(dump_file + '*.bz2')
-        input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8', header=None)[0].tolist()
-        pool = Pool(processes = os.cpu_count())
-
-        # Map (service, tasks), applies function to each partition
-        pool.map(self.create_corpus, dump_list[:4])
-
-        pool.close()
-        pool.join()
-
-        end = timer()
-        stopwatch = round((start - end)/60, 2) 
-        print(f'{stopwatch} seconds elapsed.')
 
     def _get_lines_bz2(self, filename): 
         """yield each uncompressed line from bz2 file"""
@@ -145,7 +147,7 @@ class DumpParser(object):
         
         soup = bs(raw_xml, 'lxml')
         title = soup.select_one('title').text
-        if title in input_titles:
+        if title in self.input_titles:
             id = soup.select_one('id').text
             markup_text = soup.select_one('text').text
             #use regex to delete 'Category' tags and text from raw_xml
