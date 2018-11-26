@@ -42,12 +42,15 @@ class TreeScraper(object):
         self.depth += 1
         while self.depth < self.search_depth:
             start = default_timer()
-            time.sleep(1)
+            time.sleep(30)
             expand_buttons = self._get_expand_buttons()
+            time.sleep(30)
             for button in expand_buttons:
                 time.sleep(.05)
                 if button.is_displayed():
                     button.click()
+                else:
+                    continue
             end = default_timer()
             print(f'depth of { self.depth } took {str(round((end-start)/60, 2))} minutes to open')
             html = self.browser.page_source
