@@ -13,10 +13,7 @@ from functools import partial
 import pandas as pd
 import glob
 from pymongo import MongoClient
-
 from gensim.corpora import wikicorpus
-
-
 
 def get_lines_bz2(filename, limit=None): 
     """yield each uncompressed line from bz2 file"""
@@ -94,7 +91,7 @@ def parse_page(raw_xml, input_titles):
     soup = bs(raw_xml, 'lxml')
     title = soup.select_one('title').text
     if title in input_titles:
-        id = soup.select_one('id').text
+        id_ = soup.select_one('id').text
         markup_text = soup.select_one('text').text
         #use regex to delete 'Category' tags and text from raw_xml
         cleaned_text = []
@@ -137,7 +134,7 @@ def parse_page(raw_xml, input_titles):
         return {
             'title': title,
             'timestamp': timestamp ,
-            'id': id, 
+            'id': id_, 
             'full_raw_xml': raw_xml,
             'full_markup_text': ''.join(markup_text),
             'cleaned_markup_text': ' '.join(cleaned_text),
@@ -197,6 +194,8 @@ def strip_stripped_code(wiki):
         
 
 def multi_process_corpus(dump_file, title_file):
+    """creates a multiprocessing pool to search multiple
+    files with multiple workers."""
     start = timer()
     global input_titles
     input_titles = title_file
