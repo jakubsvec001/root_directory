@@ -21,21 +21,22 @@ class WikiFinder(object):
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for page tags"""
 
-    def __init__(self, target=None, titles_to_find=None, save=True, page_limit=None):
-        self.titles_to_find = pd.read_csv(titles_to_find, sep='\t', encoding='utf-8')['cleaned_url'].values
+    def __init__(self, target=None, titles_csv=None, save=True, page_limit=None):
+        self.titles_to_find = pd.read_csv(titles_csv, sep='\t', encoding='utf-8')['cleaned_url'].values
         self.target = target
         self.save = save
         self.page_limit = page_limit
 
-    def create_corpus(self, filein):
+    def create_corpus(self, filein, target):
         '''Return a list of articles in a dictionary format OR
         save articles to a mongodb database'''
+        self.target = target
         start = timer()
         lines = self._get_lines_bz2(filein)
         pages = self._find_pages(lines)
         if self.save:
             mc = MongoClient()
-            db = mc['cache']
+            db = mc['wiki_cache']
             collection = db['pages']
             for page in pages:
                 cached_article = collection.find_one({'title': page['title']})
@@ -150,8 +151,6 @@ class WikiFinder(object):
 
             return {
                 'title': title,
-                'timestamp': timestamp ,
-                'id_': id_, 
                 'full_raw_xml': raw_xml,
                 'target': self.target,
                 }
@@ -179,6 +178,7 @@ def multi_process_corpus(self, dump_file, title_file, dump_search_limit=None):
     end = timer()
     stopwatch = round((start - end)/60, 2) 
     print(f'{stopwatch} seconds elapsed.')   
+
 
 # if __name__ == '__main__':
     
