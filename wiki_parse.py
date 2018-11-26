@@ -54,20 +54,9 @@ def find_pages(lines, input_titles, limit=None):
 target = 'math'
 
 def parse_page(raw_xml, input_titles):
-    """Return a dict of page content
+    """Return a dict of page content:
+    title, timestamp, id, raw_xml"""
     
-    title
-    timestamp
-    id
-    raw_xml
-    markup_text
-    cleaned_text
-    links
-    target
-
-    
-    """
-
     # Find math content:
     re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
     # Find all other tags:
@@ -134,7 +123,7 @@ def parse_page(raw_xml, input_titles):
         return {
             'title': title,
             'timestamp': timestamp ,
-            'id': id_, 
+            'id_': id_, 
             'full_raw_xml': raw_xml,
             'full_markup_text': ''.join(markup_text),
             'cleaned_markup_text': ' '.join(cleaned_text),
