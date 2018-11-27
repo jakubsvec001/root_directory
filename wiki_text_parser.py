@@ -125,8 +125,9 @@ def clean_links_list(links_list):
            'Special:' not in link and \
            'Project:' not in link and \
            'WP:' not in link and \
+           'd:' not in link and \
            'Image:' not in link:
-            clean_links.append(link.replace('&amp;', ' '))
+            clean_links.append(link.replace('&amp;', ' ').strip())
     return clean_links
 
 def get_headers(text):
@@ -140,72 +141,3 @@ def get_headers(text):
 
 def update_document():
     pass
-
-def _identify_page(self, raw_xml):
-    """Indentify whether or not article is in self.titles_to_find"""
-    # Find math content:
-    re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
-    # Find all other tags:
-    re_all_tags = re.compile(r'<(.*?)>', re.DOTALL|re.UNICODE)
-    # Find category markup:
-    re_categories = re.compile(r'\[\[Category:[^][]*\]\]', re.UNICODE)
-    # rm File and Image templates:
-    re_rm_file_image = re.compile(r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
-    # Capture interlinks text and article linked:
-    re_interlinkstext_link = re.compile(r'\[{2}(.*?)\]{2}', re.UNICODE)
-    # Simplify links, keep description:
-    re_simplify_link = re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL|re.UNICODE)
-    # Keep image Description:
-    re_image_description = re.compile(r'\n\[\[[iI]mage(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
-    # Keep file descirption:
-    re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
-    # External links:
-    re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
-    
-    soup = bs(raw_xml, 'lxml')
-    title = soup.select_one('title').text
-    if title in self.titles_to_find:
-        id_ = soup.select_one('id').text
-        markup_text = soup.select_one('text').text
-        #use regex to delete 'Category' tags and text from raw_xml
-        cleaned_text = []
-        kw = ('[[Category:', 'thumb')
-        for line in markup_text.split('\n'):
-            if line.startswith(kw):
-                continue
-            cleaned_text.append(line)
-        categories = re_categories.findall(raw_xml)
-        tags = re_all_tags.findall(raw_xml)
-        file_desc = re_file_description.findall(raw_xml)
-        if file_desc != []:
-            file_desc = ' '.join(file_desc[0][1:])[1:]
-            file_desc = wikicorpus.remove_markup(file_desc)
-        image_desc = re_image_description.findall(raw_xml)
-        if image_desc != []:
-            image_desc = ' '.join(image_desc[0][2:])
-            image_desc = wikicorpus.remove_markup(image_desc)
-        external_links = re_external_links.findall(raw_xml)
-        simple_links = re_simplify_link.findall(raw_xml)
-        interlinks = re_interlinkstext_link.findall(raw_xml)
-        math = wikicorpus.RE_P10.findall(markup_text)
-
-        for category in categories:
-            raw_xml = raw_xml.replace(category, ' ')
-        timestamp = soup.select_one('timestamp').text
-        wiki = mwparserfromhell.parse(markup_text)
-
-        wikilinks = []
-        for link in wiki.filter_wikilinks():
-            link = link.strip('[]')
-            if 'File:' not in link and \
-            'Category:' not in link and \
-                'Wikipedia:' not in link and \
-                'en:' not in link and \
-                'Image:' not in link:
-                wikilinks.append(link)
-
-        return {
-            'title': title,
-            'full_raw_xml': raw_xml,
-            'target': self.target,
-            }
