@@ -1,17 +1,8 @@
 from bs4 import BeautifulSoup as bs
 from bson.objectid import ObjectId
-from urllib.parse import unquote
-import subprocess
-import os
-import sys
 import mwparserfromhell
 import re
-import json
 from timeit import default_timer as timer
-from multiprocessing import Pool 
-import tqdm 
-from itertools import chain
-from functools import partial
 import pandas as pd
 import numpy as np
 import glob
@@ -32,25 +23,6 @@ def parse_update_database(db_name, collection_name):
     document_generator = mongodb_page_stream(db_name, collection_name)
     for document in document_generator:
         yield parse_page(document['full_raw_xml'])
-
- # Find math content:
-re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
-# Find all other tags:
-re_all_tags = re.compile(r'<(.*?)>', re.DOTALL|re.UNICODE)
-# Find category markup:
-re_categories = re.compile(r'\[\[([cC]ategory:[^][]*)\]\]', re.UNICODE) 
-# rm File and Image templates:
-re_rm_file_image = re.compile(r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
-# Capture interlinks text and article linked:
-re_interlinkstext_link = re.compile(r'\[{2}(.*?)\]{2}', re.UNICODE)
-# Simplify links, keep description:
-re_simplify_link = re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL|re.UNICODE)
-# Keep image Description:
-re_image_description = re.compile(r'\n\[\[[iI]mage(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
-# Keep file descirption:
-re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
-# External links:
-re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
 
 def parse_page(xml):
     """parse raw wikipedia xml"""
@@ -141,3 +113,22 @@ def get_headers(text):
 
 def update_document():
     pass
+
+# Find math content:
+re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
+# Find all other tags:
+re_all_tags = re.compile(r'<(.*?)>', re.DOTALL|re.UNICODE)
+# Find category markup:
+re_categories = re.compile(r'\[\[([cC]ategory:[^][]*)\]\]', re.UNICODE) 
+# rm File and Image templates:
+re_rm_file_image = re.compile(r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
+# Capture interlinks text and article linked:
+re_interlinkstext_link = re.compile(r'\[{2}(.*?)\]{2}', re.UNICODE)
+# Simplify links, keep description:
+re_simplify_link = re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL|re.UNICODE)
+# Keep image Description:
+re_image_description = re.compile(r'\n\[\[[iI]mage(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
+# Keep file descirption:
+re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
+# External links:
+re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
