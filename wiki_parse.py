@@ -202,8 +202,7 @@ def multi_process_corpus(dump_file, title_file):
     stopwatch = round((start - end)/60, 2) 
     print(f'{stopwatch} seconds elapsed.')
 
-if __name__ == '__main__':
-    
+def main():
     start = timer()
     n = 8
     dumps = glob.glob(str(sys.argv[1]) + '*.bz2')
@@ -226,4 +225,7 @@ if __name__ == '__main__':
     end = timer()
     stopwatch = round(((start - end) / 60), 2)
     print(f'{stopwatch} seconds elapsed.')
-    
+
+
+if __name__ == '__main__':
+    main()    

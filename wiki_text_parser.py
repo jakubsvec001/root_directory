@@ -9,24 +9,30 @@ import glob
 from pymongo import MongoClient
 from gensim.corpora import wikicorpus
 from sklearn.feature_extraction import stop_words
+import sys
 
-def mongodb_page_stream(db_name, collection_name):
-    """yield a new page from a mongodb collection"""
+def disect_update_database(db_name, collection_name):
+    """parse and update a mongodb database with cleaned xml"""
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
+    document_generator = mongodb_page_stream(collection)
+    count = 0
+    for document in document_generator:
+        features = disect_page(document['full_raw_xml'])
+        if features == None:
+            raise ValueError('nothing here')
+        update_document(collection, features)
+        count +=1
+        sys.stdout.write('\r'+ f'YAAAS! Updated {count} documents')
+
+def mongodb_page_stream(collection):
+    """yield a new page from a mongodb collection"""
     document_generator = collection.find()
     return document_generator
 
-def parse_update_database(db_name, collection_name):
-    """parse and update a mongodb database with cleaned xml"""
-    document_generator = mongodb_page_stream(db_name, collection_name)
-    for document in document_generator:
-        yield disect_page(document['full_raw_xml'])
-
 def disect_page(xml):
     """parse raw wikipedia xml"""
-    # grab the raw xml from the document
     # extract links from xml
     links = get_links(xml)
     # extract image text from xml
@@ -52,13 +58,23 @@ def disect_page(xml):
     text_remove_markup = wikicorpus.remove_markup(markup_text)
     text_strip_code = mwparserfromhell.parse(text_remove_markup).strip_code()
     clean_text = text_strip_code.replace('\n','')
-    return {'clean_text': clean_text,'timestamp': timestamp, 'headers': headers, 'clean_links':cleaned_links, 'parent_categories': {page_title: categories}}
+    feature_union = join_features(page_title, headers, clean_text, cleaned_links)
+    if not page_title:
+        raise ValueError('no value')
+    return {'title': page_title, 
+            'clean_text': clean_text,
+            'timestamp': timestamp, 
+            'headers': headers, 
+            'clean_links':cleaned_links, 
+            'parent_categories': {page_title: categories},
+            'feature_union': feature_union}
 
-def combine_page_features(**page_features):
-    headers = page_features['headers']
-    text = page_features['clean_text']
-    links = page_features['clean_links']
-    return ' '.join([text] + links + headers)
+def update_document(collection, features):
+    collection.update_one({'title': features['title']}, {'$set': 
+                                                           {'feature_union': features['feature_union']}})
+
+def join_features(title, headers, text, links):
+    return ' '.join([title] + [text] + links + headers).lower()
 
 def strip_stop_words(text_string):
     text_lowered = text_string.lower()
@@ -90,6 +106,8 @@ def clean_file_desc(xml):
     return file_desc
 
 def replace_categories_in_xml(xml, categories):
+    if categories == [] or xml == []:
+        return xml
     for category in categories:
         cleaned_xml = xml.replace(category, ' ')
     return cleaned_xml
@@ -122,8 +140,7 @@ def get_headers(text):
             headers.append(mwparserfromhell.parse(header).strip_code())
     return headers
 
-def update_document():
-    pass
+
 
 # Find math content:
 re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
