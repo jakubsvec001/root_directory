@@ -21,7 +21,7 @@ class WikiFinder(object):
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for page tags"""
 
-    def __init__(self, target=None, titles_csv=None, save=True, page_limit=None):
+    def __init__(self, titles_csv, target=None, save=True, page_limit=None):
         self.titles_to_find = pd.read_csv(titles_csv, sep='\t', encoding='utf-8')['cleaned_url'].values
         self.target = target
         self.save = save
@@ -110,50 +110,56 @@ class WikiFinder(object):
         soup = bs(raw_xml, 'lxml')
         title = soup.select_one('title').text
         if title in self.titles_to_find:
-            id_ = soup.select_one('id').text
-            markup_text = soup.select_one('text').text
-            #use regex to delete 'Category' tags and text from raw_xml
-            cleaned_text = []
-            kw = ('[[Category:', 'thumb')
-            for line in markup_text.split('\n'):
-                if line.startswith(kw):
-                    continue
-                cleaned_text.append(line)
-            categories = re_categories.findall(raw_xml)
-            tags = re_all_tags.findall(raw_xml)
-            file_desc = re_file_description.findall(raw_xml)
-            if file_desc != []:
-                file_desc = ' '.join(file_desc[0][1:])[1:]
-                file_desc = wikicorpus.remove_markup(file_desc)
-            image_desc = re_image_description.findall(raw_xml)
-            if image_desc != []:
-                image_desc = ' '.join(image_desc[0][2:])
-                image_desc = wikicorpus.remove_markup(image_desc)
-            external_links = re_external_links.findall(raw_xml)
-            simple_links = re_simplify_link.findall(raw_xml)
-            interlinks = re_interlinkstext_link.findall(raw_xml)
-            math = wikicorpus.RE_P10.findall(markup_text)
+            return {'title': title,
+                    'full_raw_xml': raw_xml,
+                    'target': self.target,
+                    }
 
-            for category in categories:
-                raw_xml = raw_xml.replace(category, ' ')
-            timestamp = soup.select_one('timestamp').text
-            wiki = mwparserfromhell.parse(markup_text)
+        
+            # id_ = soup.select_one('id').text
+            # markup_text = soup.select_one('text').text
+            # #use regex to delete 'Category' tags and text from raw_xml
+            # cleaned_text = []
+            # kw = ('[[Category:', 'thumb')
+            # for line in markup_text.split('\n'):
+            #     if line.startswith(kw):
+            #         continue
+            #     cleaned_text.append(line)
+            # categories = re_categories.findall(raw_xml)
+            # tags = re_all_tags.findall(raw_xml)
+            # file_desc = re_file_description.findall(raw_xml)
+            # if file_desc != []:
+            #     file_desc = ' '.join(file_desc[0][1:])[1:]
+            #     file_desc = wikicorpus.remove_markup(file_desc)
+            # image_desc = re_image_description.findall(raw_xml)
+            # if image_desc != []:
+            #     image_desc = ' '.join(image_desc[0][2:])
+            #     image_desc = wikicorpus.remove_markup(image_desc)
+            # external_links = re_external_links.findall(raw_xml)
+            # simple_links = re_simplify_link.findall(raw_xml)
+            # interlinks = re_interlinkstext_link.findall(raw_xml)
+            # math = wikicorpus.RE_P10.findall(markup_text)
 
-            wikilinks = []
-            for link in wiki.filter_wikilinks():
-                link = link.strip('[]')
-                if 'File:' not in link and \
-                'Category:' not in link and \
-                    'Wikipedia:' not in link and \
-                    'en:' not in link and \
-                    'Image:' not in link:
-                    wikilinks.append(link)
+            # for category in categories:
+            #     raw_xml = raw_xml.replace(category, ' ')
+            # timestamp = soup.select_one('timestamp').text
+            # wiki = mwparserfromhell.parse(markup_text)
 
-            return {
-                'title': title,
-                'full_raw_xml': raw_xml,
-                'target': self.target,
-                }
+            # wikilinks = []
+            # for link in wiki.filter_wikilinks():
+            #     link = link.strip('[]')
+            #     if 'File:' not in link and \
+            #     'Category:' not in link and \
+            #         'Wikipedia:' not in link and \
+            #         'en:' not in link and \
+            #         'Image:' not in link:
+            #         wikilinks.append(link)
+
+            # return {
+            #     'title': title,
+            #     'full_raw_xml': raw_xml,
+            #     'target': self.target,
+            #     }
 
 
 
