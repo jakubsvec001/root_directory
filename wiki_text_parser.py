@@ -8,6 +8,7 @@ import numpy as np
 import glob
 from pymongo import MongoClient
 from gensim.corpora import wikicorpus
+from sklearn.feature_extraction import stop_words
 
 def mongodb_page_stream(db_name, collection_name):
     """yield a new page from a mongodb collection"""
@@ -21,7 +22,7 @@ def parse_update_database(db_name, collection_name):
     """parse and update a mongodb database with cleaned xml"""
     document_generator = mongodb_page_stream(db_name, collection_name)
     for document in document_generator:
-        yield parse_page(document['full_raw_xml'])
+        yield disect_page(document['full_raw_xml'])
 
 def disect_page(xml):
     """parse raw wikipedia xml"""
@@ -53,8 +54,16 @@ def disect_page(xml):
     clean_text = text_strip_code.replace('\n','')
     return {'clean_text': clean_text,'timestamp': timestamp, 'headers': headers, 'clean_links':cleaned_links, 'parent_categories': {page_title: categories}}
 
-def combine_page_features(**page_dict):
-    features = ['clean_text', 'headers', 'clean_links']
+def combine_page_features(**page_features):
+    headers = page_features['headers']
+    text = page_features['clean_text']
+    links = page_features['clean_links']
+    return ' '.join([text] + links + headers)
+
+def strip_stop_words(text_string):
+    text_lowered = text_string.lower()
+    go_words = text_lowered.replace(' '.join(stop_words.ENGLISH_STOP_WORDS), '')
+    return go_words
 
 def get_links(xml):
     links = re_interlinkstext_link.findall(xml)
