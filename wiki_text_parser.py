@@ -9,7 +9,6 @@ import glob
 from pymongo import MongoClient
 from gensim.corpora import wikicorpus
 
-
 def mongodb_page_stream(db_name, collection_name):
     """yield a new page from a mongodb collection"""
     mc = MongoClient()
@@ -24,7 +23,7 @@ def parse_update_database(db_name, collection_name):
     for document in document_generator:
         yield parse_page(document['full_raw_xml'])
 
-def parse_page(xml):
+def disect_page(xml):
     """parse raw wikipedia xml"""
     # grab the raw xml from the document
     # extract links from xml
@@ -53,6 +52,9 @@ def parse_page(xml):
     text_strip_code = mwparserfromhell.parse(text_remove_markup).strip_code()
     clean_text = text_strip_code.replace('\n','')
     return {'clean_text': clean_text,'timestamp': timestamp, 'headers': headers, 'clean_links':cleaned_links, 'parent_categories': {page_title: categories}}
+
+def combine_page_features(**page_dict):
+    features = ['clean_text', 'headers', 'clean_links']
 
 def get_links(xml):
     links = re_interlinkstext_link.findall(xml)
