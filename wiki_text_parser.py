@@ -8,7 +8,6 @@ import numpy as np
 import glob
 from pymongo import MongoClient
 from gensim.corpora import wikicorpus
-from sklearn.feature_extraction import stop_words
 import sys
 
 def disect_update_database(db_name, collection_name):
@@ -19,19 +18,17 @@ def disect_update_database(db_name, collection_name):
     document_generator = mongodb_page_stream(collection)
     count = 0
     for document in document_generator:
-        features = disect_page(document['full_raw_xml'])
-        if features == None:
-            raise ValueError('nothing here')
+        features = disect_page(document['title'], document['full_raw_xml'])
         update_document(collection, features)
         count +=1
-        sys.stdout.write('\r'+ f'YAAAS! Updated {count} documents')
+        sys.stdout.write('\r'+ f'YAAAAAAAS! Updated {count} documents')
 
 def mongodb_page_stream(collection):
     """yield a new page from a mongodb collection"""
     document_generator = collection.find()
     return document_generator
 
-def disect_page(xml):
+def disect_page(title, xml):
     """parse raw wikipedia xml"""
     # extract links from xml
     links = get_links(xml)
@@ -47,8 +44,8 @@ def disect_page(xml):
     cleaned_links = clean_links_list(links)
     # make BeautifulSoup object from cleaned xml
     soup = bs(clean_xml, 'lxml')
-    # extract the title out
-    page_title = soup.select_one('title').text
+    # # extract the title out
+    # page_title = soup.select_one('title').text
     # extract the timestamp
     timestamp = soup.select_one('timestamp').text
     # extract headers
@@ -58,28 +55,25 @@ def disect_page(xml):
     text_remove_markup = wikicorpus.remove_markup(markup_text)
     text_strip_code = mwparserfromhell.parse(text_remove_markup).strip_code()
     clean_text = text_strip_code.replace('\n','')
-    feature_union = join_features(page_title, headers, clean_text, cleaned_links)
-    if not page_title:
-        raise ValueError('no value')
-    return {'title': page_title, 
+    feature_union = join_features(title, headers, clean_text, cleaned_links)
+    return {'title': title, 
             'clean_text': clean_text,
             'timestamp': timestamp, 
             'headers': headers, 
-            'clean_links':cleaned_links, 
-            'parent_categories': {page_title: categories},
+            'clean_links':cleaned_links,
+            'parent_categories': {title: categories},
             'feature_union': feature_union}
 
 def update_document(collection, features):
+    #import pdb; pdb.set_trace()
+    # if features['title'] == 'Category:Combinatorics journals':
+    #     raise ValueError('found it')
     collection.update_one({'title': features['title']}, {'$set': 
-                                                           {'feature_union': features['feature_union']}})
+                                                           {'feature_union': features['feature_union'],
+                                                            'parent_categories': features['parent_categories']}})
 
-def join_features(title, headers, text, links):
-    return ' '.join([title] + [text] + links + headers).lower()
-
-def strip_stop_words(text_string):
-    text_lowered = text_string.lower()
-    go_words = text_lowered.replace(' '.join(stop_words.ENGLISH_STOP_WORDS), '')
-    return go_words
+def join_features(page_title, headers, clean_text, cleaned_links):
+    return ' '.join([page_title] + [clean_text] + cleaned_links + headers)
 
 def get_links(xml):
     links = re_interlinkstext_link.findall(xml)

@@ -1,9 +1,12 @@
 import wiki_text_parser as wtp 
 from gensim import corpora
+from gensim import utils
+from smart_open import smart_open
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import pandas as pd
 import numpy as np  
+from sklearn.feature_extraction import stop_words
 
 # class MyCorpus(object):
 #     """a generator class for reading pregenerated nlp training data, line by line"""
@@ -21,8 +24,7 @@ def save_nlp_train_data(db_name, collection_name, target, fileout_dir):
     db = mc[db_name]
     col = db[collection_name]
     target_pages = col.find({'target':target})
-    df = pd.DataFrame(list(target_pages))
-    return df
+    df = pd.DataFrame(list(target_pages))['feature_union']
     subsampled_df = df.sample(frac=0.8, replace=False)
     with open(fileout_dir, 'w') as fout:
         for row in df:
@@ -31,6 +33,17 @@ def save_nlp_train_data(db_name, collection_name, target, fileout_dir):
 
 def create_trained_dictionary(filein):
     """Use gensim to create a streamed dictionary"""
-    with open(filein, 'r') as fin:
-        dictionary = corpora.Dictionary(line for line in fin.readline())
+    # dictionary = [line for line in open(filein, 'r')]
+    dictionary = corpora.Dictionary(line.split() for line in open(filein, 'r'))
+    dict_removed_used_once = remove_used_once(dictionary)
+    dict_removed_used_once.save('nlp_training_data/math_dictionary.dict')
+    lemmatized_dict = utils.lemmatize(dict_removed_used_once)
+    return lemmatized_dict
+
+def remove_used_once(dictionary):
+    """remove stopwords and words that appear only once"""
+    stop_ids = [dictionary.token2id[stopword] for stopword in stop_words.ENGLISH_STOP_WORDS
+                if stopword in dictionary.token2id]
+    once_ids = [tokenid for tokenid, docfreq in dictionary.dfs.items() if docfreq == 1]
+    dictionary.filter_tokens(stop_ids + once_ids)
     return dictionary
