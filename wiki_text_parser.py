@@ -52,9 +52,8 @@ re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*\|(.*?)\]\]', re.UN
 # External links:
 re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
 
-    
 def parse_page(xml):
-    """parse the xml of a mondodb document"""
+    """parse raw wikipedia xml"""
     # grab the raw xml from the document
     # extract links from xml
     links = get_links(xml)
@@ -76,16 +75,12 @@ def parse_page(xml):
     timestamp = soup.select_one('timestamp').text
     # extract headers
     headers = get_headers(soup.text)
+    # convert to markup, remove markup text, strip remaining text, replace newline characters
     markup_text = soup.select_one('text').text
     text_remove_markup = wikicorpus.remove_markup(markup_text)
     text_strip_code = mwparserfromhell.parse(text_remove_markup).strip_code()
     clean_text = text_strip_code.replace('\n','')
     return {'clean_text': clean_text,'timestamp': timestamp, 'headers': headers, 'clean_links':cleaned_links, 'parent_categories': {page_title: categories}}
-    # math = re_math.findall(markup_text)
-    return file_desc
-    return links
-    return unquoted_links
-    return {'parent_categories': {page_title: categories},}
 
 def get_links(xml):
     links = re_interlinkstext_link.findall(xml)
@@ -131,7 +126,7 @@ def clean_links_list(links_list):
            'Project:' not in link and \
            'WP:' not in link and \
            'Image:' not in link:
-            clean_links.append(link)
+            clean_links.append(link.replace('&amp;', ' '))
     return clean_links
 
 def get_headers(text):
