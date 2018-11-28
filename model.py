@@ -1,4 +1,7 @@
 import wiki_text_parser as wtp 
+from sklearn.model_selection import train_test_split
+
+import sys
 from gensim import corpora, models
 from gensim.parsing.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
@@ -23,19 +26,27 @@ def save_nlp_train_data(db_name, collection_name, target, fileout_dir):
             if row != 'nan':
                 fout.write(row + '\n')
 
-def create_trained_dictionary(filein, n_grams):
+def train_save_dictionary_corpus(filein, n_grams, target):
     """Use gensim to create a streamed dictionary"""
-    # dictionary = [line for line in open(filein, 'r')]
     dictionary = corpora.Dictionary(list_grams(filein, n_grams))
-    dict_removed_extra = _remove_extra_words(dictionary)
-    dict_removed_extra.save('nlp_training_data/math_dictionary.dict')
-    corpus = [dict_removed_extra.doc2bow(text) for text in list_grams(filein, n_grams)]
-    corpora.MmCorpus.serialize('nlp_training_data/math_corpus.mm', corpus)
-    return dict_removed_extra, corpus
+    dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
+    dictionary.save(f'nlp_training_data/{target}_dictionary.dict')
+    corpus = [dictionary.doc2bow(word) for word in list_grams(filein, n_grams)]
+    corpora.MmCorpus.serialize(f'nlp_training_data/{target}_corpus.mm', corpus)
+    return dictionary, corpus
 
-    # corpus = corpora.MmCorpus('nlp_training_data/math_corpus.mm')
-# def make_tfidf_vector(dict):
-
+def train_save_tfidf(filein, target):
+    """input is a bow corpus saved as a tfidf file. The output is 
+       a saved tfidf corpus"""
+    try:
+        corpus = corpora.MmCorpus(filein)
+    except:
+        raise NameError('HRMMPH. The file does not seem to exist. Create a file'+
+                        'first by running the "train_save_dictionary_corpus" function.')
+    tfidf = models.TfidfModel(corpus)
+    tfidf.save(f'nlp_training_data/{target}_tfidf_model.tfidf')
+    tfidf_corpus = tfidf[corpus]
+    return tfidf_corpus
 
 def _remove_extra_words(dictionary):
     """remove words that appear only once"""
@@ -58,3 +69,15 @@ def _stem_and_ngramizer(line, n_grams):
     stems = [s.stem(word) for word in stopped] 
     grams = [[' '.join(stems[i:i+n]) for i in range(len(stems)-n+1)] for n in range(1, n_grams + 1)]
     return [item for sublist in grams for item in sublist]
+
+def main(arg1, arg2):
+    pass
+
+
+if __name__ == '__main__':
+    if sys.argv != 3:
+        raise NameError('Incorrect parameter count. Use: '+
+                         'python model.py arg1 arg2')
+    arg1 = sys.argv[1]
+    arg2 = sys.argv[2]
+    main(arg1, arg2)
