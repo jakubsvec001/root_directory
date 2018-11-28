@@ -130,7 +130,12 @@ def clean_links_list(links_list):
            'd:' not in link and \
            'Image:' not in link:
             clean_links.append(link.replace('&amp;', ' ').strip())
-    return clean_links
+    scrubbed_links = []
+    for link in clean_links:
+        scrubbed_links.append(replace_multiple(link, 
+                                ['\n', '(', ')', ',', ';', '[', ']', '"', ':'], 
+                                ' '))
+    return scrubbed_links
 
 def get_headers(text):
     headers = []
@@ -139,7 +144,12 @@ def get_headers(text):
         if line.startswith('='):
             header = line.replace('=', '').strip()
             headers.append(mwparserfromhell.parse(header).strip_code())
-    return headers
+    clean_headers = []
+    for header in headers:
+        clean_headers.append(replace_multiple(header, 
+                                ['\n', '(', ')', ',', ';', '[', ']', '"', ':'], 
+                                ' '))
+    return clean_headers
 
 
 
