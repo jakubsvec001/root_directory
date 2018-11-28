@@ -1,6 +1,7 @@
 import wiki_text_parser as wtp 
 from gensim import corpora
-from gensim import utils
+from gensim.parsing.porter import PorterStemmer
+from nltk.stem.snowball import SnowballStemmer
 from smart_open import smart_open
 from pymongo import MongoClient
 from bson.objectid import ObjectId
@@ -34,13 +35,14 @@ def save_nlp_train_data(db_name, collection_name, target, fileout_dir):
 def create_trained_dictionary(filein):
     """Use gensim to create a streamed dictionary"""
     # dictionary = [line for line in open(filein, 'r')]
-    dictionary = corpora.Dictionary(line.split() for line in open(filein, 'r'))
-    dict_removed_used_once = remove_used_once(dictionary)
-    dict_removed_used_once.save('nlp_training_data/math_dictionary.dict')
-    lemmatized_dict = utils.lemmatize(dict_removed_used_once)
-    return lemmatized_dict
+    p = PorterStemmer()
+    s = SnowballStemmer('english')
+    dictionary = corpora.Dictionary([s.stem(word) for word in line.split()] for line in open(filein, 'r'))
+    dict_removed_extra = remove_extra_words(dictionary)
+    dict_removed_extra.save('nlp_training_data/math_dictionary.dict')
+    return dict_removed_extra
 
-def remove_used_once(dictionary):
+def remove_extra_words(dictionary):
     """remove stopwords and words that appear only once"""
     stop_ids = [dictionary.token2id[stopword] for stopword in stop_words.ENGLISH_STOP_WORDS
                 if stopword in dictionary.token2id]

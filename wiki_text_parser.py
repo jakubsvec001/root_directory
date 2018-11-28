@@ -54,7 +54,7 @@ def disect_page(title, xml):
     markup_text = soup.select_one('text').text
     text_remove_markup = wikicorpus.remove_markup(markup_text)
     text_strip_code = mwparserfromhell.parse(text_remove_markup).strip_code()
-    clean_text = text_strip_code.replace('\n','')
+    clean_text = replace_multiple(text_strip_code, ['\n', '(', ')', ',', ';', '[', ']', '"', ':'], ' ')
     feature_union = join_features(title, headers, clean_text, cleaned_links)
     return {'title': title, 
             'clean_text': clean_text,
@@ -63,6 +63,13 @@ def disect_page(title, xml):
             'clean_links':cleaned_links,
             'parent_categories': {title: categories},
             'feature_union': feature_union}
+
+def replace_multiple(main_string, to_be_replaced, new_string):
+    """replace extra elements in a text string"""
+    for elem in to_be_replaced :
+        if elem in main_string :
+            main_string = main_string.replace(elem, new_string)
+    return  main_string
 
 def update_document(collection, features):
     #import pdb; pdb.set_trace()
