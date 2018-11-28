@@ -1,5 +1,5 @@
 import wiki_text_parser as wtp 
-from gensim import corpora
+from gensim import corpora, models
 from gensim.parsing.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from smart_open import smart_open
@@ -26,16 +26,28 @@ def save_nlp_train_data(db_name, collection_name, target, fileout_dir):
 def create_trained_dictionary(filein, n_grams):
     """Use gensim to create a streamed dictionary"""
     # dictionary = [line for line in open(filein, 'r')]
-    dictionary = corpora.Dictionary(_stem_and_ngramizer(line, n_grams) for line in open(filein, 'r'))
+    dictionary = corpora.Dictionary(list_grams(filein, n_grams))
     dict_removed_extra = _remove_extra_words(dictionary)
     dict_removed_extra.save('nlp_training_data/math_dictionary.dict')
-    return dict_removed_extra
+    corpus = [dict_removed_extra.doc2bow(text) for text in list_grams(filein, n_grams)]
+    corpora.MmCorpus.serialize('nlp_training_data/math_corpus.mm', corpus)
+    return dict_removed_extra, corpus
+
+    # corpus = corpora.MmCorpus('nlp_training_data/math_corpus.mm')
+# def make_tfidf_vector(dict):
+
 
 def _remove_extra_words(dictionary):
     """remove words that appear only once"""
     once_ids = [tokenid for tokenid, docfreq in dictionary.dfs.items() if docfreq <= 2]
     dictionary.filter_tokens(once_ids)
     return dictionary
+
+def list_grams(filein, n_grams):
+    '''for each document, yield a list of strings'''
+    with open(filein, 'r') as fin:
+        for line in fin:
+            yield _stem_and_ngramizer(line, n_grams)
 
 def _stem_and_ngramizer(line, n_grams):
     """stem all the words, generate ngrams, and return 
