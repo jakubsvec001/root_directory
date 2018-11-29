@@ -1,6 +1,6 @@
 import wiki_text_parser as wtp 
-from sklearn.model_selection import train_test_split
-
+from sklearn.model_selection import StratifiedShuffleSplit
+from sklearn.naive_bayes import MultinomialNB
 import sys
 from gensim import corpora, models
 from gensim.parsing.porter import PorterStemmer
@@ -22,7 +22,7 @@ def save_nlp_train_data(db_name, collection_name, target, fileout_dir):
     df = pd.DataFrame(list(target_pages))['feature_union']
     subsampled_df = df.sample(frac=0.8, replace=False)
     with open(fileout_dir, 'w') as fout:
-        for row in df:
+        for row in subsampled_df:
             if row != 'nan':
                 fout.write(row + '\n')
 
@@ -41,7 +41,7 @@ def train_save_tfidf(filein, target):
     try:
         corpus = corpora.MmCorpus(filein)
     except:
-        raise NameError('HRMMPH. The file does not seem to exist. Create a file'+
+        raise NameError('HRMMPH. The file does not seem to exist. Create a file '+
                         'first by running the "train_save_dictionary_corpus" function.')
     tfidf = models.TfidfModel(corpus)
     tfidf.save(f'nlp_training_data/{target}_tfidf_model.tfidf')
