@@ -108,7 +108,6 @@ def parse_page(raw_xml, input_titles):
             raw_xml = raw_xml.replace(category, ' ')
         timestamp = soup.select_one('timestamp').text
         wiki = mwparserfromhell.parse(markup_text)
-         
 
         wikilinks = []
         for link in wiki.filter_wikilinks():
