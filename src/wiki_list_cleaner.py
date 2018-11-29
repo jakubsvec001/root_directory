@@ -24,6 +24,7 @@ def limit_depth(file, d):
         f'Max depth of input data is {d_max} and has {d_max+1} levels')
     new_data = data[data['depth']<d]
     directory = file.partition('/')[0]
+    print(directory)
     filename = file.partition('/')[-1]
     category = filename.partition('_')[0]
     new_data.to_csv(f'{directory}/{category}_d{d}.csv', sep='\t', encoding='utf-8', index=False)

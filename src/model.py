@@ -30,9 +30,9 @@ def train_save_dictionary_corpus(filein, n_grams, target):
     """Use gensim to create a streamed dictionary"""
     dictionary = corpora.Dictionary(list_grams(filein, n_grams))
     dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
-    dictionary.save(f'nlp_training_data/{target}_dictionary.dict')
+    dictionary.save(f'../nlp_training_data/{target}_dictionary.dict')
     corpus = [dictionary.doc2bow(word) for word in list_grams(filein, n_grams)]
-    corpora.MmCorpus.serialize(f'nlp_training_data/{target}_corpus.mm', corpus)
+    corpora.MmCorpus.serialize(f'../nlp_training_data/{target}_corpus.mm', corpus)
     return dictionary, corpus
 
 def train_save_tfidf(filein, target):
@@ -44,7 +44,7 @@ def train_save_tfidf(filein, target):
         raise NameError('HRMMPH. The file does not seem to exist. Create a file '+
                         'first by running the "train_save_dictionary_corpus" function.')
     tfidf = models.TfidfModel(corpus)
-    tfidf.save(f'nlp_training_data/{target}_tfidf_model.tfidf')
+    tfidf.save(f'../nlp_training_data/{target}_tfidf_model.tfidf')
     tfidf_corpus = tfidf[corpus]
     return tfidf_corpus
 
