@@ -12,7 +12,9 @@ from bson.objectid import ObjectId
 import pandas as pd
 import numpy as np  
 from sklearn.feature_extraction import stop_words
+import random
 
+random.seed(1)
 
 def save_txt_nlp_train_data(db_name, collection_name, target, fileout_dir, subset):
     """use a mongodb collection and a subsampled target subset percentage
@@ -48,24 +50,73 @@ def train_save_tfidf(filein, target):
         raise NameError('HRMMPH. The file does not seem to exist. Create a file '+
                         'first by running the "train_save_dictionary_corpus" function.')
     tfidf = models.TfidfModel(corpus)
-    tfidf.save(f'../nlp_training_data/{target}_tfidf_model.tfidf')
+    tfidf.save(f'nlp_training_data/{target}_tfidf_model.tfidf')
     tfidf_corpus = tfidf[corpus]
     return tfidf_corpus
 
 
-def train_multinomial_nb(db_name, collection_name, num_target_col):
+def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
+    """train naive bayes model, """
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
-    docs = collection.find()
-    items = []
-    for doc in docs:
-        items.append(doc[num_target_col])
-    sss = StratifiedShuffleSplit(n_splits=1, test_size=0.2)
-    items = np.array(items)
-    return items
-    sss.get_n_splits(items.T[0], items.T[1])
+    dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_dictionary.dict')
+    tfidf = models.TfidfModel.load('nlp_training_data/{target}_tfidf_model.tfidf')
+    X_train_ids, X_test_ids, y_train, y_test = _get_train_test_ids(collection, 
+                                                      target, test_percentage=0.8)
+    _make_temporary_txt(collection, X_train_ids)
+    train_bow = [dictionary.doc2bow(word) for word in 
+                     _list_grams('/tmp/docs_for_sparse_vectorization.txt',
+                      n_grams=n_grams)]
+    X_train_tfidf = tfidf[train_bow]
+    topic_detector = MultinomialNB().fit(X_train_tfidf, y_train)
+    _make_temporary_txt(collection, X_train_ids)
+    test_bow = [dictionary.doc2bow(word) for word in 
+                     _list_grams('/tmp/docs_for_sparse_vectorization.txt',
+                      n_grams=n_grams)]
+    X_test_tfidf = tfidf[test_bow]
+    predictions = topic_detector.predict_proba(X_test_tfidf)
+    return predictions
 
+
+def _make_temporary_txt(collection, ids):
+    """make a temporary txt file of documents"""
+    with open('/tmp/docs_for_sparse_vectorization.txt', 'w') as fout:
+        for id in ids:
+            res = collection.find_one(id) 
+            text = res['feature_union']
+            fout.write(text + '\n')
+
+    
+def _get_train_test_ids(collection, target, test_percentage=0.8):
+    """get random train/test split, keeping the proportion of pos/neg
+       classes the same"""
+    pos_train_ids = []
+    neg_train_ids = []
+    pos_test_ids = []
+    neg_test_ids = []
+    pos_docs = collection.find({'target': target})
+    neg_docs = collection.find({'target': {'$ne': target}})
+    pos_train_y_list = np.ones(len(pos_train_ids))
+    neg_train_y_list = np.zeros(len(neg_train_ids))
+    pos_test_y_list = np.ones(len(pos_test_ids))
+    neg_test_y_list = np.zeros(len(neg_test_ids))
+    for doc in pos_docs:
+        if random.random() < 0.8:
+            pos_train_ids.append(doc['_id'])
+        else:
+            pos_test_ids.append(doc['_id'])
+    for doc in neg_docs:
+        if random.random() < 0.8:
+            neg_train_ids.append(doc['_id'])
+        else:
+            neg_test_ids.append(doc['_id'])
+    X_train_ids = pos_train_ids + neg_train_ids
+    X_test_ids = pos_test_ids + neg_test_ids
+    y_train = pos_train_y_list + neg_train_y_list
+    y_test = pos_test_y_list + neg_test_y_list
+    return X_train_ids, X_test_ids, y_train, y_test
+    
 
 def _remove_extra_words(dictionary):
     """DEPRICATED! remove words that appear only once"""
