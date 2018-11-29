@@ -1,4 +1,6 @@
-# root_directory
+<img src="images/wikipedia_network_graph_small.png">
+
+# ROOT DIRECTORY README
 
 ## **The Question**
 
@@ -10,8 +12,11 @@ After searching with Mathematics category page, I found this line:
 
 But after reaching out to the category page editors, I was told that the number was not updated since 2015, and that other numbers were floating around from around the same time that were estimating the number to be around 17,000 and 21,000. The editors quicly deleted the line.
 
+<img src="images/mathematics_parents_children_fdp_small.png">
+
 ## **The Problem**
 Wikipedia's system of categorizing content is all over the place. 
+
 
 #### _Wikipedia Methods of Categorizing:_
 
@@ -37,6 +42,8 @@ Of these, Mathematics is organized using subset of these structures:
 This also includes the [list of mathematics topics page](https://en.wikipedia.org/wiki/Lists_of_mathematics_topics)
 
 Contents Overview Outlines Lists Portals Glossaries Categories Indices
+
+<img src="images/mathematics_children.png">
 
 #### _Wikidata Methods of Categorizing:_
 
