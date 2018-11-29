@@ -15,6 +15,7 @@ import glob
 from pymongo import MongoClient
 from gensim.corpora import wikicorpus
 
+
 def get_lines_bz2(filename, limit=None): 
     """yield each uncompressed line from bz2 file"""
     for i, line in enumerate(subprocess.Popen(['bzcat'], 
@@ -24,6 +25,7 @@ def get_lines_bz2(filename, limit=None):
         yield line.decode()
         if limit and i >= limit:
             break
+
 
 def find_pages(lines, input_titles, limit=None):
     """yield each page from a wikidump"""
