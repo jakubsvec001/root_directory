@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np 
 import random
 import sys
-import
 import pickle
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.naive_bayes import MultinomialNB
@@ -64,10 +63,18 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
     print('CREATING training set tfidf with txt file...')
     X_train_tfidf = tfidf[train_bow]
+    pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    return start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf
+    # y_test, preds, score = _fit_multinomial_nb(start, X_train_tfidf, y_train, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf)
+    # return y_test.reshape(1,-1), preds, score
+    
+
+def _fit_multinomial_nb(start_time, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf):
+    """fit the actual model"""
     print('FITTING multinomial naive bayes model...')
-    topic_detector = MultinomialNB().fit(X_train_tfidf, y_train.reshape(1,-1))
+    topic_detector = MultinomialNB().fit(X_train_tfidf, y_train.reshape(-1, 1))
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
     print('Pickling model, saving to "nlp_training_data/{target}_multinomialNB_model.pkl"...')
@@ -89,9 +96,7 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
     print('SCORING model...')
     score = log_loss(y_test, preds)
     print('DONE!')
-    return y_test.reshape(1,-1), preds, score
-
-def fit_multinomial_nb()
+    return y_test.reshape(-1,1), preds, score
 
 def _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=0.8):
     """use a mongodb collection and a subsampled target subset percentage
