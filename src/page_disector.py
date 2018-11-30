@@ -144,3 +144,7 @@ re_file_description = re.compile(r'\[\[[fF]ile:(.*?)(\|.*?)+\]\]', re.UNICODE)
 # re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*?\|(.*?)\]\]', re.UNICODE)
 # External links:
 re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
+
+
+if __name__ == '__main__':
+    pass

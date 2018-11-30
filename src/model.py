@@ -1,54 +1,99 @@
 import src.wiki_db_parser as wdbp 
+import src.page_disector as disector
+import pandas as pd
+import numpy as np 
+import random
 import sys
+import
+import pickle
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import log_loss
 from bson.objectid import ObjectId
 from gensim import corpora, models
 from gensim.parsing.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from smart_open import smart_open
 from pymongo import MongoClient
-from bson.objectid import ObjectId
-import pandas as pd
-import numpy as np  
+from bson.objectid import ObjectId 
 from sklearn.feature_extraction import stop_words
-import random
+from timeit import default_timer 
+
 
 random.seed(1)
 
-def create_save_nlp_train_model(db_name, collection_name, target, n_grams, subset=0.8):
-    """with input of a category, creates a txt file of a subset of the target,
+def list_available_collections():
+    return MongoClient()['wiki_cache'].list_collection_names()
+
+def create_save_nlp_train_topic_model(db_name, collection_name, target, n_grams=3, subset=0.8):
+    """with input of a category, creates a txt file of a SUBSET of the target,
         trains a dictionary, and trains a tfidf model. Saves these to files"""
-    _save_txt_nlp_train_data(db_name, collection_name, target, subset)
-    _train_save_dictionary_corpus(f'nlp_training_data/{target}_nlp_trainer.txt', n_grams, target)
-    _train_save_tfidf(f'nlp_training_data/{target}_corpus.mm', target)
+    _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=subset)
+    _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt', n_grams, target, training=True)
+    _train_save_tfidf(f'nlp_training_data/{target}_subset_corpus.mm', target, training=True)
+
+
+def create_save_nlp_full_topic_model(db_name, collection_name, target, n_grams=3, subset=0.8):
+    """with input of a category, creates a txt file of a FULL of the target,
+        trains a dictionary, and trains a tfidf model. Saves these to files"""
+    _save_txt_nlp_data(db_name, collection_name, target, training=False, subset=subset)
+    _train_save_dictionary_corpus(f'nlp_training_data/{target}_full.txt', n_grams, target, training=False)
+    _train_save_tfidf(f'nlp_training_data/{target}_full_corpus.mm', target, training=False)
 
 
 def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
-    """train naive bayes model, """
+    """train naive bayes model using a train/test split. Return predictions, score"""
+    start = default_timer()
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
-    dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_dictionary.dict')
-    tfidf = models.TfidfModel.load('nlp_training_data/{target}_tfidf_model.tfidf')
+    dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
+    tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
+    print('CREATING stratified train/test split...')
     X_train_ids, X_test_ids, y_train, y_test = _get_train_test_ids(collection, 
-                                                      target, test_percentage=0.8)
+                                                      target, test_percentage=0.8) 
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')    
+    print('CREATING temporary txt file...')
     _make_temporary_txt(collection, X_train_ids)
-    train_bow = [dictionary.doc2bow(word) for word in 
-                     _list_grams('/tmp/docs_for_sparse_vectorization.txt',
-                      n_grams=n_grams)]
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('CREATING training set bow with txt file')
+    train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('CREATING training set tfidf with txt file...')
     X_train_tfidf = tfidf[train_bow]
-    topic_detector = MultinomialNB().fit(X_train_tfidf, y_train)
-    _make_temporary_txt(collection, X_train_ids)
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('FITTING multinomial naive bayes model...')
+    topic_detector = MultinomialNB().fit(X_train_tfidf, y_train.reshape(1,-1))
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('Pickling model, saving to "nlp_training_data/{target}_multinomialNB_model.pkl"...')
+    pickle.dump(topic_detector, open(f'nlp_training_data/{target}_multinomialNB_model.pkl', 'wb'))
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('CREATING test tfidf...')
+    _make_temporary_txt(collection, X_test_ids)
     test_bow = [dictionary.doc2bow(word) for word in 
                      _list_grams('/tmp/docs_for_sparse_vectorization.txt',
                       n_grams=n_grams)]
     X_test_tfidf = tfidf[test_bow]
-    predictions = topic_detector.predict_proba(X_test_tfidf)
-    return predictions
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('GENERATING predictions...')
+    preds = topic_detector.predict_proba(X_test_tfidf)
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('SCORING model...')
+    score = log_loss(y_test, preds)
+    print('DONE!')
+    return y_test.reshape(1,-1), preds, score
 
+def fit_multinomial_nb()
 
-def _save_txt_nlp_train_data(db_name, collection_name, target, subset=0.8):
+def _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=0.8):
     """use a mongodb collection and a subsampled target subset percentage
     to create a .txt file with one line per document"""
     print('Making txt file of subset of target class')
@@ -58,38 +103,61 @@ def _save_txt_nlp_train_data(db_name, collection_name, target, subset=0.8):
     target_pages = col.find({'target':target})
     df = pd.DataFrame(list(target_pages))['feature_union']
     subsampled_df = df.sample(frac=subset, replace=False)
-    with open(f'nlp_training_data/{target}_nlp_trainer.txt', 'w') as fout:
-        for row in subsampled_df:
-            if row != 'nan':
-                fout.write(row + '\n')
+    if training:
+        with open(f'nlp_training_data/{target}_subset.txt', 'w') as fout:
+            for row in subsampled_df:
+                if row != 'nan':
+                    fout.write(row + '\n')
+    else:
+        with open(f'nlp_training_data/{target}_full.txt', 'w') as fout:
+            for row in subsampled_df:
+                if row != 'nan':
+                    fout.write(row + '\n')
     print('DONE!')
 
 
-def _train_save_dictionary_corpus(filein, n_grams, target):
+def _train_save_dictionary_corpus(filein, n_grams, target, training=True):
     """Use gensim to create a streamed dictionary. 
     filein is the file used to train the dictionary and tfidf"""
     print('Building dictionary...')
-    dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
-    dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
-    dictionary.save(f'nlp_training_data/{target}_dictionary.dict')
-    corpus = [dictionary.doc2bow(word) for word in _list_grams(filein, n_grams)]
-    corpora.MmCorpus.serialize(f'nlp_training_data/{target}_corpus.mm', corpus)
+    if training:
+        dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
+        dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
+        dictionary.save(f'nlp_training_data/{target}_subset.dict')
+        corpus = [dictionary.doc2bow(word) for word in _list_grams(filein, n_grams)]
+        corpora.MmCorpus.serialize(f'nlp_training_data/{target}_subset_corpus.mm', corpus)
+    else:
+        dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
+        dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
+        dictionary.save(f'nlp_training_data/{target}_full.dict')
+        corpus = [dictionary.doc2bow(word) for word in _list_grams(filein, n_grams)]
+        corpora.MmCorpus.serialize(f'nlp_training_data/{target}_full_corpus.mm', corpus)
     print('DONE!')
     return dictionary, corpus
 
 
-def _train_save_tfidf(filein, target):
+def _train_save_tfidf(filein, target, training=True):
     """input is a bow corpus saved as a tfidf file. The output is 
        a saved tfidf corpus"""
     print('Building TFIDF model')
-    try:
-        corpus = corpora.MmCorpus(filein)
-    except:
-        raise NameError('HRMMPH. The file does not seem to exist. Create a file '+
-                        'first by running the "train_save_dictionary_corpus" function.')
-    tfidf = models.TfidfModel(corpus)
-    tfidf.save(f'nlp_training_data/{target}_tfidf_model.tfidf')
-    tfidf_corpus = tfidf[corpus]
+    if training:
+        try:
+            corpus = corpora.MmCorpus(filein)
+        except:
+            raise NameError('HRMMPH. The file does not seem to exist. Create a file '+
+                            'first by running the "train_save_dictionary_corpus" function.')
+        tfidf = models.TfidfModel(corpus)
+        tfidf.save(f'nlp_training_data/{target}_subset.tfidf')
+        tfidf_corpus = tfidf[corpus]
+    else:
+        try:
+            corpus = corpora.MmCorpus(filein)
+        except:
+            raise NameError('HRMMPH. The file does not seem to exist. Create a file '+
+                            'first by running the "train_save_dictionary_corpus" function.')
+        tfidf = models.TfidfModel(corpus)
+        tfidf.save(f'nlp_training_data/{target}_full.tfidf')
+        tfidf_corpus = tfidf[corpus]
     print('DONE!')
     return tfidf_corpus
 
@@ -112,10 +180,6 @@ def _get_train_test_ids(collection, target, test_percentage=0.8):
     neg_test_ids = []
     pos_docs = collection.find({'target': target})
     neg_docs = collection.find({'target': {'$ne': target}})
-    pos_train_y_list = np.ones(len(pos_train_ids))
-    neg_train_y_list = np.zeros(len(neg_train_ids))
-    pos_test_y_list = np.ones(len(pos_test_ids))
-    neg_test_y_list = np.zeros(len(neg_test_ids))
     for doc in pos_docs:
         if random.random() < 0.8:
             pos_train_ids.append(doc['_id'])
@@ -126,11 +190,15 @@ def _get_train_test_ids(collection, target, test_percentage=0.8):
             neg_train_ids.append(doc['_id'])
         else:
             neg_test_ids.append(doc['_id'])
+    pos_train_y_list = list(np.ones(len(pos_train_ids)))
+    neg_train_y_list = list(np.zeros(len(neg_train_ids)))
+    pos_test_y_list = list(np.ones(len(pos_test_ids)))
+    neg_test_y_list = list(np.zeros(len(neg_test_ids)))
     X_train_ids = pos_train_ids + neg_train_ids
     X_test_ids = pos_test_ids + neg_test_ids
     y_train = pos_train_y_list + neg_train_y_list
     y_test = pos_test_y_list + neg_test_y_list
-    return X_train_ids, X_test_ids, y_train, y_test
+    return X_train_ids, X_test_ids, np.array(y_train), np.array(y_test)
     
 
 def _remove_extra_words(dictionary):
