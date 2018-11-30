@@ -16,43 +16,12 @@ import random
 
 random.seed(1)
 
-def save_txt_nlp_train_data(db_name, collection_name, target, fileout_dir, subset):
-    """use a mongodb collection and a subsampled target subset percentage
-    to create a .txt file with one line per document"""
-    mc = MongoClient()
-    db = mc[db_name]
-    col = db[collection_name]
-    target_pages = col.find({'target':target})
-    df = pd.DataFrame(list(target_pages))['feature_union']
-    subsampled_df = df.sample(frac=subset, replace=False)
-    with open(fileout_dir, 'w') as fout:
-        for row in subsampled_df:
-            if row != 'nan':
-                fout.write(row + '\n')
-
-
-def train_save_dictionary_corpus(filein, n_grams, target):
-    """Use gensim to create a streamed dictionary"""
-    dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
-    dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
-    dictionary.save(f'nlp_training_data/{target}_dictionary.dict')
-    corpus = [dictionary.doc2bow(word) for word in _list_grams(filein, n_grams)]
-    corpora.MmCorpus.serialize(f'nlp_training_data/{target}_corpus.mm', corpus)
-    return dictionary, corpus
-
-
-def train_save_tfidf(filein, target):
-    """input is a bow corpus saved as a tfidf file. The output is 
-       a saved tfidf corpus"""
-    try:
-        corpus = corpora.MmCorpus(filein)
-    except:
-        raise NameError('HRMMPH. The file does not seem to exist. Create a file '+
-                        'first by running the "train_save_dictionary_corpus" function.')
-    tfidf = models.TfidfModel(corpus)
-    tfidf.save(f'nlp_training_data/{target}_tfidf_model.tfidf')
-    tfidf_corpus = tfidf[corpus]
-    return tfidf_corpus
+def create_save_nlp_train_model(db_name, collection_name, target, n_grams, subset=0.8):
+    """with input of a category, creates a txt file of a subset of the target,
+        trains a dictionary, and trains a tfidf model. Saves these to files"""
+    _save_txt_nlp_train_data(db_name, collection_name, target, subset)
+    _train_save_dictionary_corpus(f'nlp_training_data/{target}_nlp_trainer.txt', n_grams, target)
+    _train_save_tfidf(f'nlp_training_data/{target}_corpus.mm', target)
 
 
 def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
@@ -77,6 +46,52 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
     X_test_tfidf = tfidf[test_bow]
     predictions = topic_detector.predict_proba(X_test_tfidf)
     return predictions
+
+
+def _save_txt_nlp_train_data(db_name, collection_name, target, subset=0.8):
+    """use a mongodb collection and a subsampled target subset percentage
+    to create a .txt file with one line per document"""
+    print('Making txt file of subset of target class')
+    mc = MongoClient()
+    db = mc[db_name]
+    col = db[collection_name]
+    target_pages = col.find({'target':target})
+    df = pd.DataFrame(list(target_pages))['feature_union']
+    subsampled_df = df.sample(frac=subset, replace=False)
+    with open(f'nlp_training_data/{target}_nlp_trainer.txt', 'w') as fout:
+        for row in subsampled_df:
+            if row != 'nan':
+                fout.write(row + '\n')
+    print('DONE!')
+
+
+def _train_save_dictionary_corpus(filein, n_grams, target):
+    """Use gensim to create a streamed dictionary. 
+    filein is the file used to train the dictionary and tfidf"""
+    print('Building dictionary...')
+    dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
+    dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
+    dictionary.save(f'nlp_training_data/{target}_dictionary.dict')
+    corpus = [dictionary.doc2bow(word) for word in _list_grams(filein, n_grams)]
+    corpora.MmCorpus.serialize(f'nlp_training_data/{target}_corpus.mm', corpus)
+    print('DONE!')
+    return dictionary, corpus
+
+
+def _train_save_tfidf(filein, target):
+    """input is a bow corpus saved as a tfidf file. The output is 
+       a saved tfidf corpus"""
+    print('Building TFIDF model')
+    try:
+        corpus = corpora.MmCorpus(filein)
+    except:
+        raise NameError('HRMMPH. The file does not seem to exist. Create a file '+
+                        'first by running the "train_save_dictionary_corpus" function.')
+    tfidf = models.TfidfModel(corpus)
+    tfidf.save(f'nlp_training_data/{target}_tfidf_model.tfidf')
+    tfidf_corpus = tfidf[corpus]
+    print('DONE!')
+    return tfidf_corpus
 
 
 def _make_temporary_txt(collection, ids):
