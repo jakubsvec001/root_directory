@@ -7,9 +7,11 @@ import sys
 import pickle
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import log_loss
 from bson.objectid import ObjectId
-from gensim import corpora, models
+from gensim import corpora, models, matutils
+from gensim.sklearn_api import TfIdfTransformer
 from gensim.parsing.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 from smart_open import smart_open
@@ -66,19 +68,20 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
     pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    return start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf
-    # y_test, preds, score = _fit_multinomial_nb(start, X_train_tfidf, y_train, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf)
-    # return y_test.reshape(1,-1), preds, score
+    y_test, preds, score = _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf)
+    print(score)
+    return y_test, preds, score, model
     
 
-def _fit_multinomial_nb(start_time, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf):
+def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf):
     """fit the actual model"""
     print('FITTING multinomial naive bayes model...')
-    topic_detector = MultinomialNB().fit(X_train_tfidf, y_train.reshape(-1, 1))
+    scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
+    model = MultinomialNB().fit(scipy_X_train, y_train)#.reshape(-1, 1))
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('Pickling model, saving to "nlp_training_data/{target}_multinomialNB_model.pkl"...')
-    pickle.dump(topic_detector, open(f'nlp_training_data/{target}_multinomialNB_model.pkl', 'wb'))
+    print(f'Pickling model, saving to "nlp_training_data/{target}_multinomialNB_model.pkl"...')
+    pickle.dump(model, open(f'nlp_training_data/{target}_multinomialNB_model.pkl', 'wb'))
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
     print('CREATING test tfidf...')
@@ -90,13 +93,76 @@ def _fit_multinomial_nb(start_time, X_train_tfidf, y_train, y_test, db_name, col
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
     print('GENERATING predictions...')
-    preds = topic_detector.predict_proba(X_test_tfidf)
+    scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
+    preds = model.predict_proba(scipy_X_test)
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
     print('SCORING model...')
-    score = log_loss(y_test, preds)
+    score = log_loss(y_test, preds.T[1])
     print('DONE!')
-    return y_test.reshape(-1,1), preds, score
+    return y_test, preds, score, model
+
+
+def cross_validate_logistic_regression(db_name, collection_name, target, n_grams=3):
+    """train naive bayes model using a train/test split. Return predictions, score"""
+    start = default_timer()
+    mc = MongoClient()
+    db = mc[db_name]
+    collection = db[collection_name]
+    dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
+    tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
+    print('CREATING stratified train/test split...')
+    X_train_ids, X_test_ids, y_train, y_test = _get_train_test_ids(collection, 
+                                                      target, test_percentage=0.8) 
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')    
+    print('CREATING temporary txt file...')
+    _make_temporary_txt(collection, X_train_ids)
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('CREATING training set bow with txt file')
+    train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('CREATING training set tfidf with txt file...')
+    X_train_tfidf = tfidf[train_bow]
+    pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    y_test, preds, score = _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf)
+    print(score)
+    return y_test, preds, score, model
+    
+
+def _fit_logistic_regression(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf):
+    """fit the actual model"""
+    print('FITTING multinomial naive bayes model...')
+    scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
+    model = LogisticRegression().fit(scipy_X_train, y_train)#.reshape(-1, 1))
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print(f'Pickling model, saving to "nlp_training_data/{target}_multinomialNB_model.pkl"...')
+    pickle.dump(model, open(f'nlp_training_data/{target}_multinomialNB_model.pkl', 'wb'))
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('CREATING test tfidf...')
+    _make_temporary_txt(collection, X_test_ids)
+    test_bow = [dictionary.doc2bow(word) for word in 
+                     _list_grams('/tmp/docs_for_sparse_vectorization.txt',
+                      n_grams=n_grams)]
+    X_test_tfidf = tfidf[test_bow]
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('GENERATING predictions...')
+    scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
+    preds = model.predict_proba(scipy_X_test)
+    end = default_timer()
+    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('SCORING model...')
+    score = log_loss(y_test, preds.T[1])
+    print('DONE!')
+    return y_test, preds, score, model
+
 
 def _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=0.8):
     """use a mongodb collection and a subsampled target subset percentage
