@@ -1,5 +1,6 @@
 import src.wiki_db_parser as wdbp 
 import src.page_disector as disector
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np 
 import random
@@ -8,8 +9,9 @@ import pickle
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import log_loss
+from sklearn.metrics import log_loss, roc_curve, auc
 from bson.objectid import ObjectId
+from scipy import interp
 from gensim import corpora, models, matutils
 from gensim.sklearn_api import TfIdfTransformer
 from gensim.parsing.porter import PorterStemmer
@@ -19,9 +21,6 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId 
 from sklearn.feature_extraction import stop_words
 from timeit import default_timer 
-
-
-random.seed(1)
 
 def list_available_collections():
     return MongoClient()['wiki_cache'].list_collection_names()
@@ -51,8 +50,8 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
     dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
     tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
     print('CREATING stratified train/test split...')
-    X_train_ids, X_test_ids, y_train, y_test = _get_train_test_ids(collection, 
-                                                      target, test_percentage=0.8) 
+    _, X_train_ids, X_test_ids, y_train, y_test = _get_train_test_ids(collection, 
+                                                      target, train_percentage=0.8) 
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')    
     print('CREATING temporary txt file...')
@@ -68,7 +67,7 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
     pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    y_test, preds, score = _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf)
+    y_test, preds, score, model = _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf)
     print(score)
     return y_test, preds, score, model
     
@@ -77,7 +76,7 @@ def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collecti
     """fit the actual model"""
     print('FITTING multinomial naive bayes model...')
     scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
-    model = MultinomialNB().fit(scipy_X_train, y_train)#.reshape(-1, 1))
+    model = MultinomialNB().fit(scipy_X_train, y_train)
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
     print(f'Pickling model, saving to "nlp_training_data/{target}_multinomialNB_model.pkl"...')
@@ -103,66 +102,140 @@ def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collecti
     return y_test, preds, score, model
 
 
-def cross_validate_logistic_regression(db_name, collection_name, target, n_grams=3):
+def k_fold_logistic_regression(db_name, collection_name, target, n_grams=3, k_folds=5, seed=None):
     """train naive bayes model using a train/test split. Return predictions, score"""
     start = default_timer()
+    #load dictionary and tfidf model
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
     dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
     tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
-    print('CREATING stratified train/test split...')
-    X_train_ids, X_test_ids, y_train, y_test = _get_train_test_ids(collection, 
-                                                      target, test_percentage=0.8) 
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')    
-    print('CREATING temporary txt file...')
-    _make_temporary_txt(collection, X_train_ids)
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('CREATING training set bow with txt file')
-    train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('CREATING training set tfidf with txt file...')
-    X_train_tfidf = tfidf[train_bow]
-    pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    y_test, preds, score = _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf)
-    print(score)
-    return y_test, preds, score, model
-    
+    k_fold_ids = _get_k_fold_ids(collection, target, seed, k_folds)  
+    model_list = []
+    y_test_list = []
+    pred_list = []
+    score_list = []
+    tprs = []
+    aucs = []
+    mean_fpr = np.linspace(0, 1, 100)
+    for i, X_train_ids, X_test_ids, y_train, y_test in k_fold_ids:
+        print(f'RUNNING K_FOLD #{i+1} OF {k_folds}...')
+        print('    CREATING temporary txt file...')
+        _make_temporary_txt(collection, X_train_ids)
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    CREATING training set bow with txt file')
+        train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    CREATING training set tfidf with txt file...')
+        X_train_tfidf = tfidf[train_bow]
+        pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    FITTING logistic regression model...')
+        scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
+        model = LogisticRegression(penalty='l2', solver='saga').fit(scipy_X_train, y_train)
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print(f'    Pickling model, saving to "nlp_training_data/{target}_logistic_regression.pkl"...')
+        pickle.dump(model, open(f'nlp_training_data/{target}_multinomialNB_model.pkl', 'wb'))
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    CREATING test tfidf...')
+        _make_temporary_txt(collection, X_test_ids)
+        test_bow = [dictionary.doc2bow(word) for word in 
+                        _list_grams('/tmp/docs_for_sparse_vectorization.txt',
+                        n_grams=n_grams)]
+        X_test_tfidf = tfidf[test_bow]
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    GENERATING predictions...')
+        scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
+        predictions = model.predict_proba(scipy_X_test)
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    SCORING model...')
+        score = log_loss(y_test, predictions.T[1])
+        print('DONE!')
+        model_list.append(model)
+        y_test_list.append(y_test)
+        pred_list.append(predictions)
+        score_list.append(score)
+        print(f'score: {score}')
+        #add to plot
+        fpr, tpr, thresholds = roc_curve(y_test, predictions[:, 1])
+        tprs.append(interp(mean_fpr, fpr, tpr))
+        tprs[-1][0] = 0.0
+        roc_auc = auc(fpr, tpr)
+        aucs.append(roc_auc)
+        plt.plot(fpr, tpr, lw=1, alpha=0.3,
+                label='ROC fold %d (AUC = %0.2f)' % (i, roc_auc))
+        print()
+    plt.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
+            label='Chance', alpha=.8)
 
-def _fit_logistic_regression(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf):
-    """fit the actual model"""
-    print('FITTING multinomial naive bayes model...')
-    scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
-    model = LogisticRegression().fit(scipy_X_train, y_train)#.reshape(-1, 1))
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print(f'Pickling model, saving to "nlp_training_data/{target}_multinomialNB_model.pkl"...')
-    pickle.dump(model, open(f'nlp_training_data/{target}_multinomialNB_model.pkl', 'wb'))
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('CREATING test tfidf...')
-    _make_temporary_txt(collection, X_test_ids)
-    test_bow = [dictionary.doc2bow(word) for word in 
-                     _list_grams('/tmp/docs_for_sparse_vectorization.txt',
-                      n_grams=n_grams)]
-    X_test_tfidf = tfidf[test_bow]
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('GENERATING predictions...')
-    scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
-    preds = model.predict_proba(scipy_X_test)
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('SCORING model...')
-    score = log_loss(y_test, preds.T[1])
-    print('DONE!')
-    return y_test, preds, score, model
+    mean_tpr = np.mean(tprs, axis=0)
+    mean_tpr[-1] = 1.0
+    mean_auc = auc(mean_fpr, mean_tpr)
+    std_auc = np.std(aucs)
+    plt.plot(mean_fpr, mean_tpr, color='b',
+            label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
+            lw=2, alpha=.8)
 
+    std_tpr = np.std(tprs, axis=0)
+    tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
+    tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
+    plt.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
+                    label=r'$\pm$ 1 std. dev.')
+    plt.xlim([-0.05, 1.05])
+    plt.ylim([-0.05, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver operating characteristic example')
+    plt.legend(loc="lower right")
+    plt.savefig(f'ROC_cv_logistic_regression.png')
+    plt.show()
+    return np.mean(score_list)
+
+def _plot_roc_curves(y_test_list, pred_list):
+    """plot roc curve for each cross_validated model"""
+    tprs = []
+    aucs = []
+    mean_fpr = np.linspace(0, 1, 100)
+    for i in range(len(y_test_list)):
+        fpr, tpr, thresholds = roc_curve(y_test_list[i], pred_list[i][:, 1])
+        tprs.append(interp(mean_fpr, fpr, tpr))
+        tprs[-1][0] = 0.0
+        roc_auc = auc(fpr, tpr)
+        aucs.append(roc_auc)
+        plt.plot(fpr, tpr, lw=1, alpha=0.3,
+                label='ROC fold %d (AUC = %0.2f)' % (i, roc_auc))
+        print()
+    plt.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
+            label='Chance', alpha=.8)
+    mean_tpr = np.mean(tprs, axis=0)
+    mean_tpr[-1] = 1.0
+    mean_auc = auc(mean_fpr, mean_tpr)
+    std_auc = np.std(aucs)
+    plt.plot(mean_fpr, mean_tpr, color='b',
+            label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
+            lw=2, alpha=.8)
+
+    std_tpr = np.std(tprs, axis=0)
+    tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
+    tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
+    plt.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
+                    label=r'$\pm$ 1 std. dev.')
+    plt.xlim([-0.05, 1.05])
+    plt.ylim([-0.05, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver operating characteristic example')
+    plt.legend(loc="lower right")
+    plt.savefig(f'ROC_cv_logistic_regression.png')
+    plt.show()
 
 def _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=0.8):
     """use a mongodb collection and a subsampled target subset percentage
@@ -242,9 +315,12 @@ def _make_temporary_txt(collection, ids):
             fout.write(text + '\n')
 
     
-def _get_train_test_ids(collection, target, test_percentage=0.8):
+def _get_train_test_ids(collection, target, train_percentage=0.8, seed=None):
     """get random train/test split, keeping the proportion of pos/neg
        classes the same"""
+    i = 0
+    if seed:
+        random.seed(seed)
     pos_train_ids = []
     neg_train_ids = []
     pos_test_ids = []
@@ -252,12 +328,12 @@ def _get_train_test_ids(collection, target, test_percentage=0.8):
     pos_docs = collection.find({'target': target})
     neg_docs = collection.find({'target': {'$ne': target}})
     for doc in pos_docs:
-        if random.random() < 0.8:
+        if random.random() < train_percentage:
             pos_train_ids.append(doc['_id'])
         else:
             pos_test_ids.append(doc['_id'])
     for doc in neg_docs:
-        if random.random() < 0.8:
+        if random.random() < train_percentage:
             neg_train_ids.append(doc['_id'])
         else:
             neg_test_ids.append(doc['_id'])
@@ -269,7 +345,62 @@ def _get_train_test_ids(collection, target, test_percentage=0.8):
     X_test_ids = pos_test_ids + neg_test_ids
     y_train = pos_train_y_list + neg_train_y_list
     y_test = pos_test_y_list + neg_test_y_list
-    return X_train_ids, X_test_ids, np.array(y_train), np.array(y_test)
+    zipped_train = list(zip(X_train_ids, y_train))
+    zipped_test = list(zip(X_test_ids, y_test))
+    random.shuffle(zipped_train)
+    random.shuffle(zipped_test)
+    X_train_ids, y_train = zip(*zipped_train)
+    X_test_ids, y_test = zip(*zipped_test)
+    return i, X_train_ids, X_test_ids, np.array(y_train), np.array(y_test)
+    
+def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
+    """generate k_fold indices for X_train, X_test, y_train, y_test"""
+    if k_folds == 1:
+        return _get_train_test_ids(collection, target, train_percentage=0.8)
+    if k_folds < 2:
+        raise ValueError('Minimum k_folds is 2')
+    if seed:
+        random.seed(seed)
+    pos_documents = []
+    neg_documents = []
+    pos_docs = collection.find({'target': target})
+    neg_docs = collection.find({'target': {'$ne': target}})
+    for doc in pos_docs:
+        pos_documents.append(doc['_id'])
+    for doc in neg_docs:
+        neg_documents.append(doc['_id'])
+    random.shuffle(pos_documents)
+    random.shuffle(neg_documents)
+    pos_count = len(pos_documents) // k_folds
+    neg_count = len(neg_documents) // k_folds
+    for fold in range(k_folds-1):
+        X_pos_test = pos_documents[(fold*pos_count):((fold*pos_count)+pos_count)]
+        X_neg_test = neg_documents[(fold*neg_count):((fold*neg_count)+neg_count)]
+        X_pos_train = set(pos_documents)-set(X_pos_test)
+        X_neg_train = set(neg_documents)-set(X_neg_test)
+        pos_train_y_list = list(np.ones(len(X_pos_train)))
+        neg_train_y_list = list(np.zeros(len(X_neg_train)))
+        pos_test_y_list = list(np.ones(len(X_pos_test)))
+        neg_test_y_list = list(np.zeros(len(X_neg_test)))
+        X_train_ids = list(X_pos_train) + list(X_neg_train)
+        X_test_ids = list(X_pos_test) + list(X_neg_test)
+        y_train = pos_train_y_list + neg_train_y_list
+        y_test = pos_test_y_list + neg_test_y_list  
+        yield fold, X_train_ids, X_test_ids, y_train, y_test
+    X_pos_test = pos_documents[(k_folds-1)*pos_count:]
+    X_neg_test = neg_documents[(k_folds-1)*neg_count:]
+    X_pos_train = pos_documents[:k_folds*pos_count]
+    X_neg_train = neg_documents[:k_folds*neg_count]
+    pos_train_y_list = list(np.ones(len(X_pos_train)))
+    neg_train_y_list = list(np.zeros(len(X_neg_train)))
+    pos_test_y_list = list(np.ones(len(X_pos_test)))
+    neg_test_y_list = list(np.zeros(len(X_neg_test)))
+    X_train_ids = X_pos_train + X_neg_train
+    X_test_ids = X_pos_test + X_neg_test
+    y_train = pos_train_y_list + neg_train_y_list
+    y_test = pos_test_y_list + neg_test_y_list  
+    yield k_folds, X_train_ids, X_test_ids, y_train, y_test 
+
     
 
 def _remove_extra_words(dictionary):
