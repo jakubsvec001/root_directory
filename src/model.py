@@ -103,7 +103,7 @@ def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collecti
     return y_test, preds, score, model
 
 
-def k_fold_logistic_regression(db_name, collection_name, target, feature_count, n_grams=3, k_folds=5, seed=None):
+def k_fold_logistic_regression(db_name, collection_name, target, C, feature_count, n_grams=3, k_folds=5, seed=None):
     """train naive bayes model using a train/test split. Return predictions, score"""
     start = default_timer()
     mc = MongoClient()
@@ -134,7 +134,7 @@ def k_fold_logistic_regression(db_name, collection_name, target, feature_count, 
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print('    FITTING logistic regression model...')
         scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
-        model = LogisticRegression(penalty='l2', solver='saga').fit(scipy_X_train, y_train)
+        model = LogisticRegression(penalty='l2', solver='saga', C=C).fit(scipy_X_train, y_train)
         end = default_timer()
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print('    CREATING test tfidf...')
@@ -158,47 +158,108 @@ def k_fold_logistic_regression(db_name, collection_name, target, feature_count, 
         pred_list.append(predictions)
         score_list.append(score)
         print(f'score: {score}')
-    # _plot_roc_curves(y_test_list, pred_list)
-    return np.mean(score_list), y_test_list, pred_list
+    _plot_roc_curves(y_test_list, pred_list, C, feature_count)
+    return score_list, y_test_list, pred_list, model_list
 
-# def _plot_roc_curves(y_test_list, pred_list):
-#     """plot roc curve for each cross_validated model"""
-#     tprs = []
-#     aucs = []
-#     mean_fpr = np.linspace(0, 1, 100)
-#     fig, ax = plt.subplots(1,1, figsize=((20,20)))
-#     for i in range(len(y_test_list)):
-#         fpr, tpr, thresholds = roc_curve(y_test_list[i], pred_list[i][:, 1])
-#         tprs.append(interp(mean_fpr, fpr, tpr))
-#         tprs[-1][0] = 0.0
-#         roc_auc = auc(fpr, tpr)
-#         aucs.append(roc_auc)
-#         ax.plot(fpr, tpr, lw=1, alpha=0.3,
-#                 label='ROC fold %d (AUC = %0.2f)' % (i, roc_auc))
-#         print()
-#     ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
-#             label='Chance', alpha=.8)
-#     mean_tpr = np.mean(tprs, axis=0)
-#     mean_tpr[-1] = 1.0
-#     mean_auc = auc(mean_fpr, mean_tpr)
-#     std_auc = np.std(aucs)
-#     ax.plot(mean_fpr, mean_tpr, color='b',
-#             label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
-#             lw=2, alpha=.8)
+def grid_search_logistic_regression(db_name, collection_name, target, C, feature_count=100000, n_grams=3, k_folds=5, seed=None):
+    """gridsearch without cross validation"""
+    start = default_timer()
+    mc = MongoClient()
+    db = mc[db_name]
+    collection = db[collection_name]
+    dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
+    dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = feature_count)
+    tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
+    i, X_train_ids, X_test_ids, y_train, y_test = _get_train_test_ids(collection, 
+                                                                        target, 
+                                                                        train_percentage=0.8, 
+                                                                        seed=None)  
+    model_list = []
+    y_test_list = []
+    pred_list = []
+    score_list = []
+    for c in C:
+        print(f'RUNNING GRIDSEARCH FOR {c}...')
+        print('    CREATING temporary txt file...')
+        _make_temporary_txt(collection, X_train_ids)
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    CREATING training set bow with txt file')
+        train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    CREATING training set tfidf with txt file...')
+        X_train_tfidf = tfidf[train_bow]
+        pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    FITTING logistic regression model...')
+        scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
+        model = LogisticRegression(penalty='l2', solver='saga', C=c).fit(scipy_X_train, y_train)
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    CREATING test tfidf...')
+        _make_temporary_txt(collection, X_test_ids)
+        test_bow = [dictionary.doc2bow(word) for word in 
+                        _list_grams('/tmp/docs_for_sparse_vectorization.txt',
+                        n_grams=n_grams)]
+        X_test_tfidf = tfidf[test_bow]
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    GENERATING predictions...')
+        scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
+        predictions = model.predict_proba(scipy_X_test)
+        end = default_timer()
+        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+        print('    SCORING model...')
+        score = log_loss(y_test, predictions.T[1])
+        print('DONE!')
+        model_list.append(model)
+        y_test_list.append(y_test)
+        pred_list.append(predictions)
+        score_list.append(score)
+        print(f'score: {score}')
+        _plot_roc_curves(y_test_list, pred_list, c, feature_count)
+    return score_list, y_test_list, pred_list, model_list
 
-#     std_tpr = np.std(tprs, axis=0)
-#     tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
-#     tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
-#     ax.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
-#                     label=r'$\pm$ 1 std. dev.')
-#     ax.set_xlim([-0.05, 1.05])
-#     ax.set_ylim([-0.05, 1.05])
-#     ax.set_xlabel('False Positive Rate')
-#     ax.set_ylabel('True Positive Rate')
-#     ax.set_title(f'Logistic Regression ROC')
-#     ax.legend(loc="lower right")
-#     fig.savefig(f'images/roc_cv_logistic_regression.png')
-#     fig.show()
+def _plot_roc_curves(y_test_list, pred_list, C, feature_count):
+    """plot roc curve for each cross_validated model"""
+    tprs = []
+    aucs = []
+    mean_fpr = np.linspace(0, 1, 100)
+    fig, ax = plt.subplots(1,1, figsize=((20,20)))
+    for i in range(len(y_test_list)):
+        fpr, tpr, thresholds = roc_curve(y_test_list[i], pred_list[i][:, 1])
+        tprs.append(interp(mean_fpr, fpr, tpr))
+        tprs[-1][0] = 0.0
+        roc_auc = auc(fpr, tpr)
+        aucs.append(roc_auc)
+        ax.plot(fpr, tpr, lw=1, alpha=0.3,
+                label='ROC fold %d (AUC = %0.2f)' % (i, roc_auc))
+        print()
+    ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
+            label='Chance', alpha=.8)
+    mean_tpr = np.mean(tprs, axis=0)
+    mean_tpr[-1] = 1.0
+    mean_auc = auc(mean_fpr, mean_tpr)
+    std_auc = np.std(aucs)
+    ax.plot(mean_fpr, mean_tpr, color='b',
+            label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
+            lw=2, alpha=.8)
+
+    std_tpr = np.std(tprs, axis=0)
+    tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
+    tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
+    ax.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
+                    label=r'$\pm$ 1 std. dev.')
+    ax.set_xlim([-0.05, 1.05])
+    ax.set_ylim([-0.05, 1.05])
+    ax.set_xlabel('False Positive Rate')
+    ax.set_ylabel('True Positive Rate')
+    ax.set_title(f'Logistic Regression ROC, C={round(C, 3)}, Feature Count={feature_count}')
+    ax.legend(loc="lower right")
+    fig.savefig(f'images/roc_cv_logistic_regression_{round(C, 3)}_{feature_count}.png')
+    fig.show()
 
 
 def _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=0.8):
