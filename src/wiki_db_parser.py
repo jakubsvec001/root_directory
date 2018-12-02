@@ -32,6 +32,23 @@ def mongodb_page_stream(collection):
     return document_generator
 
 
+def convert_wiki_cache_to_edgelist(collection_name_out, db_name='wiki_cache', new_collection='small_edgelist'):
+    """Use wiki_cache database and convert it to a small edgelist collection"""
+    mc = MongoClient()
+    db = mc[db_name]
+    collection_out = db[collection_name_out]
+    collection_in = db[new_collection]
+    wiki_cache_pages = collection_out.find()
+    for i, page in enumerate(wiki_cache_pages):
+        sys.stdout.write('\r' + f'Wrote {i} pages to {new_collection}.')
+        page = page['parent_categories']
+        title = [t for t in page.keys()][0]
+        categories = [c for c in page.values()][0]
+        cached_child = collection_in.find_one({'parent_categories': [title, categories]})
+        if cached_child is None:
+            collection_in.insert_one({'parent_categories': [title, categories]})
+    
+
 def _update_document(collection, features):
     """Used by disect_update_database(). Updates a document in mongodb"""
     collection.update_one({'title': features['title']}, {'$set': 
@@ -69,6 +86,7 @@ def _check_target_presence_in_db(collection, target_name):
     if hit == False:
         raise ValueError('OH NOOO! No targets saved. '+
                          'Check your target_name parameter')
+
 
 if __name__ == '__main__':
     pass
