@@ -22,6 +22,7 @@ from bson.objectid import ObjectId
 from sklearn.feature_extraction import stop_words
 from timeit import default_timer 
 
+
 def list_available_collections():
     return MongoClient()['wiki_cache'].list_collection_names()
 
@@ -102,23 +103,20 @@ def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collecti
     return y_test, preds, score, model
 
 
-def k_fold_logistic_regression(db_name, collection_name, target, n_grams=3, k_folds=5, seed=None):
+def k_fold_logistic_regression(db_name, collection_name, target, feature_count, n_grams=3, k_folds=5, seed=None):
     """train naive bayes model using a train/test split. Return predictions, score"""
     start = default_timer()
-    #load dictionary and tfidf model
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
     dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
+    dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = feature_count)
     tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
     k_fold_ids = _get_k_fold_ids(collection, target, seed, k_folds)  
     model_list = []
     y_test_list = []
     pred_list = []
     score_list = []
-    tprs = []
-    aucs = []
-    mean_fpr = np.linspace(0, 1, 100)
     for i, X_train_ids, X_test_ids, y_train, y_test in k_fold_ids:
         print(f'RUNNING K_FOLD #{i+1} OF {k_folds}...')
         print('    CREATING temporary txt file...')
@@ -137,10 +135,6 @@ def k_fold_logistic_regression(db_name, collection_name, target, n_grams=3, k_fo
         print('    FITTING logistic regression model...')
         scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
         model = LogisticRegression(penalty='l2', solver='saga').fit(scipy_X_train, y_train)
-        end = default_timer()
-        print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
-        print(f'    Pickling model, saving to "nlp_training_data/{target}_logistic_regression.pkl"...')
-        pickle.dump(model, open(f'nlp_training_data/{target}_multinomialNB_model.pkl', 'wb'))
         end = default_timer()
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print('    CREATING test tfidf...')
@@ -164,78 +158,48 @@ def k_fold_logistic_regression(db_name, collection_name, target, n_grams=3, k_fo
         pred_list.append(predictions)
         score_list.append(score)
         print(f'score: {score}')
-        #add to plot
-        fpr, tpr, thresholds = roc_curve(y_test, predictions[:, 1])
-        tprs.append(interp(mean_fpr, fpr, tpr))
-        tprs[-1][0] = 0.0
-        roc_auc = auc(fpr, tpr)
-        aucs.append(roc_auc)
-        plt.plot(fpr, tpr, lw=1, alpha=0.3,
-                label='ROC fold %d (AUC = %0.2f)' % (i, roc_auc))
-        print()
-    plt.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
-            label='Chance', alpha=.8)
+    # _plot_roc_curves(y_test_list, pred_list)
+    return np.mean(score_list), y_test_list, pred_list
 
-    mean_tpr = np.mean(tprs, axis=0)
-    mean_tpr[-1] = 1.0
-    mean_auc = auc(mean_fpr, mean_tpr)
-    std_auc = np.std(aucs)
-    plt.plot(mean_fpr, mean_tpr, color='b',
-            label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
-            lw=2, alpha=.8)
+# def _plot_roc_curves(y_test_list, pred_list):
+#     """plot roc curve for each cross_validated model"""
+#     tprs = []
+#     aucs = []
+#     mean_fpr = np.linspace(0, 1, 100)
+#     fig, ax = plt.subplots(1,1, figsize=((20,20)))
+#     for i in range(len(y_test_list)):
+#         fpr, tpr, thresholds = roc_curve(y_test_list[i], pred_list[i][:, 1])
+#         tprs.append(interp(mean_fpr, fpr, tpr))
+#         tprs[-1][0] = 0.0
+#         roc_auc = auc(fpr, tpr)
+#         aucs.append(roc_auc)
+#         ax.plot(fpr, tpr, lw=1, alpha=0.3,
+#                 label='ROC fold %d (AUC = %0.2f)' % (i, roc_auc))
+#         print()
+#     ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
+#             label='Chance', alpha=.8)
+#     mean_tpr = np.mean(tprs, axis=0)
+#     mean_tpr[-1] = 1.0
+#     mean_auc = auc(mean_fpr, mean_tpr)
+#     std_auc = np.std(aucs)
+#     ax.plot(mean_fpr, mean_tpr, color='b',
+#             label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
+#             lw=2, alpha=.8)
 
-    std_tpr = np.std(tprs, axis=0)
-    tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
-    tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
-    plt.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
-                    label=r'$\pm$ 1 std. dev.')
-    plt.xlim([-0.05, 1.05])
-    plt.ylim([-0.05, 1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('Receiver operating characteristic example')
-    plt.legend(loc="lower right")
-    plt.savefig(f'ROC_cv_logistic_regression.png')
-    plt.show()
-    return np.mean(score_list)
+#     std_tpr = np.std(tprs, axis=0)
+#     tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
+#     tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
+#     ax.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
+#                     label=r'$\pm$ 1 std. dev.')
+#     ax.set_xlim([-0.05, 1.05])
+#     ax.set_ylim([-0.05, 1.05])
+#     ax.set_xlabel('False Positive Rate')
+#     ax.set_ylabel('True Positive Rate')
+#     ax.set_title(f'Logistic Regression ROC')
+#     ax.legend(loc="lower right")
+#     fig.savefig(f'images/roc_cv_logistic_regression.png')
+#     fig.show()
 
-def _plot_roc_curves(y_test_list, pred_list):
-    """plot roc curve for each cross_validated model"""
-    tprs = []
-    aucs = []
-    mean_fpr = np.linspace(0, 1, 100)
-    for i in range(len(y_test_list)):
-        fpr, tpr, thresholds = roc_curve(y_test_list[i], pred_list[i][:, 1])
-        tprs.append(interp(mean_fpr, fpr, tpr))
-        tprs[-1][0] = 0.0
-        roc_auc = auc(fpr, tpr)
-        aucs.append(roc_auc)
-        plt.plot(fpr, tpr, lw=1, alpha=0.3,
-                label='ROC fold %d (AUC = %0.2f)' % (i, roc_auc))
-        print()
-    plt.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
-            label='Chance', alpha=.8)
-    mean_tpr = np.mean(tprs, axis=0)
-    mean_tpr[-1] = 1.0
-    mean_auc = auc(mean_fpr, mean_tpr)
-    std_auc = np.std(aucs)
-    plt.plot(mean_fpr, mean_tpr, color='b',
-            label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
-            lw=2, alpha=.8)
-
-    std_tpr = np.std(tprs, axis=0)
-    tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
-    tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
-    plt.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
-                    label=r'$\pm$ 1 std. dev.')
-    plt.xlim([-0.05, 1.05])
-    plt.ylim([-0.05, 1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('Receiver operating characteristic example')
-    plt.legend(loc="lower right")
-    plt.savefig(f'ROC_cv_logistic_regression.png')
-    plt.show()
 
 def _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=0.8):
     """use a mongodb collection and a subsampled target subset percentage
@@ -266,13 +230,11 @@ def _train_save_dictionary_corpus(filein, n_grams, target, training=True):
     print('Building dictionary...')
     if training:
         dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
-        dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
         dictionary.save(f'nlp_training_data/{target}_subset.dict')
         corpus = [dictionary.doc2bow(word) for word in _list_grams(filein, n_grams)]
         corpora.MmCorpus.serialize(f'nlp_training_data/{target}_subset_corpus.mm', corpus)
     else:
         dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
-        dictionary.filter_extremes(no_below=5, no_above=0.5, keep_n = 100000)
         dictionary.save(f'nlp_training_data/{target}_full.dict')
         corpus = [dictionary.doc2bow(word) for word in _list_grams(filein, n_grams)]
         corpora.MmCorpus.serialize(f'nlp_training_data/{target}_full_corpus.mm', corpus)
@@ -399,7 +361,7 @@ def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
     X_test_ids = X_pos_test + X_neg_test
     y_train = pos_train_y_list + neg_train_y_list
     y_test = pos_test_y_list + neg_test_y_list  
-    yield k_folds, X_train_ids, X_test_ids, y_train, y_test 
+    yield k_folds-1, X_train_ids, X_test_ids, y_train, y_test 
 
     
 
