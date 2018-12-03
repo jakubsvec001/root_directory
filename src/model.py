@@ -74,7 +74,7 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
     
 
 def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf):
-    """fit the actual model"""
+    """fit the multinomial naive bayes model"""
     print('FITTING multinomial naive bayes model...')
     scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
     model = MultinomialNB().fit(scipy_X_train, y_train)
@@ -169,14 +169,14 @@ def grid_search_logistic_regression(db_name, collection_name, target, C, feature
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print('    SCORING model...')
         score = log_loss(y_test, predictions.T[1])
-        precision_recall_fscore = precision_recall_fscore_support(y_test, predictions[:,1])
+        # precision_recall_fscore = precision_recall_fscore_support(y_test, predictions[:,1])
         print('DONE!')
         model_list.append(model)
         y_test_list.append(y_test)
         pred_list.append(predictions)
         score_list.append(score)
         end = default_timer()
-        prec_rec_f_list.append(precision_recall_fscore)
+        # prec_rec_f_list.append(precision_recall_fscore)
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print(f'score: {score}')
         print()
@@ -196,23 +196,10 @@ def _plot_roc_curves(y_test_list, pred_list, C, feature_count):
         roc_auc = auc(fpr, tpr)
         aucs.append(roc_auc)
         ax.plot(fpr, tpr, lw=1, alpha=0.3,
-                label='ROC C: {C} (AUC = {roc_auc:0.2f})')
+                label=f'ROC C: {C} (AUC = {roc_auc:0.2f})')
         print()
     ax.plot([0, 1], [0, 1], linestyle='--', lw=2, color='r',
             label='Chance', alpha=.8)
-    # mean_tpr = np.mean(tprs, axis=0)
-    # mean_tpr[-1] = 1.0
-    # mean_auc = auc(mean_fpr, mean_tpr)
-    # std_auc = np.std(aucs)
-    # ax.plot(mean_fpr, mean_tpr, color='b',
-    #         label=r'Mean ROC (AUC = %0.2f $\pm$ %0.2f)' % (mean_auc, std_auc),
-    #         lw=2, alpha=.8)
-
-    # std_tpr = np.std(tprs, axis=0)
-    # tprs_upper = np.minimum(mean_tpr + std_tpr, 1)
-    # tprs_lower = np.maximum(mean_tpr - std_tpr, 0)
-    # ax.fill_between(mean_fpr, tprs_lower, tprs_upper, color='grey', alpha=.2,
-    #                 label=r'$\pm$ 1 std. dev.')
     ax.set_xlim([-0.01, 1.01])
     ax.set_ylim([-0.01, 1.01])
     ax.set_xlabel('False Positive Rate')
@@ -315,12 +302,12 @@ def _get_train_test_ids(collection, target, train_percentage=0.8, seed=None, shu
         pos_documents.append(doc['_id'])
     for doc in neg_docs:
         neg_documents.append(doc['_id'])
-    train_len = int(len(pos_documents) * train_percentage)
-    print(train_len)
-    X_pos_test = pos_documents[train_len:]
-    X_neg_test = neg_documents[train_len:]
-    X_pos_train = pos_documents[:train_len]
-    X_neg_train = neg_documents[:train_len]
+    pos_train_len = int(len(pos_documents) * train_percentage)
+    neg_train_len = int(len(neg_documents) * train_percentage) 
+    X_pos_train = pos_documents[:pos_train_len]
+    X_pos_test = pos_documents[pos_train_len:]
+    X_neg_train = neg_documents[:neg_train_len]
+    X_neg_test = neg_documents[neg_train_len:]
     pos_train_y_list = list(np.ones(len(X_pos_train)))
     neg_train_y_list = list(np.zeros(len(X_neg_train)))
     pos_test_y_list = list(np.ones(len(X_pos_test)))
