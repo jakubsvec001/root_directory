@@ -103,16 +103,18 @@ def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collecti
     return y_test, preds, score, model
 
 
-def grid_search_logistic_regression(db_name, collection_name, target, C, feature_count=100000, n_grams=3, seed=None, build_dict_tfidf=True):
+def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle=True, feature_count=100000, n_grams=3, build_dict_tfidf=True):
     """gridsearch without cross validation"""
     start = default_timer()
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
-    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train = _get_train_test_ids(collection, 
-                                                                        target, 
-                                                                        train_percentage=0.8, 
-                                                                        seed=None) 
+    print('Generating stratified train/test split ids from dataset')
+    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = _get_train_test_ids(collection, 
+                                                                            target, 
+                                                                            shuffle=shuffle,
+                                                                            train_percentage=0.8, 
+                                                                            seed=1) 
     if build_dict_tfidf: 
         _save_txt_nlp_data(db_name, collection_name, target, pos_ids=X_pos_train, training=True)
         dictionary, _ = _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt',
@@ -181,7 +183,7 @@ def grid_search_logistic_regression(db_name, collection_name, target, C, feature
         print(f'score: {score}')
         print()
     _plot_roc_curves(y_test_list, pred_list, c, feature_count)
-    return score_list, y_test_list, pred_list, prec_rec_f_list, model_list
+    return score_list, y_test_list, pred_list, prec_rec_f_list, model_list, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test
 
 def _plot_roc_curves(y_test_list, pred_list, C, feature_count):
     """plot roc curve for each cross_validated model"""
@@ -296,6 +298,9 @@ def _get_train_test_ids(collection, target, train_percentage=0.8, seed=None, shu
         random.seed(seed)
     pos_documents = []
     neg_documents = []
+    if shuffle:
+        random.shuffle(pos_documents)
+        random.shuffle(neg_documents)
     pos_docs = collection.find({'target': target})
     neg_docs = collection.find({'target': {'$ne': target}})
     for doc in pos_docs:
@@ -323,7 +328,8 @@ def _get_train_test_ids(collection, target, train_percentage=0.8, seed=None, shu
         random.shuffle(zipped_test)
         X_train_ids, y_train = zip(*zipped_train)
         X_test_ids, y_test = zip(*zipped_test)
-    return i, X_train_ids, X_test_ids, np.array(y_train), np.array(y_test), X_pos_train
+    return i, X_train_ids, X_test_ids, np.array(y_train), np.array(y_test), \
+              X_pos_train, X_pos_test, X_neg_train, X_neg_test
     
 def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
     """generate k_fold indices for X_train, X_test, y_train, y_test"""
