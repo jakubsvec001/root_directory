@@ -107,19 +107,17 @@ class CatFinder(object):
         self.save = save
         self.page_limit = page_limit
 
-    def create_edgelist(self, filein):
+    def create_edgelist(self, filein, output_collection):
         start = timer()
         lines = self._get_lines_bz2(filein)
         pages = self._find_all_edges(lines)
         if self.save:
             mc = MongoClient()
             db = mc['wiki_cache']
-            collection = db['edgelist']
+            collection = db[output_collection]
             for title, categories in pages:
                 if categories != []:
-                    cached_child = collection.find_one({'parent_categories': [title, categories]})
-                    if cached_child is None:
-                        collection.insert_one({'parent_categories': [title, categories]})
+                    collection.insert_one({'parent_categories': [title, categories]})
         else:
             pages = list(pages)
             return pages
@@ -153,7 +151,6 @@ class CatFinder(object):
             elif inpage:
                 page.append(line)
 
-
     def _get_lines_bz2(self, filename): 
         """yield each uncompressed line from bz2 file"""
         for i, line in enumerate(subprocess.Popen(['bzcat'], 
@@ -163,7 +160,6 @@ class CatFinder(object):
             yield line.decode()
             if self.page_limit and i >= self.page_limit:
                 break
-
 
     def _parse_edges(self, raw_xml):
         # Find category markup:

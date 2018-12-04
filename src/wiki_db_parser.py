@@ -42,8 +42,8 @@ def convert_wiki_cache_to_edgelist(collection_name_out, db_name='wiki_cache', ne
     for i, page in enumerate(wiki_cache_pages):
         sys.stdout.write('\r' + f'Wrote {i} pages to {new_collection}.')
         page = page['parent_categories']
-        title = [t for t in page.keys()][0]
-        categories = [c for c in page.values()][0]
+        title = page[0]
+        categories = page[1]
         cached_child = collection_in.find_one({'parent_categories': [title, categories]})
         if cached_child is None:
             collection_in.insert_one({'parent_categories': [title, categories]})

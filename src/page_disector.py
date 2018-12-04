@@ -36,8 +36,9 @@ def disect_page(title, xml):
             'timestamp': timestamp, 
             'headers': headers, 
             'clean_links':cleaned_links,
-            'parent_categories': {title: categories},
+            'parent_categories': [title, categories],
             'feature_union': feature_union}
+
 
 def _replace_multiple(main_string, to_be_replaced, new_string):
     """replace extra elements in a text string"""
@@ -45,6 +46,7 @@ def _replace_multiple(main_string, to_be_replaced, new_string):
         if elem in main_string :
             main_string = main_string.replace(elem, new_string)
     return  main_string
+
 
 def _get_links(xml):
     links = re_interlinkstext_link.findall(xml)
