@@ -52,6 +52,7 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3, s
     print('SCORING model...')
     score = log_loss(y_test, preds.T[1])
     print('DONE!')
+    _plot_roc_curves('Multinomial_NM', [y_test], [preds], None, feature_count)
     return y_test, preds, score, model
 
 
@@ -85,7 +86,7 @@ def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle
     for c in C:
         print(f'RUNNING GRIDSEARCH FOR {c}...')
         print('    FITTING logistic regression model...')
-        model = LogisticRegressionCV(penalty='l2', solver='saga', Cs=c, scoring='log_loss').fit(scipy_X_train, y_train)
+        model = LogisticRegressionCV(penalty='l2', solver='saga', Cs=[c], scoring='neg_log_loss', verbose=1, n_jobs=-1).fit(scipy_X_train, y_train)
         print('    GENERATING predictions...')
         predictions = model.predict_proba(scipy_X_test)
         end = default_timer()
@@ -103,7 +104,7 @@ def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print(f'score: {score}')
         print()
-    _plot_roc_curves(y_test_list, pred_list, c, feature_count)
+    _plot_roc_curves('Logistic Regression', y_test_list, pred_list, c, feature_count)
     return (score_list, y_test_list, pred_list, prec_rec_f_list, model_list, X_train_ids, X_test_ids, 
                                    y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test)
 
@@ -112,14 +113,16 @@ def _build_matrices(start, db_name, collection_name, target, n_grams, collection
                     feature_count, X_train_ids, X_test_ids, pos_ids, training=True):
     """builds, saves, and returns scipy sparse matrices for training and testing sklearn models"""
     _save_txt_nlp_data(db_name, collection_name, target, pos_ids, training)
-    dictionary, _ = _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt', n_grams, target, training=True, feature_count=feature_count)
+    dictionary, _ = _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt', n_grams, target, 
+                                                                  training=True, feature_count=feature_count)
     tfidf = _train_save_tfidf(f'nlp_training_data/{target}_subset_corpus.mm', target, training)
     print('    CREATING temporary txt file...')
     _make_temporary_txt(collection, X_train_ids)
     end = default_timer()
     print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
     print('    CREATING training set bow with txt file...')
-    train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
+    train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', 
+                                                                                          n_grams=n_grams)]
     end = default_timer()
     print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
     print('    CREATING training set tfidf with txt file...')
@@ -147,7 +150,7 @@ def _build_matrices(start, db_name, collection_name, target, n_grams, collection
     return scipy_X_train, scipy_X_test
 
 
-def _plot_roc_curves(y_test_list, pred_list, C, feature_count):
+def _plot_roc_curves(model_type, y_test_list, pred_list, C, feature_count):
     """plot roc curve for each cross_validated model"""
     tprs = []
     aucs = []
@@ -168,7 +171,7 @@ def _plot_roc_curves(y_test_list, pred_list, C, feature_count):
     ax.set_ylim([-0.01, 1.01])
     ax.set_xlabel('False Positive Rate')
     ax.set_ylabel('True Positive Rate')
-    ax.set_title(f'Logistic Regression ROC Feature Count = {feature_count}')
+    ax.set_title(f'{model_type} ROC Feature Count = {feature_count}')
     ax.legend(loc="lower right")
     fig.savefig(f'images/roc_cv_logistic_regression_{feature_count}.png')
     fig.show()
@@ -229,7 +232,6 @@ def _train_save_tfidf(filein, target, training=True):
                             'first by running the "train_save_dictionary_corpus" function.')
         tfidf = models.TfidfModel(corpus)
         tfidf.save(f'nlp_training_data/{target}_subset.tfidf')
-        tfidf_corpus = tfidf[corpus]
     else:
         try:
             corpus = corpora.MmCorpus(filein)
