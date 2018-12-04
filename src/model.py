@@ -51,8 +51,7 @@ def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
     dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
     tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
     print('CREATING stratified train/test split...')
-    _, X_train_ids, X_test_ids, y_train, y_test, _ = _get_train_test_ids(collection, 
-                                                      target, train_percentage=0.8) 
+    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = _get_train_test_ids(collection, target, train_percentage=0.8) 
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')    
     print('CREATING temporary txt file...')
@@ -103,59 +102,25 @@ def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collecti
     return y_test, preds, score, model
 
 
-def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle=True, feature_count=100000, n_grams=3, build_dict_tfidf=True):
+def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle=True, feature_count=100000, 
+                                                                     n_grams=3, build_sparse_matrices=True):
     """gridsearch without cross validation"""
     start = default_timer()
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
     print('Generating stratified train/test split ids from dataset')
-    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = _get_train_test_ids(collection, 
-                                                                            target, 
-                                                                            shuffle=shuffle,
-                                                                            train_percentage=0.8, 
-                                                                            seed=1) 
-    if build_dict_tfidf: 
-        _save_txt_nlp_data(db_name, collection_name, target, pos_ids=X_pos_train, training=True)
-        dictionary, _ = _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt',
-                                                                n_grams, target, training=True, 
-                                                                feature_count=feature_count)
-        tfidf = _train_save_tfidf(f'nlp_training_data/{target}_subset_corpus.mm', target, training=True)
+    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = _get_train_test_ids(collection, target, shuffle=shuffle, train_percentage=0.8, seed=1) 
+    if build_sparse_matrices: 
+        scipy_X_train, scipy_X_test = _build_matrices(start, db_name, collection_name, target, n_grams, collection, feature_count, X_train_ids, X_test_ids, pos_ids=X_pos_train, training=True)
     else:
         try:
-            dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
-            tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
+            scipy_X_train = pickle.load(open('nlp_training_data/scipy_X_train.pkl', 'wb'))
+            scipy_X_test = pickle.load(open('nlp_training_data/scipy_X_test.pkl', 'wb'))
             print('Loaded saved dictionary and tfidf models')
         except:
             print(f"Can't find saved dictionary. Try running function with: build_dict_tfidf=True")
-    print('    CREATING temporary txt file...')
-    _make_temporary_txt(collection, X_train_ids)
-    end = default_timer()
-    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('    CREATING training set bow with txt file...')
-    train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
-    end = default_timer()
-    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('    CREATING training set tfidf with txt file...')
-    X_train_tfidf = tfidf[train_bow]
-    pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
-    end = default_timer()
-    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('    CONVERTING tfidf training model to scipy sparse matrix...')
-    scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
-    end = default_timer()
-    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
-    _make_temporary_txt(collection, X_test_ids)
-    print('    CREATING test set bow with txt file...')
-    test_bow = [dictionary.doc2bow(word) for word in 
-                    _list_grams('/tmp/docs_for_sparse_vectorization.txt',
-                    n_grams=n_grams)]
-    print('    CREATING test tfidf...')
-    X_test_tfidf = tfidf[test_bow]
-    end = default_timer()
-    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('    CONVERTING tfidf testing model to scipy sparse matrix...')
-    scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
+    
     model_list = []
     y_test_list = []
     pred_list = []
@@ -184,6 +149,43 @@ def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle
         print()
     _plot_roc_curves(y_test_list, pred_list, c, feature_count)
     return score_list, y_test_list, pred_list, prec_rec_f_list, model_list, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test
+
+def _build_matrices(start, db_name, collection_name, target, n_grams, collection, feature_count, X_train_ids, X_test_ids, pos_ids, training=True):
+    """builds, saves, and returns scipy sparse matrices for training and testing sklearn models"""
+    _save_txt_nlp_data(db_name, collection_name, target, pos_ids, training)
+    dictionary, _ = _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt', n_grams, target, training=True, feature_count=feature_count)
+    tfidf = _train_save_tfidf(f'nlp_training_data/{target}_subset_corpus.mm', target, training)
+    print('    CREATING temporary txt file...')
+    _make_temporary_txt(collection, X_train_ids)
+    end = default_timer()
+    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('    CREATING training set bow with txt file...')
+    train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
+    end = default_timer()
+    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('    CREATING training set tfidf with txt file...')
+    X_train_tfidf = tfidf[train_bow]
+    pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
+    end = default_timer()
+    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('    CONVERTING tfidf training model to scipy sparse matrix...')
+    scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
+    pickle.dump(scipy_X_train, open('nlp_training_data/scipy_X_train.pkl', 'wb'))
+    end = default_timer()
+    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+    _make_temporary_txt(collection, X_test_ids)
+    print('    CREATING test set bow with txt file...')
+    test_bow = [dictionary.doc2bow(word) for word in 
+                    _list_grams('/tmp/docs_for_sparse_vectorization.txt',
+                    n_grams=n_grams)]
+    print('    CREATING test tfidf...')
+    X_test_tfidf = tfidf[test_bow]
+    end = default_timer()
+    print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
+    print('    CONVERTING tfidf testing model to scipy sparse matrix...')
+    scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
+    pickle.dump(scipy_X_test, open('nlp_training_data/scipy_X_test.pkl', 'wb'))
+    return scipy_X_train, scipy_X_test
 
 def _plot_roc_curves(y_test_list, pred_list, C, feature_count):
     """plot roc curve for each cross_validated model"""
@@ -331,6 +333,7 @@ def _get_train_test_ids(collection, target, train_percentage=0.8, seed=None, shu
     return i, X_train_ids, X_test_ids, np.array(y_train), np.array(y_test), \
               X_pos_train, X_pos_test, X_neg_train, X_neg_test
     
+
 def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
     """generate k_fold indices for X_train, X_test, y_train, y_test"""
     if k_folds == 1:
