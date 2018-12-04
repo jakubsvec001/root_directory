@@ -8,7 +8,7 @@ import sys
 import pickle
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegressionCV
 from sklearn.metrics import log_loss, roc_curve, auc, precision_recall_fscore_support
 from bson.objectid import ObjectId
 from scipy import interp
@@ -23,76 +23,29 @@ from sklearn.feature_extraction import stop_words
 from timeit import default_timer 
 
 
-def list_available_collections():
-    return MongoClient()['wiki_cache'].list_collection_names()
-
-# def create_save_nlp_train_topic_model(db_name, collection_name, target, n_grams=3, subset=0.8):
-#     """with input of a category, creates a txt file of a SUBSET of the target,
-#         trains a dictionary, and trains a tfidf model. Saves these to files"""
-#     _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=subset)
-#     _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt', n_grams, target, training=True)
-#     _train_save_tfidf(f'nlp_training_data/{target}_subset_corpus.mm', target, training=True)
-
-
-# def create_save_nlp_full_topic_model(db_name, collection_name, target, n_grams=3, subset=0.8):
-#     """with input of a category, creates a txt file of a FULL of the target,
-#         trains a dictionary, and trains a tfidf model. Saves these to files"""
-#     _save_txt_nlp_data(db_name, collection_name, target, training=False, subset=subset)
-#     _train_save_dictionary_corpus(f'nlp_training_data/{target}_full.txt', n_grams, target, training=False)
-#     _train_save_tfidf(f'nlp_training_data/{target}_full_corpus.mm', target, training=False)
-
-
-def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3):
+def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3, shuffle=True, 
+                                          feature_count=100000, build_sparse_matrices=True):
     """train naive bayes model using a train/test split. Return predictions, score"""
     start = default_timer()
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
-    dictionary = corpora.Dictionary.load(f'nlp_training_data/{target}_subset.dict')
-    tfidf = models.TfidfModel.load(f'nlp_training_data/{target}_subset.tfidf')
-    print('CREATING stratified train/test split...')
-    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = _get_train_test_ids(collection, target, train_percentage=0.8) 
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')    
-    print('CREATING temporary txt file...')
-    _make_temporary_txt(collection, X_train_ids)
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('CREATING training set bow with txt file')
-    train_bow = [dictionary.doc2bow(word) for word in _list_grams('/tmp/docs_for_sparse_vectorization.txt', n_grams=n_grams)]
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('CREATING training set tfidf with txt file...')
-    X_train_tfidf = tfidf[train_bow]
-    pickle.dump(X_train_tfidf, open(f'nlp_training_data/{target}_X_train_tfidf.pkl', 'wb'))
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    y_test, preds, score, model = _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf)
-    print(score)
-    return y_test, preds, score, model
-    
-
-def _fit_multinomial_nb(start, X_train_tfidf, y_train, y_test, db_name, collection, target, n_grams, X_test_ids, dictionary, tfidf):
-    """fit the multinomial naive bayes model"""
-    print('FITTING multinomial naive bayes model...')
-    scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
+    print('Generating stratified train/test split ids from dataset')
+    output = _get_train_test_ids(collection, target, shuffle=shuffle, train_percentage=0.8, seed=1) 
+    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = output
+    if build_sparse_matrices: 
+        output = _build_matrices(start, db_name, collection_name, target, n_grams, collection, 
+                                 feature_count, X_train_ids, X_test_ids, pos_ids=X_pos_train, training=True)
+        scipy_X_train, scipy_X_test = output
+    else:
+        try:
+            scipy_X_train = pickle.load(open('nlp_training_data/scipy_X_train.pkl', 'rb'))
+            scipy_X_test = pickle.load(open('nlp_training_data/scipy_X_test.pkl', 'rb'))
+            print('Loaded saved dictionary and tfidf models')
+        except:
+            print(f"Can't find saved dictionary. Try running function with: build_dict_tfidf=True")
+            
     model = MultinomialNB().fit(scipy_X_train, y_train)
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print(f'Pickling model, saving to "nlp_training_data/{target}_multinomialNB_model.pkl"...')
-    pickle.dump(model, open(f'nlp_training_data/{target}_multinomialNB_model.pkl', 'wb'))
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('CREATING test tfidf...')
-    _make_temporary_txt(collection, X_test_ids)
-    test_bow = [dictionary.doc2bow(word) for word in 
-                     _list_grams('/tmp/docs_for_sparse_vectorization.txt',
-                      n_grams=n_grams)]
-    X_test_tfidf = tfidf[test_bow]
-    end = default_timer()
-    print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
-    print('GENERATING predictions...')
-    scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
     preds = model.predict_proba(scipy_X_test)
     end = default_timer()
     print(f'    Elapsed time: {round((end-start)/60, 2)} minutes')
@@ -110,13 +63,16 @@ def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle
     db = mc[db_name]
     collection = db[collection_name]
     print('Generating stratified train/test split ids from dataset')
-    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = _get_train_test_ids(collection, target, shuffle=shuffle, train_percentage=0.8, seed=1) 
+    output = _get_train_test_ids(collection, target, shuffle=shuffle, train_percentage=0.8, seed=1) 
+    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = output
     if build_sparse_matrices: 
-        scipy_X_train, scipy_X_test = _build_matrices(start, db_name, collection_name, target, n_grams, collection, feature_count, X_train_ids, X_test_ids, pos_ids=X_pos_train, training=True)
+        output = _build_matrices(start, db_name, collection_name, target, n_grams, collection, feature_count,
+                                                  X_train_ids, X_test_ids, pos_ids=X_pos_train, training=True)
+        scipy_X_train, scipy_X_test = output
     else:
         try:
-            scipy_X_train = pickle.load(open('nlp_training_data/scipy_X_train.pkl', 'wb'))
-            scipy_X_test = pickle.load(open('nlp_training_data/scipy_X_test.pkl', 'wb'))
+            scipy_X_train = pickle.load(open('nlp_training_data/scipy_X_train.pkl', 'rb'))
+            scipy_X_test = pickle.load(open('nlp_training_data/scipy_X_test.pkl', 'rb'))
             print('Loaded saved dictionary and tfidf models')
         except:
             print(f"Can't find saved dictionary. Try running function with: build_dict_tfidf=True")
@@ -129,7 +85,7 @@ def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle
     for c in C:
         print(f'RUNNING GRIDSEARCH FOR {c}...')
         print('    FITTING logistic regression model...')
-        model = LogisticRegression(penalty='l2', solver='saga', C=c).fit(scipy_X_train, y_train)
+        model = LogisticRegressionCV(penalty='l2', solver='saga', Cs=c, scoring='log_loss').fit(scipy_X_train, y_train)
         print('    GENERATING predictions...')
         predictions = model.predict_proba(scipy_X_test)
         end = default_timer()
@@ -148,9 +104,12 @@ def grid_search_logistic_regression(db_name, collection_name, target, C, shuffle
         print(f'score: {score}')
         print()
     _plot_roc_curves(y_test_list, pred_list, c, feature_count)
-    return score_list, y_test_list, pred_list, prec_rec_f_list, model_list, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test
+    return (score_list, y_test_list, pred_list, prec_rec_f_list, model_list, X_train_ids, X_test_ids, 
+                                   y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test)
 
-def _build_matrices(start, db_name, collection_name, target, n_grams, collection, feature_count, X_train_ids, X_test_ids, pos_ids, training=True):
+
+def _build_matrices(start, db_name, collection_name, target, n_grams, collection, 
+                    feature_count, X_train_ids, X_test_ids, pos_ids, training=True):
     """builds, saves, and returns scipy sparse matrices for training and testing sklearn models"""
     _save_txt_nlp_data(db_name, collection_name, target, pos_ids, training)
     dictionary, _ = _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt', n_grams, target, training=True, feature_count=feature_count)
@@ -186,6 +145,7 @@ def _build_matrices(start, db_name, collection_name, target, n_grams, collection
     scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
     pickle.dump(scipy_X_test, open('nlp_training_data/scipy_X_test.pkl', 'wb'))
     return scipy_X_train, scipy_X_test
+
 
 def _plot_roc_curves(y_test_list, pred_list, C, feature_count):
     """plot roc curve for each cross_validated model"""
@@ -382,7 +342,6 @@ def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
     y_test = pos_test_y_list + neg_test_y_list  
     yield k_folds-1, X_train_ids, X_test_ids, y_train, y_test 
 
-    
 
 def _remove_extra_words(dictionary):
     """DEPRICATED! remove words that appear only once"""
@@ -420,3 +379,19 @@ if __name__ == '__main__':
     arg1 = sys.argv[1]
     arg2 = sys.argv[2]
     main(arg1, arg2)
+
+
+# def create_save_nlp_train_topic_model(db_name, collection_name, target, n_grams=3, subset=0.8):
+#     """with input of a category, creates a txt file of a SUBSET of the target,
+#         trains a dictionary, and trains a tfidf model. Saves these to files"""
+#     _save_txt_nlp_data(db_name, collection_name, target, training=True, subset=subset)
+#     _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt', n_grams, target, training=True)
+#     _train_save_tfidf(f'nlp_training_data/{target}_subset_corpus.mm', target, training=True)
+
+
+# def create_save_nlp_full_topic_model(db_name, collection_name, target, n_grams=3, subset=0.8):
+#     """with input of a category, creates a txt file of a FULL of the target,
+#         trains a dictionary, and trains a tfidf model. Saves these to files"""
+#     _save_txt_nlp_data(db_name, collection_name, target, training=False, subset=subset)
+#     _train_save_dictionary_corpus(f'nlp_training_data/{target}_full.txt', n_grams, target, training=False)
+#     _train_save_tfidf(f'nlp_training_data/{target}_full_corpus.mm', target, training=False)
