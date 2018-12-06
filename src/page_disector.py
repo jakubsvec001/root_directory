@@ -3,6 +3,7 @@ import re
 from gensim.corpora import wikicorpus
 from bs4 import BeautifulSoup as bs
 
+
 def disect_page(title, xml):
     """parse raw wikipedia xml"""
     # extract links from xml
@@ -24,17 +25,18 @@ def disect_page(title, xml):
     # extract the timestamp
     timestamp = soup.select_one('timestamp').text
     # extract headers
-    headers =_get_features(soup.text)
-    # convert to markup, remove markup text, strip remaining text, replace newline characters
+    headers = _get_features(soup.text)
+    # convert to markup, remove markup text,
+    # strip remaining text, replace newline characters
     markup_text = soup.select_one('text').text
     text_remove_markup = wikicorpus.remove_markup(markup_text)
     text_strip_code = mwparserfromhell.parse(text_remove_markup).strip_code()
     clean_text = _replace_multiple(text_strip_code, ['\n', '(', ')', ',', ';', '[', ']', '"', ':'], ' ')
     feature_union = _join_features(title, headers, clean_text, cleaned_links)
-    return {'title': title, 
+    return {'title': title,
             'clean_text': clean_text,
-            'timestamp': timestamp, 
-            'headers': headers, 
+            'timestamp': timestamp,
+            'headers': headers,
             'clean_links':cleaned_links,
             'parent_categories': [title, categories],
             'feature_union': feature_union}
@@ -42,10 +44,10 @@ def disect_page(title, xml):
 
 def _replace_multiple(main_string, to_be_replaced, new_string):
     """replace extra elements in a text string"""
-    for elem in to_be_replaced :
-        if elem in main_string :
+    for elem in to_be_replaced:
+        if elem in main_string:
             main_string = main_string.replace(elem, new_string)
-    return  main_string
+    return main_string
 
 
 def _get_links(xml):
@@ -54,8 +56,8 @@ def _get_links(xml):
     for link in links:
         if '|' in link:
             clean_links.append(link.partition('|')[0].replace('#', ' '))
-        else: 
-            clean_links.append(link.replace('#',' '))
+        else:
+            clean_links.append(link.replace('#', ' '))
     return clean_links
 
 
@@ -102,9 +104,9 @@ def _clean_links_list(links_list):
             clean_links.append(link.replace('&amp;', ' ').strip())
     scrubbed_links = []
     for link in clean_links:
-        scrubbed_links.append(_replace_multiple(link, 
-                                ['\n', '(', ')', ',', ';', '[', ']', '"', ':'], 
-                                ' '))
+        scrubbed_links.append(_replace_multiple(link,
+                              ['\n', '(', ')', ',', ';', '[', ']', '"', ':'],
+                              ' '))
     return scrubbed_links
 
 
@@ -117,9 +119,9 @@ def _get_features(text):
             headers.append(mwparserfromhell.parse(header).strip_code())
     clean_headers = []
     for header in headers:
-        clean_headers.append(_replace_multiple(header, 
-                                ['\n', '(', ')', ',', ';', '[', ']', '"', ':'], 
-                                ' '))
+        clean_headers.append(_replace_multiple(header,
+                             ['\n', '(', ')', ',', ';', '[', ']', '"', ':'],
+                             ' '))
     return clean_headers
 
 
@@ -128,24 +130,25 @@ def _join_features(page_title, headers, clean_text, cleaned_links):
 
 
 # Find math content:
-re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
+re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL | re.UNICODE)
 # Find all other tags:
-re_all_tags = re.compile(r'<(.*?)>', re.DOTALL|re.UNICODE)
+re_all_tags = re.compile(r'<(.*?)>', re.DOTALL | re.UNICODE)
 # Find category markup:
-re_categories = re.compile(r'\[\[([cC]ategory:[^][]*)\]\]', re.UNICODE) 
+re_categories = re.compile(r'\[\[([cC]ategory:[^][]*)\]\]', re.UNICODE)
 # rm File and Image templates:
 re_rm_file_image = re.compile(r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
 # Capture interlinks text and article linked:
 re_interlinkstext_link = re.compile(r'\[{2}(.*?)\]{2}', re.UNICODE)
 # Simplify links, keep description:
-re_simplify_link = re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL|re.UNICODE)
+re_simplify_link = re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL | re.UNICODE)
 # Keep image Description:
 re_image_description = re.compile(r'\[\[[iI]mage(.*?)(\|.*?)*?\|(.*?)\]\]', re.UNICODE)
 # Keep file descirption:
 re_file_description = re.compile(r'\[\[[fF]ile:(.*?)(\|.*?)+\]\]', re.UNICODE)
-# re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*?\|(.*?)\]\]', re.UNICODE)
+# re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*?\|(.*?)\]\]',
+#                                  re.UNICODE)
 # External links:
-re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
+re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL | re.UNICODE)
 
 
 if __name__ == '__main__':

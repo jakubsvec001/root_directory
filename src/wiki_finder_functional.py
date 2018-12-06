@@ -6,8 +6,8 @@ import mwparserfromhell
 import re
 import json
 from timeit import default_timer as timer
-from multiprocessing import Pool 
-import tqdm 
+from multiprocessing import Pool
+import tqdm
 from itertools import chain
 from functools import partial
 import pandas as pd
@@ -16,11 +16,11 @@ from pymongo import MongoClient
 from gensim.corpora import wikicorpus
 
 
-def get_lines_bz2(filename, limit=None): 
+def get_lines_bz2(filename, limit=None):
     """yield each uncompressed line from bz2 file"""
-    for i, line in enumerate(subprocess.Popen(['bzcat'], 
-                             stdin = open(filename, 'rb'), 
-                             stdout = subprocess.PIPE
+    for i, line in enumerate(subprocess.Popen(['bzcat'],
+                             stdin=open(filename, 'rb'),
+                             stdout=subprocess.PIPE
                              ).stdout):
         yield line.decode()
         if limit and i >= limit:
@@ -28,7 +28,8 @@ def get_lines_bz2(filename, limit=None):
 
 
 def find_pages(lines, input_titles, limit=None):
-    """yield each page from a wikidump"""
+    """yield each page from a wikidump, extracting
+       only pages in input_titles"""
     found_count = 0
     search_count = 0
     page = []
@@ -46,7 +47,8 @@ def find_pages(lines, input_titles, limit=None):
                 found_count += 1
                 yield parsed
             page = []
-            sys.stdout.write('\r' + f'Found articles: {found_count} Search count: {search_count}')
+            sys.stdout.write('\r' + f'Found articles: {found_count}' +
+                             f'Search count: {search_count}')
             if limit:
                 if found_count >= limit:
                     break
@@ -58,7 +60,7 @@ target = 'math'
 def parse_page(raw_xml, input_titles):
     """Return a dict of page content:
     title, timestamp, id, raw_xml"""
-    
+
     # Find math content:
     re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
     # Find all other tags:
@@ -77,7 +79,7 @@ def parse_page(raw_xml, input_titles):
     re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
     # External links:
     re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
-    
+
     global target
     soup = bs(raw_xml, 'lxml')
     title = soup.select_one('title').text
@@ -124,7 +126,7 @@ def parse_page(raw_xml, input_titles):
         return {
             'title': title,
             'timestamp': timestamp ,
-            'id_': id_, 
+            'id_': id_,
             'full_raw_xml': raw_xml,
             'full_markup_text': ''.join(markup_text),
             'cleaned_markup_text': ' '.join(cleaned_text),
@@ -180,8 +182,8 @@ def strip_stripped_code(wiki):
         if line.startswith(kw):
             continue
         cleaned.append(line)
-    return cleaned    
-        
+    return cleaned
+
 
 def multi_process_corpus(dump_file, title_file):
     """creates a multiprocessing pool to search multiple
@@ -200,7 +202,7 @@ def multi_process_corpus(dump_file, title_file):
     pool.join()
 
     end = timer()
-    stopwatch = round((start - end)/60, 2) 
+    stopwatch = round((start - end)/60, 2)
     print(f'{stopwatch} seconds elapsed.')
 
 def main():
@@ -214,8 +216,8 @@ def main():
     if len(sys.argv) != 4:
         print(f"Usage: python wiki_parse.py <dump directory> <target article file> <topic target name>\nArgs given: {len(sys.argv)}")
         sys.exit(1)
-    
-    pool = Pool(processes = os.cpu_count()) 
+
+    pool = Pool(processes = os.cpu_count())
 
     # Map (service, tasks), applies function to each partition
     results = pool.map(create_corpus, dumps[:n])
@@ -229,4 +231,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()    
+    main()

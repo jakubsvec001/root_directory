@@ -20,10 +20,11 @@ def disect_update_database(db_name, collection_name):
     document_generator = mongodb_page_stream(collection)
     count = 0
     for document in document_generator:
-        features = disector.disect_page(document['title'], document['full_raw_xml'])
+        features = disector.disect_page(document['title'],
+                                        document['full_raw_xml'])
         _update_document(collection, features)
-        count +=1
-        sys.stdout.write('\r'+ f'YAAAAAAAS! Updated {count} documents!')
+        count += 1
+        sys.stdout.write('\r' + f'YAAAAAAAS! Updated {count} documents!')
 
 
 def mongodb_page_stream(collection):
@@ -32,7 +33,9 @@ def mongodb_page_stream(collection):
     return document_generator
 
 
-def convert_wiki_cache_to_edgelist(collection_name_out, db_name='wiki_cache', new_collection='small_edgelist'):
+def convert_wiki_cache_to_edgelist(collection_name_out,
+                                   db_name='wiki_cache',
+                                   new_collection='small_edgelist'):
     """Use wiki_cache database and convert it to a small edgelist collection"""
     mc = MongoClient()
     db = mc[db_name]
@@ -44,16 +47,19 @@ def convert_wiki_cache_to_edgelist(collection_name_out, db_name='wiki_cache', ne
         page = page['parent_categories']
         title = page[0]
         categories = page[1]
-        cached_child = collection_in.find_one({'parent_categories': [title, categories]})
+        cached_child = collection_in.find_one({'parent_categories':
+                                              [title, categories]})
         if cached_child is None:
-            collection_in.insert_one({'parent_categories': [title, categories]})
-    
+            collection_in.insert_one({'parent_categories':
+                                     [title, categories]})
+
 
 def _update_document(collection, features):
     """Used by disect_update_database(). Updates a document in mongodb"""
-    collection.update_one({'title': features['title']}, {'$set': 
-                                                           {'feature_union': features['feature_union'],
-                                                            'parent_categories': features['parent_categories']}})
+    collection.update_one({'title': features['title']},
+                          {'$set': {'feature_union': features['feature_union'],
+                                    'parent_categories':
+                                    features['parent_categories']}})
 
 
 def num_target_col_db(db_name, collection_name, target_name):
@@ -70,12 +76,12 @@ def num_target_col_db(db_name, collection_name, target_name):
             target = 1
         else:
             target = 0
-        collection.update({'_id': ObjectId(_id)}, {'$set' : 
-                                                            {'idx/target': (idx, target)}})
+        collection.update({'_id': ObjectId(_id)},
+                          {'$set': {'idx/target': (idx, target)}})
 
 
 def _check_target_presence_in_db(collection, target_name):
-    """check for presence of target in db 
+    """check for presence of target in db
     before adding num_target column"""
     docs = collection.find()
     hit = False
@@ -83,8 +89,8 @@ def _check_target_presence_in_db(collection, target_name):
         if doc['target'] == target_name:
             hit = True
             break
-    if hit == False:
-        raise ValueError('OH NOOO! No targets saved. '+
+    if hit is False:
+        raise ValueError('OH NOOO! No targets saved. ' +
                          'Check your target_name parameter')
 
 

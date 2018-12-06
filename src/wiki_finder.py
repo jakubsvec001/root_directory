@@ -1,17 +1,13 @@
-from bs4 import BeautifulSoup as bs
+import pandas as pd
 import subprocess
+import mwparserfromhell
+import glob
 import os
 import sys
-import mwparserfromhell
 import re
 import json
 from timeit import default_timer as timer
-from multiprocessing import Pool
-import tqdm
-from itertools import chain
-from functools import partial
-import pandas as pd
-import glob
+from bs4 import BeautifulSoup as bs
 from pymongo import MongoClient
 from gensim.corpora import wikicorpus
 
@@ -22,8 +18,8 @@ class WikiFinder(object):
     one at a time searching for page tags"""
 
     def __init__(self, titles_csv, target=None, save=True, page_limit=None):
-        self.titles_to_find = pd.read_csv(titles_csv, sep='\t', encoding='utf-8') \
-                                          ['cleaned_url'].values
+        self.titles_to_find = pd.read_csv(
+            titles_csv, sep='\t', encoding='utf-8')['cleaned_url'].values
         self.target = target
         self.save = save
         self.page_limit = page_limit
