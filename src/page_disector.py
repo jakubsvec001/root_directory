@@ -31,13 +31,15 @@ def disect_page(title, xml):
     markup_text = soup.select_one('text').text
     text_remove_markup = wikicorpus.remove_markup(markup_text)
     text_strip_code = mwparserfromhell.parse(text_remove_markup).strip_code()
-    clean_text = _replace_multiple(text_strip_code, ['\n', '(', ')', ',', ';', '[', ']', '"', ':'], ' ')
+    clean_text = _replace_multiple(text_strip_code,
+                                   ['\n', '(', ')', ',', ';',
+                                    '[', ']', '"', ':'], ' ')
     feature_union = _join_features(title, headers, clean_text, cleaned_links)
     return {'title': title,
             'clean_text': clean_text,
             'timestamp': timestamp,
             'headers': headers,
-            'clean_links':cleaned_links,
+            'clean_links': cleaned_links,
             'parent_categories': [title, categories],
             'feature_union': feature_union}
 

@@ -200,9 +200,18 @@ def page_generator(lines, limit=None):
             raw_xml = ''.join(page)
             yield raw_xml
             page = []
-            sys.stdout.write('\r'+f'Search count: {search_count}')
+            sys.stdout.write('\r' + f'Search count: {search_count}')
             if limit:
                 if search_count >= limit:
                     break
         elif inpage:
             page.append(line)
+
+
+def identify_page(raw_xml):
+    """Indentify whether or not article is in self.titles_to_find"""
+    soup = bs(raw_xml, 'lxml')
+    title = soup.select_one('title').text
+    return {'title': title,
+            'full_raw_xml': raw_xml,
+            }
