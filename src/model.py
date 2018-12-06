@@ -1,11 +1,13 @@
 import src.wiki_db_parser as wdbp
 import src.page_disector as disector
+import src.wiki_finder as wf
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import random
 import sys
 import pickle
+import scipy
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
@@ -24,21 +26,6 @@ from bson.objectid import ObjectId
 from sklearn.feature_extraction import stop_words
 from timeit import default_timer
 import pandas as pd
-
-
-def deploy_model(target, n_grams):
-    """deploy the model"""
-    dictionary = corpora.Dictionary.load(
-        f'nlp_training_data/{target}_full.dict')
-    tfidf = models.TfidfModel.load(
-        f'nlp_training_data/{target}_full.tfidf')
-    test_row = [dictionary.doc2bow(word) for word in _list_grams(
-        '/tmp/docs_for_sparse_vectorization.txt',
-        n_grams=n_grams)]
-    print('    CREATING test tfidf...')
-    X_row = tfidf[test_row]
-    print('    CONVERTING x_row to scipy sparse matrix row...')
-    scipy_sparse_row = matutils.corpus2csc(X_test_tfidf).transpose()
 
 
 def cross_validate_multinomial_nb(db_name,
