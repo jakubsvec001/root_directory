@@ -6,8 +6,8 @@ import mwparserfromhell
 import re
 import json
 from timeit import default_timer as timer
-from multiprocessing import Pool 
-import tqdm 
+from multiprocessing import Pool
+import tqdm
 from itertools import chain
 from functools import partial
 import pandas as pd
@@ -17,12 +17,13 @@ from gensim.corpora import wikicorpus
 
 
 class WikiFinder(object):
-    """Parse Wikipedia data dump files located at 
+    """Parse Wikipedia data dump files located at
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for page tags"""
 
     def __init__(self, titles_csv, target=None, save=True, page_limit=None):
-        self.titles_to_find = pd.read_csv(titles_csv, sep='\t', encoding='utf-8')['cleaned_url'].values
+        self.titles_to_find = pd.read_csv(titles_csv, sep='\t', encoding='utf-8') \
+                                          ['cleaned_url'].values
         self.target = target
         self.save = save
         self.page_limit = page_limit
@@ -50,20 +51,32 @@ class WikiFinder(object):
         stopwatch = f'It took {time} minutes to complete the search'
         return stopwatch
 
-    def _get_lines_bz2(self, filename): 
+    def _get_lines_bz2(self, filename):
         """yield each uncompressed line from bz2 file"""
-        for i, line in enumerate(subprocess.Popen(['bzcat'], 
-                                    stdin = open(filename, 'rb'), 
-                                    stdout = subprocess.PIPE
-                                    ).stdout):
+        for i, line in enumerate(subprocess.Popen(['bzcat'],
+                                 stdin=open(filename, 'rb'),
+                                 stdout=subprocess.PIPE).stdout):
             yield line.decode()
             if self.page_limit and i >= self.page_limit:
                 break
 
     def _find_pages(self, lines):
-        """yield each page from a wikidump"""
+        """yield each page parsed from a wikidump"""
         found_count = 0
         search_count = 0
+        for raw_xml in self._find_pages_raw_xml(lines):
+            parsed = self._identify_page(raw_xml)
+            if parsed:
+                found_count += 1
+                yield parsed
+                sys.stdout.write('\r' + f'Found articles: {found_count} ' +
+                                 'Search count: {search_count}')
+                if self.page_limit:
+                    if found_count >= self.page_limit:
+                        break
+
+    def _find_pages_raw_xml(self, lines):
+        """Yield raw xml for each page from a wikidump."""
         page = []
         inpage = False
         for line in lines:
@@ -74,20 +87,13 @@ class WikiFinder(object):
                 search_count += 1
                 inpage = False
                 raw_xml = ''.join(page)
-                parsed = self._identify_page(raw_xml)
-                if parsed:
-                    found_count += 1
-                    yield parsed
+                yield raw_xml
                 page = []
-                sys.stdout.write('\r' + f'Found articles: {found_count} Search count: {search_count}')
-                if self.page_limit:
-                    if found_count >= self.page_limit:
-                        break
             elif inpage:
                 page.append(line)
 
     def _identify_page(self, raw_xml):
-        """Indentify whether or not article is in self.titles_to_find"""        
+        """Indentify whether or not article is in self.titles_to_find"""
         soup = bs(raw_xml, 'lxml')
         title = soup.select_one('title').text
         if title in self.titles_to_find:
@@ -97,9 +103,8 @@ class WikiFinder(object):
                     }
 
 
-
 class CatFinder(object):
-    """Parse Wikipedia data dump files located at 
+    """Parse Wikipedia data dump files located at
     https://dumps.wikimedia.org/enwiki/latest/
     one at a time searching for category edges"""
 
@@ -117,7 +122,8 @@ class CatFinder(object):
             collection = db[output_collection]
             for title, categories in pages:
                 if categories != []:
-                    collection.insert_one({'parent_categories': [title, categories]})
+                    collection.insert_one({'parent_categories':
+                                          [title, categories]})
         else:
             pages = list(pages)
             return pages
@@ -144,28 +150,63 @@ class CatFinder(object):
                     found_count += 1
                     yield title, categories
                 page = []
-                sys.stdout.write('\r' + f'Found articles: {found_count} Search count: {search_count}')
+                sys.stdout.write('\r' + f'Found articles: {found_count} ' +
+                                 'Search count: {search_count}')
                 if self.page_limit:
                     if found_count >= self.page_limit:
                         break
             elif inpage:
                 page.append(line)
 
-    def _get_lines_bz2(self, filename): 
+    def _get_lines_bz2(self, filename):
         """yield each uncompressed line from bz2 file"""
-        for i, line in enumerate(subprocess.Popen(['bzcat'], 
-                                    stdin = open(filename, 'rb'), 
-                                    stdout = subprocess.PIPE
-                                    ).stdout):
+        for i, line in enumerate(subprocess.Popen(['bzcat'],
+                                 stdin=open(filename, 'rb'),
+                                 stdout=subprocess.PIPE
+                                 ).stdout):
             yield line.decode()
             if self.page_limit and i >= self.page_limit:
                 break
 
     def _parse_edges(self, raw_xml):
         # Find category markup:
-        re_categories = re.compile(r'\[\[([cC]ategory:[^][]*)\]\]', re.UNICODE) 
+        re_categories = re.compile(r'\[\[([cC]ategory:[^][]*)\]\]',
+                                   re.UNICODE)
         categories = re_categories.findall(raw_xml)
         soup = bs(raw_xml, 'lxml')
         title = soup.select_one('title').text
         return title, categories
-        
+
+
+def get_lines_bz2(filename, limit=None):
+    """yield each uncompressed line from bz2 file"""
+    for i, line in enumerate(subprocess.Popen(['bzcat'],
+                             stdin=open(filename, 'rb'),
+                             stdout=subprocess.PIPE
+                             ).stdout):
+        yield line.decode()
+        if limit and i >= limit:
+            break
+
+
+def page_generator(lines, limit=None):
+    """yield each page from wiki_dump"""
+    search_count = 0
+    page = []
+    inpage = False
+    for line in lines:
+        line = line.lstrip()
+        if line.startswith('<page>'):
+            inpage = True
+        elif line.startswith('</page>'):
+            search_count += 1
+            inpage = False
+            raw_xml = ''.join(page)
+            yield raw_xml
+            page = []
+            sys.stdout.write('\r'+f'Search count: {search_count}')
+            if limit:
+                if search_count >= limit:
+                    break
+        elif inpage:
+            page.append(line)
