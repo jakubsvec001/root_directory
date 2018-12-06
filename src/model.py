@@ -10,10 +10,15 @@ import pickle
 import scipy
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.naive_bayes import MultinomialNB
+<<<<<<< HEAD
 from sklearn.linear_model import LogisticRegression, LogisticRegressionCV
 from sklearn.metrics import (log_loss, confusion_matrix,
                              roc_curve, auc, precision_score,
                              recall_score)
+=======
+from sklearn.linear_model import LogisticRegressionCV
+from sklearn.metrics import log_loss, roc_curve, auc, precision_recall_fscore_support
+>>>>>>> e08e8dd246c7e1192dc49a416ba39793e99631a7
 from bson.objectid import ObjectId
 from scipy import interp
 from gensim import corpora, models, matutils
@@ -24,6 +29,7 @@ from smart_open import smart_open
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 from sklearn.feature_extraction import stop_words
+<<<<<<< HEAD
 from timeit import default_timer
 import pandas as pd
 
@@ -37,11 +43,20 @@ def cross_validate_multinomial_nb(db_name,
                                   build_sparse_matrices=True):
     """train naive bayes model using a train/test
     split. Return predictions, score"""
+=======
+from timeit import default_timer 
+
+
+def cross_validate_multinomial_nb(db_name, collection_name, target, n_grams=3, shuffle=True, 
+                                          feature_count=100000, build_sparse_matrices=True):
+    """train naive bayes model using a train/test split. Return predictions, score"""
+>>>>>>> e08e8dd246c7e1192dc49a416ba39793e99631a7
     start = default_timer()
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
     print('Generating stratified train/test split ids from dataset')
+<<<<<<< HEAD
     output = _get_train_test_ids(collection, target, shuffle=shuffle,
                                  train_percentage=0.8, seed=1)
     _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train = output
@@ -62,6 +77,22 @@ def cross_validate_multinomial_nb(db_name,
             print(f"Can't find saved dictionary. Try " +
                   "running function with: build_dict_tfidf=True")
 
+=======
+    output = _get_train_test_ids(collection, target, shuffle=shuffle, train_percentage=0.8, seed=1) 
+    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = output
+    if build_sparse_matrices: 
+        output = _build_matrices(start, db_name, collection_name, target, n_grams, collection, 
+                                 feature_count, X_train_ids, X_test_ids, pos_ids=X_pos_train, training=True)
+        scipy_X_train, scipy_X_test = output
+    else:
+        try:
+            scipy_X_train = pickle.load(open('nlp_training_data/scipy_X_train.pkl', 'rb'))
+            scipy_X_test = pickle.load(open('nlp_training_data/scipy_X_test.pkl', 'rb'))
+            print('Loaded saved dictionary and tfidf models')
+        except:
+            print(f"Can't find saved dictionary. Try running function with: build_dict_tfidf=True")
+            
+>>>>>>> e08e8dd246c7e1192dc49a416ba39793e99631a7
     model = MultinomialNB().fit(scipy_X_train, y_train)
     preds = model.predict_proba(scipy_X_test)
     end = default_timer()
@@ -82,6 +113,7 @@ def logistic_regression_cv(db_name, collection_name, target,
     db = mc[db_name]
     collection = db[collection_name]
     print('Generating stratified train/test split ids from dataset')
+<<<<<<< HEAD
     output = _get_train_test_ids(collection, target, shuffle=shuffle,
                                  train_percentage=0.8, seed=1)
     _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train = output
@@ -100,12 +132,29 @@ def logistic_regression_cv(db_name, collection_name, target,
             print('Loaded saved scipy_X_train and scipy_X_test matrices')
         except ValueError:
             print(f"Can't find saved sparse matrices")
+=======
+    output = _get_train_test_ids(collection, target, shuffle=shuffle, train_percentage=0.8, seed=1) 
+    _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test = output
+    if build_sparse_matrices: 
+        output = _build_matrices(start, db_name, collection_name, target, n_grams, collection, feature_count,
+                                                  X_train_ids, X_test_ids, pos_ids=X_pos_train, training=True)
+        scipy_X_train, scipy_X_test = output
+    else:
+        try:
+            scipy_X_train = pickle.load(open('nlp_training_data/scipy_X_train.pkl', 'rb'))
+            scipy_X_test = pickle.load(open('nlp_training_data/scipy_X_test.pkl', 'rb'))
+            print('Loaded saved dictionary and tfidf models')
+        except:
+            print(f"Can't find saved dictionary. Try running function with: build_dict_tfidf=True")
+    
+>>>>>>> e08e8dd246c7e1192dc49a416ba39793e99631a7
     model_list = []
     pred_list = []
     score_list = []
     for c in Cs:
         print(f'RUNNING GRIDSEARCH FOR {c}...')
         print('    FITTING logistic regression model...')
+<<<<<<< HEAD
         model = LogisticRegressionCV(penalty='l2',
                                      solver='saga',
                                      Cs=[c],
@@ -114,6 +163,9 @@ def logistic_regression_cv(db_name, collection_name, target,
                                      verbose=0,
                                      n_jobs=2)
         model.fit(scipy_X_train, y_train)
+=======
+        model = LogisticRegressionCV(penalty='l2', solver='saga', Cs=c, scoring='log_loss').fit(scipy_X_train, y_train)
+>>>>>>> e08e8dd246c7e1192dc49a416ba39793e99631a7
         print('    GENERATING predictions...')
         predictions = model.predict_proba(scipy_X_test)
         end = default_timer()
@@ -128,6 +180,7 @@ def logistic_regression_cv(db_name, collection_name, target,
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print(f'score: {score}')
         print()
+<<<<<<< HEAD
     _plot_roc_curves('Logistic Regression', y_test, Cs,
                      pred_list, feature_count)
     best_score_idx = np.argmin(score_list)
@@ -209,6 +262,16 @@ def _build_matrices(start, db_name, collection_name,
                     X_test_ids, pos_ids, training=True):
     """builds, saves, and returns scipy sparse matrices
     for training and testing sklearn models"""
+=======
+    _plot_roc_curves(y_test_list, pred_list, c, feature_count)
+    return (score_list, y_test_list, pred_list, prec_rec_f_list, model_list, X_train_ids, X_test_ids, 
+                                   y_train, y_test, X_pos_train, X_pos_test, X_neg_train, X_neg_test)
+
+
+def _build_matrices(start, db_name, collection_name, target, n_grams, collection, 
+                    feature_count, X_train_ids, X_test_ids, pos_ids, training=True):
+    """builds, saves, and returns scipy sparse matrices for training and testing sklearn models"""
+>>>>>>> e08e8dd246c7e1192dc49a416ba39793e99631a7
     _save_txt_nlp_data(db_name, collection_name, target, pos_ids, training)
     dictionary, _ = _train_save_dictionary_corpus(
         f'nlp_training_data/{target}_subset.txt', n_grams, target,
@@ -252,7 +315,11 @@ def _build_matrices(start, db_name, collection_name,
     return scipy_X_train, scipy_X_test
 
 
+<<<<<<< HEAD
 def _plot_roc_curves(model_type, y_test, Cs, pred_list, feature_count):
+=======
+def _plot_roc_curves(y_test_list, pred_list, C, feature_count):
+>>>>>>> e08e8dd246c7e1192dc49a416ba39793e99631a7
     """plot roc curve for each cross_validated model"""
     tprs = []
     aucs = []
