@@ -11,7 +11,8 @@ from selenium.webdriver import Firefox
 
 
 class TreeScraper(object):
-    """Scrape Wikipedia's Special Category Tree page: https://en.wikipedia.org/wiki/Special:CategoryTree
+    """Scrape Wikipedia's Special Category Tree page:
+    https://en.wikipedia.org/wiki/Special:CategoryTree
     EXAMPLE USE:
     import wikiscraper
     scraper = wikiscraper.WikiTreeScraper()
@@ -51,7 +52,8 @@ class TreeScraper(object):
                 else:
                     continue
             end = default_timer()
-            print(f'depth of { self.depth } took {str(round((end-start)/60, 2))} minutes to open')
+            print(f'depth of { self.depth } took {str(round((end-start)/60, 2))} ' +
+                  'minutes to open')
             html = self.browser.page_source
             soup = bs(html, 'html.parser')
             atag = soup.find_all('a', class_='CategoryTreeLabel')
@@ -74,7 +76,8 @@ class TreeScraper(object):
     def _save_csv(self):
         """Save to a csv file"""
         # Save pages and categories to a 'seed_pages' dir
-        self.df.to_csv(f'seed/{ self.category }_d{ self.depth }.csv', sep='\t', encoding='utf-8', index=False)
+        self.df.to_csv(f'seed/{ self.category }_d{ self.depth }.csv',
+                       sep='\t', encoding='utf-8', index=False)
 
     def _convert_utf8(self):
         """Convert the url column to utf-8 encoding"""
@@ -88,11 +91,15 @@ class TreeScraper(object):
         self.browser = Firefox()
         if self.all_pages == True:
             time.sleep(1)
-            self.browser.get(f'https://en.wikipedia.org/wiki/Special:CategoryTree?target={ self.category }&mode=all&namespaces=&title=Special%3ACategoryTree')
+            self.browser.get(
+                f'https://en.wikipedia.org/wiki/Special:CategoryTree?target=' +
+                '{ self.category }&mode=all&namespaces=&title=Special%3ACategoryTree')
             time.sleep(1)
             self._expand_all_categories()
         else:
             time.sleep(1)
-            self.browser.get(f'https://en.wikipedia.org/wiki/Special:CategoryTree?target={ self.category }&mode=categories&namespaces=&title=Special%3ACategoryTree')
+            self.browser.get(
+                f'https://en.wikipedia.org/wiki/Special:CategoryTree?target=' +
+                '{ self.category }&mode=categories&namespaces=&title=Special%3ACategoryTree')
             time.sleep(1)
             self._expand_all_categories()
