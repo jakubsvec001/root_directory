@@ -80,9 +80,9 @@ def cross_validate_multinomial_nb(db_name,
     else:
         try:
             scipy_X_train = pickle.load(open(
-                'nlp_training_data/scipy_X_train.pkl', 'rb'))
+                f'nlp_training_data/{target}_X_train_tfidf.pkl', 'rb'))
             scipy_X_test = pickle.load(open(
-                'nlp_training_data/scipy_X_test.pkl', 'rb'))
+                f'nlp_training_data/{target}_X_test_tfidf.pkl', 'rb'))
             print('Loaded saved dictionary and tfidf models')
         except ValueError:
             print(f"Can't find saved dictionary. Try " +
@@ -94,7 +94,8 @@ def cross_validate_multinomial_nb(db_name,
     print('SCORING model...')
     score = log_loss(y_test, preds.T[1])
     print('DONE!')
-    _plot_roc_curves('Multinomial_NM', [y_test], [preds], None, feature_count)
+    _plot_roc_curves('Multinomial_NM', target, [y_test],
+                     [preds], None, feature_count)
     return y_test, preds, score, model
 
 
@@ -119,9 +120,9 @@ def logistic_regression_cv(db_name, collection_name, target,
     else:
         try:
             scipy_X_train = pickle.load(open(
-                'nlp_training_data/scipy_X_train.pkl', 'rb'))
+                f'nlp_training_data/{target}_scipy_X_train.pkl', 'rb'))
             scipy_X_test = pickle.load(open(
-                'nlp_training_data/scipy_X_test.pkl', 'rb'))
+                f'nlp_training_data/{target}_scipy_X_test.pkl', 'rb'))
             print('Loaded saved scipy_X_train and scipy_X_test matrices')
         except ValueError:
             print(f"Can't find saved sparse matrices")
@@ -145,7 +146,7 @@ def logistic_regression_cv(db_name, collection_name, target,
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print('    SCORING model...')
         score = log_loss(y_test, predictions.T[1])
-        print('DONE!')
+        print('    DONE!')
         model_list.append(model)
         pred_list.append(predictions)
         score_list.append(score)
@@ -153,7 +154,7 @@ def logistic_regression_cv(db_name, collection_name, target,
         print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
         print(f'score: {score}')
         print()
-    _plot_roc_curves('Logistic Regression', y_test, Cs,
+    _plot_roc_curves('Logistic Regression', target, y_test, Cs,
                      pred_list, feature_count)
     best_score_idx = np.argmin(score_list)
     best_score = score_list[best_score_idx]
@@ -177,18 +178,19 @@ def logistic_regression_model(db_name, collection_name,
     output = _get_train_test_ids(collection, target, shuffle=False,
                                  train_percentage=1, seed=1)
     _, X_train_ids, _, y_train, _, _ = output
+    C = float(C)
     if build_sparse_matrices:
         # save target article content to text file
         _save_txt_nlp_data(db_name, collection_name, target,
-                           X_train_ids, training=True)
+                           X_train_ids, training=False)
         # create dictionary from target text file
         dictionary, _ = _train_save_dictionary_corpus(
                             f'nlp_training_data/{target}_full.txt',
-                            n_grams, target, training=True,
+                            n_grams, target, training=False,
                             feature_count=feature_count)
         # generate tfidf model
         tfidf = _train_save_tfidf(f'nlp_training_data/{target}_full_corpus.mm',
-                                  target, training=True)
+                                  target, training=False)
         # get ids of target
         _make_temporary_txt(collection, X_train_ids)
         # create tfidf matrix from target articles
@@ -200,16 +202,16 @@ def logistic_regression_model(db_name, collection_name,
         scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
         # save sparse matrix
         pickle.dump(scipy_X_train, open(
-            'nlp_training_data/final_scipy_sparse_matrix.pkl', 'wb'))
+            'nlp_training_data/{target}_final_scipy_sparse_matrix.pkl', 'wb'))
     else:
         scipy_X_train = pickle.load(open(
-            'nlp_training_data/final_scipy_sparse_matrix.pkl', 'rb'))
+            f'nlp_training_data/{target}_final_scipy_sparse_matrix.pkl', 'rb'))
     print('Training Logisitic Regression on full training dataset')
     model = LogisticRegression(penalty='l2', solver='saga', C=C)
     model.fit(scipy_X_train, y_train)
     print('Saving model')
     pickle.dump(model, open(
-        'nlp_training_data/final_logistic_model.pkl', 'wb'))
+        'nlp_training_data/{target}_full_logistic_model.pkl', 'wb'))
     return model
 
 
@@ -223,27 +225,28 @@ def generate_confusion_matrix(y_test, predictions, start=10, stop=90, steps=5):
     return steps, matrices
 
 
-def generate_precision_recall_scores(y_test, predictions, cutoff):
-    precision = precision_score(y_test, predictions[:, 1] > cutoff)
-    recall = recall_score(y_test, predictions[:, 1] > cutoff)
+def generate_precision_recall_scores(y_test, predictions, threshold):
+    threshold = float(threshold)
+    precision = precision_score(y_test, predictions[:, 1] > threshold)
+    recall = recall_score(y_test, predictions[:, 1] > threshold)
     return precision, recall
 
 
-def get_TP_TN_FN_FP_titles(model, target, y_test, prediction, threshold,
-                           X_test_ids):
+def get_confusion_titles(model, target, y_test, prediction, threshold,
+                         X_test_ids):
     """return and save titles in different buckets or predictions"""
+    threshold = float(threshold)
     try:
-        scipy_X_test = pickle.load(open(
-                                   'nlp_training_data/scipy_X_test.pkl',
-                                   'rb'))
-        print('Loaded saved scipy_X_train and scipy_X_test matrices')
+        scipy_X_test = pickle.load(
+            open(f'nlp_training_data/{target}_scipy_X_test.pkl','rb'))
+        print('Loaded saved scipy_X_test matrices')
     except ValueError:
         print(f"Can't find saved sparse matrices")
     collection = MongoClient()['wiki_cache']['all']
     predicted = model.predict_proba(scipy_X_test)
     df = pd.DataFrame(y_test, columns=['actual'])
     df['predicted'] = predicted[:, 1]
-    df['>0.2'] = df['predicted'] > threshold
+    df['threshold_pred'] = df['predicted'] > threshold
     df['_id'] = X_test_ids
     titles = []
     for item in X_test_ids:
@@ -251,17 +254,29 @@ def get_TP_TN_FN_FP_titles(model, target, y_test, prediction, threshold,
         titles.append(article['title'])
     df['title'] = titles
     df['FP'] = np.where((df['actual'] == False) &
-                        (df['>0.2'] == True), True, False)
+                        (df['threshold_pred'] == True), True, False)
     df['TP'] = np.where((df['actual'] == True) &
-                        (df['>0.2'] == True), True, False)
+                        (df['threshold_pred'] == True), True, False)
     df['FN'] = np.where((df['actual'] == True) &
-                        (df['>0.2'] == False), True, False)
+                        (df['threshold_pred'] == False), True, False)
     df['TN'] = np.where((df['actual'] == False) &
-                        (df['>0.2'] == False), True, False)
-    FP = df[df['FP']==True][['title', 'predicted', 'actual', '>0.2']]
-    TN = df[df['TN']==True][['title', 'predicted', 'actual', '>0.2']]
-    FP = df[df['FP']==True][['title', 'predicted', 'actual', '>0.2']]
-    FN = df[df['FN']==True][['title', 'predicted', 'actual', '>0.2']]
+                        (df['threshold_pred'] == False), True, False)
+    FP = df[df['FP'] == True][['title', 'predicted',
+                               'actual', 'threshold_pred']]
+    TN = df[df['TN'] == True][['title', 'predicted',
+                               'actual', 'threshold_pred']]
+    FP = df[df['FP'] == True][['title', 'predicted',
+                               'actual', 'threshold_pred']]
+    FN = df[df['FN'] == True][['title', 'predicted',
+                               'actual', 'threshold_pred']]
+    FP.to_csv(f'results/FP_{target}_{threshold}_confusion_results.csv',
+              sep='\t', index=False)
+    TN.to_csv(f'results/TN_{target}_{threshold}_confusion_results.csv',
+              sep='\t', index=False)
+    FP.to_csv(f'results/FP_{target}_{threshold}_confusion_results.csv',
+              sep='\t', index=False)
+    FN.to_csv(f'results/FN_{target}_{threshold}_confusion_results.csv',
+              sep='\t', index=False)
     return FP, TN, FP, FN
 
 
@@ -295,7 +310,7 @@ def _build_matrices(start, db_name, collection_name,
     print('    CONVERTING tfidf training model to scipy sparse matrix...')
     scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
     pickle.dump(scipy_X_train,
-                open('nlp_training_data/scipy_X_train.pkl',
+                open(f'nlp_training_data/{target}_scipy_X_train.pkl',
                      'wb'))
     end = default_timer()
     print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
@@ -310,11 +325,12 @@ def _build_matrices(start, db_name, collection_name,
     print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
     print('    CONVERTING tfidf testing model to scipy sparse matrix...')
     scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
-    pickle.dump(scipy_X_test, open('nlp_training_data/scipy_X_test.pkl', 'wb'))
+    pickle.dump(scipy_X_test, open(
+                f'nlp_training_data/{target}_scipy_X_test.pkl', 'wb'))
     return scipy_X_train, scipy_X_test
 
 
-def _plot_roc_curves(model_type, y_test, Cs, pred_list, feature_count):
+def _plot_roc_curves(model_type, target, y_test, Cs, pred_list, feature_count):
     """plot roc curve for each cross_validated model"""
     tprs = []
     aucs = []
@@ -337,7 +353,10 @@ def _plot_roc_curves(model_type, y_test, Cs, pred_list, feature_count):
     ax.set_ylabel('True Positive Rate')
     ax.set_title(f'{model_type} ROC Feature Count = {feature_count}')
     ax.legend(loc="lower right")
-    fig.savefig(f'images/roc_cv_logistic_regression_{feature_count}.png')
+    fig.savefig(f'images/' +
+                '{target}_roc_cv_logistic_regression_{feature_count}.png')
+    print(f'saved roc curves to ' +
+          f'images/{target}_roc_cv_logistic_regression_{feature_count}.png\n')
     fig.show()
 
 
