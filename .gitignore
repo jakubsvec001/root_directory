@@ -3,6 +3,16 @@ data/
 wiki_dump/
 gensim/
 *.swp
+seed/
+mongo_db_dump/
+graph_data/
+dump/
+category_sql/
+Untitled*
+category_data/
+graph_analysis.ipynb
+nlp_training_data/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

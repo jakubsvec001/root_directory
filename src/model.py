@@ -161,9 +161,10 @@ def logistic_regression_cv(db_name, collection_name, target,
     best_model = model_list[best_score_idx]
     best_predictions = pred_list[best_score_idx]
     # save best model
-    pickle.dump(best_model,
-                open('nlp_training_data/best_logistic_reg_cv_model.pkl',
-                     'wb'))
+    pickle.dump(
+        best_model,
+        open(f'nlp_training_data/{target}_best_logistic_reg_cv_model.pkl',
+             'wb'))
     return (best_score, best_model, best_predictions,
             y_test, X_test_ids, scipy_X_test)
 
@@ -211,7 +212,11 @@ def logistic_regression_model(db_name, collection_name,
     model.fit(scipy_X_train, y_train)
     print('Saving model')
     pickle.dump(model, open(
+<<<<<<< HEAD
         'nlp_training_data/{target}_full_logistic_model.pkl', 'wb'))
+=======
+        f'nlp_training_data/{target}_final_logistic_model.pkl', 'wb'))
+>>>>>>> a5d6505... ADD files to .gitignore, small changes
     return model
 
 
