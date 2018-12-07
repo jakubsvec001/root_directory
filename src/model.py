@@ -212,11 +212,7 @@ def logistic_regression_model(db_name, collection_name,
     model.fit(scipy_X_train, y_train)
     print('Saving model')
     pickle.dump(model, open(
-<<<<<<< HEAD
-        'nlp_training_data/{target}_full_logistic_model.pkl', 'wb'))
-=======
         f'nlp_training_data/{target}_final_logistic_model.pkl', 'wb'))
->>>>>>> a5d6505... ADD files to .gitignore, small changes
     return model
 
 
