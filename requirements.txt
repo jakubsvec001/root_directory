@@ -1,0 +1,3 @@
+download mongodb and unzip:
+
+	https://drive.google.com/drive/folders/1KjbILhU-2jUFZ-ZLkqEtEcmluzFK-wGE?usp=sharing
