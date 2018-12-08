@@ -5,7 +5,15 @@ from bs4 import BeautifulSoup as bs
 
 
 def disect_page(title, xml):
-    """parse raw wikipedia xml"""
+    """parse raw wikipedia xml
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     # extract links from xml
     links = _get_links(xml)
     # extract image text from xml
@@ -45,7 +53,15 @@ def disect_page(title, xml):
 
 
 def _replace_multiple(main_string, to_be_replaced, new_string):
-    """replace extra elements in a text string"""
+    """replace extra elements in a text string
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     for elem in to_be_replaced:
         if elem in main_string:
             main_string = main_string.replace(elem, new_string)
@@ -53,6 +69,15 @@ def _replace_multiple(main_string, to_be_replaced, new_string):
 
 
 def _get_links(xml):
+    """
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     links = re_interlinkstext_link.findall(xml)
     clean_links = []
     for link in links:
@@ -64,6 +89,15 @@ def _get_links(xml):
 
 
 def _clean_image_desc(xml):
+    """   
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     image_desc = re_image_description.findall(xml)
     if image_desc != []:
         image_desc = ' '.join(image_desc[0][2:])
@@ -72,6 +106,15 @@ def _clean_image_desc(xml):
 
 
 def _clean_file_desc(xml):
+    """   
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     file_desc = re_file_description.findall(xml)
     if file_desc != []:
         file_desc = ' '.join(file_desc[0])
@@ -80,6 +123,15 @@ def _clean_file_desc(xml):
 
 
 def _replace_categories_in_xml(xml, categories):
+    """
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     if categories == [] or xml == []:
         return xml
     for category in categories:

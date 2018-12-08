@@ -7,8 +7,16 @@ from pymongo import MongoClient
 from gensim import corpora, models
 
 
-def deploy_model(file, target, n_grams, feature_length=100000, limit=None):
-    """deploy the model"""
+def deploy_model(file, target, n_grams, feature_count=100000, limit=None):
+    """deploy the model
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     mc = MongoClient()
     db = mc['wiki_cache']
     collection = db[f'{target}_logistic_predictions']
@@ -54,7 +62,7 @@ def deploy_model(file, target, n_grams, feature_length=100000, limit=None):
         row = [0] * len(column)
         scipy_sparse_row = scipy.sparse.csr_matrix((value,
                                                    (row, column)),
-                                                   shape=(1, feature_length))
+                                                   shape=(1, feature_count))
         prediction = model.predict_proba(scipy_sparse_row)
         words = [dictionary[item] for item in column]
         save_to_db(collection, title, terms=list(zip(words, value)),
@@ -62,6 +70,15 @@ def deploy_model(file, target, n_grams, feature_length=100000, limit=None):
 
 
 def save_to_db(collection, title, terms, prediction, text):
+    """        
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     ping = collection.find_one({'title': title})
     if ping is None:
         document = {'title': title, 'terms': terms, 'prediction': prediction,

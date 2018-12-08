@@ -17,7 +17,15 @@ from gensim.corpora import wikicorpus
 
 
 def get_lines_bz2(filename, limit=None):
-    """yield each uncompressed line from bz2 file"""
+    """yield each uncompressed line from bz2 file
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     for i, line in enumerate(subprocess.Popen(['bzcat'],
                              stdin=open(filename, 'rb'),
                              stdout=subprocess.PIPE
@@ -29,7 +37,15 @@ def get_lines_bz2(filename, limit=None):
 
 def find_pages(lines, input_titles, limit=None):
     """yield each page from a wikidump, extracting
-       only pages in input_titles"""
+       only pages in input_titles
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     found_count = 0
     search_count = 0
     page = []
@@ -55,12 +71,18 @@ def find_pages(lines, input_titles, limit=None):
         elif inpage:
             page.append(line)
 
-target = 'math'
 
 def parse_page(raw_xml, input_titles):
     """Return a dict of page content:
-    title, timestamp, id, raw_xml"""
-
+    title, timestamp, id, raw_xml
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     # Find math content:
     re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
     # Find all other tags:
@@ -86,7 +108,7 @@ def parse_page(raw_xml, input_titles):
     if title in input_titles:
         id_ = soup.select_one('id').text
         markup_text = soup.select_one('text').text
-        #use regex to delete 'Category' tags and text from raw_xml
+        # use regex to delete 'Category' tags and text from raw_xml
         cleaned_text = []
         kw = ('[[Category:', 'thumb')
         for line in markup_text.split('\n'):
@@ -140,15 +162,22 @@ def parse_page(raw_xml, input_titles):
             'simple_links': simple_links,
             'interlinks': interlinks,
             'math': math,
-
         }
 
 
 input_titles = pd.read_csv('small_seed_data/math_articles_8687', sep='\t', encoding='utf-8', header=None)[0].tolist()
 
 def create_corpus(filein, dir_out='temp_results', input_titles=input_titles, save=True, limit=None):
-    '''Return a list of articles in a dictionary format OR
-       save articles to a mongodb database'''
+    """Return a list of articles in a dictionary format OR
+       save articles to a mongodb database
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     start = timer()
     name_str = filein.partition('-')[-1].split('.')[-3]
     lines = get_lines_bz2(filein)
@@ -174,7 +203,15 @@ def create_corpus(filein, dir_out='temp_results', input_titles=input_titles, sav
 
 def strip_stripped_code(wiki):
     """use mwparserfromhell to strip code, then remove lines
-    that start with 'Category' or 'thumb'."""
+    that start with 'Category' or 'thumb'
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     stripped = wiki.strip_code()
     cleaned = []
     kw = ('Category:', 'thumb')
@@ -187,13 +224,21 @@ def strip_stripped_code(wiki):
 
 def multi_process_corpus(dump_file, title_file):
     """creates a multiprocessing pool to search multiple
-    files with multiple workers."""
+    files with multiple workers
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     start = timer()
     global input_titles
     input_titles = title_file
     dump_list = glob.glob(dump_file + '*.bz2')
     input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8', header=None)[0].tolist()
-    pool = Pool(processes = os.cpu_count())
+    pool = Pool(processes=os.cpu_count())
 
     # Map (service, tasks), applies function to each partition
     pool.map(create_corpus, dump_list[:4])
@@ -205,7 +250,17 @@ def multi_process_corpus(dump_file, title_file):
     stopwatch = round((start - end)/60, 2)
     print(f'{stopwatch} seconds elapsed.')
 
+
 def main():
+    """   
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     start = timer()
     n = 8
     dumps = glob.glob(str(sys.argv[1]) + '*.bz2')

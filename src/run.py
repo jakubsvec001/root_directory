@@ -17,7 +17,15 @@ def get_depth_csv(target, depth):
 
 
 def get_target():
-    """get input from user about category of choice"""
+    """ Get input from user about category of choice
+        ----------
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+    """
     c = ['aeronautics', 'arts', 'biology', 'chemistry', 'computer science',
          'engineering', 'mathematics', 'philosophy', 'physics']
     target = input("""Which category are you interested building?\n\n
@@ -31,7 +39,7 @@ def get_target():
           - Mathematics\n
           - Philosophy\n
           - Physics\n
-Category: """)
+        Category: """)
     if target == 'q':
         return target
     if target.lower() in c:
@@ -42,7 +50,15 @@ Category: """)
 
 
 def get_depth():
-    """get depth from user"""
+    """get depth from user
+        ----------
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+    """
     depth = input("""How deep in the tree would you like to go?
     (2 or 3)\n\n
     Depth: """)
@@ -57,6 +73,15 @@ def get_depth():
 
 
 def train_final_model_input():
+    """
+        ----------
+        Parameters
+        ----------
+
+        Returns
+        -------
+
+    """
     print('Would you like to continue and train the final model? ')
     response = input('Y / N: ')
     if response.lower() != 'y' and response.lower() != 'n':
@@ -64,13 +89,18 @@ def train_final_model_input():
     return response.lower()
 
 
-# [0.1, 0.12, 0.15, 0.17, 0.2, 0.22,
-# 0.25, 0.27, 0.3, 0.32, 0.35, 0.4,
-# 0.45, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1],
+def main(from_scratch=False,
+         Cs=[0.01, 0.05, 0.1, 0.5, 1, 2, 4, 6, 8],
+         feature_count=100000):
+    """Cross validate a model, train a final model
+        ----------
+        Parameters
+        ----------
 
+        Returns
+        -------
 
-def main(from_scratch=False):
-    """Cross validate a model, train a final model"""
+    """
     while True:
         target = get_target()
         if target == 'q':
@@ -81,7 +111,7 @@ def main(from_scratch=False):
         result = m.logistic_regression_cv(db_name='wiki_cache',
                                           collection_name='all',
                                           target=target,
-                                          Cs=[5, 10],
+                                          Cs=Cs,
                                           feature_count=100000,
                                           build_sparse_matrices=from_scratch)
         (best_score, best_model, best_predictions,
@@ -120,12 +150,15 @@ def main(from_scratch=False):
         for item in argsort_coefs[0]:
             terms.append(dictionary[item])
         feature_importances = list(zip(terms, sort_coefs[0]))
-        return best_model, dictionary, feature_importances
         response = train_final_model_input()
         if response == 'n':
             break
         best_c = best_model.C_
         df_coef = pd.DataFrame(best_model.coef_)
+        print(df_coef.head(20))
+        print(df_coef.head(-20))
+        print('Training final model')
         m.logistic_regression_model('wiki_cache', 'all', target=target,
                                     C=best_c, build_sparse_matrices=True)
-        return best_model, df_coef
+        print('DONE! and ready to deploy on all Wikipedia content!')
+        break

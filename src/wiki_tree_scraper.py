@@ -23,13 +23,29 @@ class TreeScraper(object):
         self.all_pages = all_pages
 
     def _get_expand_buttons(self):
-        """Return a list of expand buttons to click on."""
+        """Return a list of expand buttons to click on.
+            ----------
+            Parameters
+            ----------
+
+            Returns
+            -------
+
+        """
         return self.browser.find_elements_by_xpath("//span[@title='expand']")
 
     def _expand_all_categories(self):
-        """Expand all categories on page."""
+        """Expand all categories on page.
+            ----------
+            Parameters
+            ----------
+
+            Returns
+            -------
+
+        """
         self.depth = 0
-        self.df = pd.DataFrame(columns=['url','depth'])
+        self.df = pd.DataFrame(columns=['url', 'depth'])
         self.duplicated = 0
         url_list = []
         depth_list = []
@@ -52,8 +68,8 @@ class TreeScraper(object):
                 else:
                     continue
             end = default_timer()
-            print(f'depth of { self.depth } took {str(round((end-start)/60, 2))} ' +
-                  'minutes to open')
+            print(f'depth of {self.depth} took {str(round((end-start)/60, 2))}' +
+                  ' minutes to open')
             html = self.browser.page_source
             soup = bs(html, 'html.parser')
             atag = soup.find_all('a', class_='CategoryTreeLabel')
@@ -65,27 +81,53 @@ class TreeScraper(object):
                 elif link in url_list:
                     self.duplicated += 1
             self.depth += 1
-        self.df = pd.DataFrame(list(zip(url_list, depth_list)), columns=['url','depth'])
+        self.df = pd.DataFrame(list(zip(url_list, depth_list)),
+                               columns=['url', 'depth'])
         self._convert_utf8()
-        if self.save=='csv':
+        if self.save == 'csv':
             start = default_timer()
             self._save_csv()
             end = default_timer()
             print(str(round((end-start)/60, 2)) + f' minutes to save to csv')
 
     def _save_csv(self):
-        """Save to a csv file"""
+        """Save to a csv file
+
+            ----------
+            Parameters
+            ----------
+
+            Returns
+            -------
+
+        """
         # Save pages and categories to a 'seed_pages' dir
         self.df.to_csv(f'seed/{ self.category }_d{ self.depth }.csv',
                        sep='\t', encoding='utf-8', index=False)
 
     def _convert_utf8(self):
-        """Convert the url column to utf-8 encoding"""
+        """Convert the url column to utf-8 encoding
+            ----------
+            Parameters
+            ----------
+
+            Returns
+            -------
+
+        """
         self.df['url'] = self.df['url'].map(unquote)
 
     def scrape(self, category, search_depth=3, save='csv'):
-        """Scrape for either categories or all categories and pages"""
-        self.category = category.replace(' ','_')
+        """Scrape for either categories or all categories and pages
+            ----------
+            Parameters
+            ----------
+
+            Returns
+            -------
+
+        """
+        self.category = category.replace(' ', '_')
         self.search_depth = search_depth
         self.save = save
         self.browser = Firefox()
@@ -93,13 +135,15 @@ class TreeScraper(object):
             time.sleep(1)
             self.browser.get(
                 f'https://en.wikipedia.org/wiki/Special:CategoryTree?target=' +
-                '{ self.category }&mode=all&namespaces=&title=Special%3ACategoryTree')
+                '{ self.category }&mode=all&namespaces=&title=Special%' +
+                '3ACategoryTree')
             time.sleep(1)
             self._expand_all_categories()
         else:
             time.sleep(1)
             self.browser.get(
                 f'https://en.wikipedia.org/wiki/Special:CategoryTree?target=' +
-                '{ self.category }&mode=categories&namespaces=&title=Special%3ACategoryTree')
+                '{ self.category }&mode=categories&namespaces=&title=Special%' +
+                '3ACategoryTree')
             time.sleep(1)
             self._expand_all_categories()

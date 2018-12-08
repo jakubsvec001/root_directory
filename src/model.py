@@ -62,7 +62,15 @@ def cross_validate_multinomial_nb(db_name,
                                   feature_count=100000,
                                   build_sparse_matrices=True):
     """train naive bayes model using a train/test
-    split. Return predictions, score"""
+    split. Return predictions, score
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     start = default_timer()
     mc = MongoClient()
     db = mc[db_name]
@@ -102,7 +110,15 @@ def cross_validate_multinomial_nb(db_name,
 def logistic_regression_cv(db_name, collection_name, target,
                            Cs, shuffle=True, feature_count=100000,
                            n_grams=3, build_sparse_matrices=False):
-    """gridsearch without cross validation"""
+    """gridsearch without cross validation
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     start = default_timer()
     mc = MongoClient()
     db = mc[db_name]
@@ -172,7 +188,15 @@ def logistic_regression_cv(db_name, collection_name, target,
 def logistic_regression_model(db_name, collection_name,
                               target, C, feature_count=100000,
                               n_grams=3, build_sparse_matrices=False):
-    """Build, return, save best model for deployment on all data"""
+    """Build, return, save best model for deployment on all data
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     mc = MongoClient()
     db = mc[db_name]
     collection = db[collection_name]
@@ -217,7 +241,15 @@ def logistic_regression_model(db_name, collection_name,
 
 
 def generate_confusion_matrix(y_test, predictions, start=10, stop=90, steps=5):
-    """generate confusion matrices at various thresholds"""
+    """generate confusion matrices at various thresholds
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     matrices = []
     for i in range(start, stop, steps):
         matrix = confusion_matrix(y_test, predictions[:, 1] > i/100)
@@ -227,6 +259,15 @@ def generate_confusion_matrix(y_test, predictions, start=10, stop=90, steps=5):
 
 
 def generate_precision_recall_scores(y_test, predictions, threshold):
+    """
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     threshold = float(threshold)
     precision = precision_score(y_test, predictions[:, 1] > threshold)
     recall = recall_score(y_test, predictions[:, 1] > threshold)
@@ -235,11 +276,19 @@ def generate_precision_recall_scores(y_test, predictions, threshold):
 
 def get_confusion_titles(model, target, y_test, prediction, threshold,
                          X_test_ids):
-    """return and save titles in different buckets or predictions"""
+    """return and save titles in different buckets or predictions
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     threshold = float(threshold)
     try:
         scipy_X_test = pickle.load(
-            open(f'nlp_training_data/{target}_scipy_X_test.pkl','rb'))
+            open(f'nlp_training_data/{target}_scipy_X_test.pkl', 'rb'))
         print('Loaded saved scipy_X_test matrices')
     except ValueError:
         print(f"Can't find saved sparse matrices")
@@ -286,7 +335,15 @@ def _build_matrices(start, db_name, collection_name,
                     feature_count, X_train_ids,
                     X_test_ids, pos_ids, training=True):
     """builds, saves, and returns scipy sparse matrices
-    for training and testing sklearn models"""
+    for training and testing sklearn models
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     _save_txt_nlp_data(db_name, collection_name, target, pos_ids, training)
     dictionary, _ = _train_save_dictionary_corpus(
         f'nlp_training_data/{target}_subset.txt', n_grams, target,
@@ -332,7 +389,15 @@ def _build_matrices(start, db_name, collection_name,
 
 
 def _plot_roc_curves(model_type, target, y_test, Cs, pred_list, feature_count):
-    """plot roc curve for each cross_validated model"""
+    """plot roc curve for each cross_validated model
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     tprs = []
     aucs = []
     mean_fpr = np.linspace(0, 1, 100)
@@ -352,10 +417,10 @@ def _plot_roc_curves(model_type, target, y_test, Cs, pred_list, feature_count):
     ax.set_ylim([-0.01, 1.01])
     ax.set_xlabel('False Positive Rate')
     ax.set_ylabel('True Positive Rate')
-    ax.set_title(f'{model_type} ROC Feature Count = {feature_count}')
+    ax.set_title(f'{target} {model_type} ROC Feature Count = {feature_count}')
     ax.legend(loc="lower right")
-    fig.savefig(f'images/' +
-                '{target}_roc_cv_logistic_regression_{feature_count}.png')
+    fig.savefig('images/' +
+                f'{target}_roc_cv_logistic_regression_{feature_count}.png')
     print(f'saved roc curves to ' +
           f'images/{target}_roc_cv_logistic_regression_{feature_count}.png\n')
     fig.show()
@@ -364,7 +429,15 @@ def _plot_roc_curves(model_type, target, y_test, Cs, pred_list, feature_count):
 def _save_txt_nlp_data(db_name, collection_name, target,
                        pos_ids=None, training=True):
     """use a mongodb collection and a subsampled target subset percentage
-    to create a .txt file with one line per document"""
+    to create a .txt file with one line per document
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     print('Making txt file of subset of target class')
     mc = MongoClient()
     db = mc[db_name]
@@ -389,7 +462,15 @@ def _train_save_dictionary_corpus(filein, n_grams, target,
                                   training=True,
                                   feature_count=100000):
     """Use gensim to create a streamed dictionary.
-    filein is the file used to train the dictionary and tfidf"""
+    filein is the file used to train the dictionary and tfidf
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     print('Building dictionary...')
     if training:
         dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
@@ -417,7 +498,15 @@ def _train_save_dictionary_corpus(filein, n_grams, target,
 
 def _train_save_tfidf(filein, target, training=True):
     """input is a bow corpus saved as a tfidf file. The output is
-       a saved tfidf corpus"""
+       a saved tfidf corpus
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     print('Building TFIDF model')
     if training:
         try:
@@ -443,7 +532,15 @@ def _train_save_tfidf(filein, target, training=True):
 
 
 def _make_temporary_txt(collection, ids):
-    """make a temporary txt file of documents"""
+    """make a temporary txt file of documents
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     with open('/tmp/docs_for_sparse_vectorization.txt', 'w') as fout:
         for id in ids:
             res = collection.find_one(id)
@@ -454,7 +551,15 @@ def _make_temporary_txt(collection, ids):
 def _get_train_test_ids(collection, target, train_percentage=0.8,
                         seed=None, shuffle=False):
     """get random train/test split, keeping the proportion of pos/neg
-       classes the same"""
+       classes the same
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     i = 0
     if seed:
         random.seed(seed)
@@ -495,7 +600,15 @@ def _get_train_test_ids(collection, target, train_percentage=0.8,
 
 
 def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
-    """generate k_fold indices for X_train, X_test, y_train, y_test"""
+    """generate k_fold indices for X_train, X_test, y_train, y_test
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     if k_folds == 1:
         return _get_train_test_ids(collection, target, train_percentage=0.8)
     if k_folds < 2:
@@ -546,7 +659,15 @@ def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
 
 
 def _remove_extra_words(dictionary):
-    """DEPRICATED! remove words that appear only once"""
+    """DEPRICATED! remove words that appear only once
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     once_ids = [tokenid for tokenid, docfreq in
                 dictionary.dfs.items() if docfreq <= 2]
     dictionary.filter_tokens(once_ids)
@@ -554,7 +675,15 @@ def _remove_extra_words(dictionary):
 
 
 def _list_grams(filein, n_grams):
-    '''for each document, yield a list of strings'''
+    """for each document, yield a list of strings
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     with open(filein, 'r') as fin:
         for line in fin:
             yield _stem_and_ngramizer(line, n_grams)
@@ -562,7 +691,15 @@ def _list_grams(filein, n_grams):
 
 def _stem_and_ngramizer(line, n_grams):
     """stem all the words, generate ngrams, and return
-       a list of all stemmed words and ngram phrases"""
+       a list of all stemmed words and ngram phrases
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     p = PorterStemmer()
     s = SnowballStemmer('english')
     stopped = [word for word in line.split() if
@@ -574,6 +711,15 @@ def _stem_and_ngramizer(line, n_grams):
 
 
 def main(arg1, arg2):
+    """
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     pass
 
 

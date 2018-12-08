@@ -15,7 +15,15 @@ from gensim.corpora import wikicorpus
 class WikiFinder(object):
     """Parse Wikipedia data dump files located at
     https://dumps.wikimedia.org/enwiki/latest/
-    one at a time searching for page tags"""
+    one at a time searching for page tags
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
 
     def __init__(self, titles_csv, target=None, save=True, page_limit=None):
         self.titles_to_find = pd.read_csv(
@@ -25,8 +33,8 @@ class WikiFinder(object):
         self.page_limit = page_limit
 
     def create_corpus(self, filein, target):
-        '''Return a list of articles in a dictionary format OR
-        save articles to a mongodb database'''
+        """Return a list of articles in a dictionary format OR
+        save articles to a mongodb database"""
         self.target = target
         start = timer()
         lines = self._get_lines_bz2(filein)
@@ -102,7 +110,15 @@ class WikiFinder(object):
 class CatFinder(object):
     """Parse Wikipedia data dump files located at
     https://dumps.wikimedia.org/enwiki/latest/
-    one at a time searching for category edges"""
+    one at a time searching for category edges
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
 
     def __init__(self, save=True, page_limit=None):
         self.save = save
@@ -175,7 +191,15 @@ class CatFinder(object):
 
 
 def get_lines_bz2(filename, limit=None):
-    """yield each uncompressed line from bz2 file"""
+    """yield each uncompressed line from bz2 file
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     for i, line in enumerate(subprocess.Popen(['bzcat'],
                              stdin=open(filename, 'rb'),
                              stdout=subprocess.PIPE
@@ -186,7 +210,15 @@ def get_lines_bz2(filename, limit=None):
 
 
 def page_generator(lines, limit=None):
-    """yield each page from wiki_dump"""
+    """yield each page from wiki_dump
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     search_count = 0
     page = []
     inpage = False
@@ -209,7 +241,15 @@ def page_generator(lines, limit=None):
 
 
 def identify_page(raw_xml):
-    """Indentify whether or not article is in self.titles_to_find"""
+    """Indentify whether or not article is in self.titles_to_find
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
     soup = bs(raw_xml, 'lxml')
     title = soup.select_one('title').text
     return {'title': title,
