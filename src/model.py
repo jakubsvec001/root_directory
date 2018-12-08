@@ -28,32 +28,6 @@ from timeit import default_timer
 import pandas as pd
 
 
-# def create_save_nlp_train_topic_model(db_name, collection_name, target,
-#                                       n_grams=3, subset=0.8):
-#     """with input of a category, creates a txt
-#        file of a SUBSET of the target, trains a dictionary,
-#        and trains a tfidf model. Saves these to files"""
-#     _save_txt_nlp_data(db_name, collection_name, target,
-#                        training=True, subset=subset)
-#     _train_save_dictionary_corpus(f'nlp_training_data/{target}_subset.txt',
-#                                   n_grams, target, training=True)
-#     _train_save_tfidf(f'nlp_training_data/{target}_subset_corpus.mm',
-#                       target, training=True)
-
-
-# def create_save_nlp_full_topic_model(db_name, collection_name,
-#                                      target, n_grams=3, subset=0.8):
-#     """with input of a category, creates a txt file of
-#        a FULL of the target, trains a dictionary, and
-#        trains a tfidf model. Saves these to files"""
-#     _save_txt_nlp_data(db_name, collection_name, target,
-#                        training=False, subset=subset)
-#     _train_save_dictionary_corpus(f'nlp_training_data/{target}_full.txt',
-#                                   n_grams, target, training=False)
-#     _train_save_tfidf(f'nlp_training_data/{target}_full_corpus.mm',
-#                       target, training=False)
-
-
 def cross_validate_multinomial_nb(db_name,
                                   collection_name,
                                   target,
@@ -272,6 +246,34 @@ def generate_precision_recall_scores(y_test, predictions, threshold):
     precision = precision_score(y_test, predictions[:, 1] > threshold)
     recall = recall_score(y_test, predictions[:, 1] > threshold)
     return precision, recall
+
+
+def generate_feature_importance_graph(target, word_import):
+    """save a horizontal graph of the top most important features
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
+    """
+    target_string = target.title().replace('_', ' ')
+    title = f'{target_string} Feature Importance'
+    print(title)
+    df = pd.DataFrame(word_import, columns=['word', 'importance'])
+    middle = df.shape[0] // 2
+    df_low = df.iloc[:5, :]
+    df_mid = df.iloc[middle-5:middle+5, :]
+    df_high = df.iloc[-5:, :]
+    fig, ax = plt.subplots(1, 1, figsize=(20, 10))
+    ax.barh(y=df_low['word'], width=df_low['importance'])
+    ax.barh(y=df_mid['word'], width=df_mid['importance'])
+    ax.barh(y=df_high['word'], width=df_high['importance'])
+    ax.set_title(title)
+    plt.save(f'images/{target}_word_import.png')
+    plt.show()
+    return df
 
 
 def get_confusion_titles(model, target, y_test, prediction, threshold,

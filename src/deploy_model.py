@@ -35,8 +35,8 @@ def deploy_model(file, target, n_grams, feature_count=100000, limit=None):
         print('Could not find tfidf model at ' +
               f'nlp_training_data/{target}_full.tfidf')
     try:
-        model = pickle.load(open(f'nlp_training_data/' +
-                                 '{target}_full_logistic_model.pkl',
+        model = pickle.load(open('nlp_training_data/' +
+                                 f'{target}_final_logistic_model.pkl',
                                  'rb'))
         print('Logistic Regression Model Loaded!')
     except ValueError:

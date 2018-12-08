@@ -112,7 +112,7 @@ def main(from_scratch=False,
                                           collection_name='all',
                                           target=target,
                                           Cs=Cs,
-                                          feature_count=100000,
+                                          feature_count=feature_count,
                                           build_sparse_matrices=from_scratch)
         (best_score, best_model, best_predictions,
          y_test, X_test_ids, scipy_X_test) = result
@@ -150,6 +150,7 @@ def main(from_scratch=False,
         for item in argsort_coefs[0]:
             terms.append(dictionary[item])
         feature_importances = list(zip(terms, sort_coefs[0]))
+        df = m.generate_feature_importance_graph(target, feature_importances)
         response = train_final_model_input()
         if response == 'n':
             break
@@ -159,6 +160,7 @@ def main(from_scratch=False,
         print(df_coef.head(-20))
         print('Training final model')
         m.logistic_regression_model('wiki_cache', 'all', target=target,
-                                    C=best_c, build_sparse_matrices=True)
+                                    C=best_c, build_sparse_matrices=True,
+                                    feature_count=feature_count)
         print('DONE! and ready to deploy on all Wikipedia content!')
         break
