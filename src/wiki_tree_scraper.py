@@ -13,10 +13,13 @@ from selenium.webdriver import Firefox
 class TreeScraper(object):
     """Scrape Wikipedia's Special Category Tree page:
     https://en.wikipedia.org/wiki/Special:CategoryTree
-    EXAMPLE USE:
-    import wikiscraper
-    scraper = wikiscraper.WikiTreeScraper()
-    scraper.scrape(category='mathematics', search_depth=3, save='csv')
+        ----------
+        Parameters
+        ----------
+        
+        Returns
+        -------
+        
     """
 
     def __init__(self, all_pages=True):

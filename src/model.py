@@ -271,7 +271,7 @@ def generate_feature_importance_graph(target, word_import):
     ax.barh(y=df_mid['word'], width=df_mid['importance'])
     ax.barh(y=df_high['word'], width=df_high['importance'])
     ax.set_title(title)
-    plt.save(f'images/{target}_word_import.png')
+    plt.savefig(f'images/{target}_word_import.png')
     plt.show()
     return df
 
@@ -476,8 +476,10 @@ def _train_save_dictionary_corpus(filein, n_grams, target,
     print('Building dictionary...')
     if training:
         dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
+        print('Dictionary len before filter = ', len(dictionary))
         dictionary.filter_extremes(no_below=5, no_above=0.5,
                                    keep_n=feature_count)
+        print('Dictionary len after filter = ', len(dictionary))
         dictionary.save(
             f'nlp_training_data/{target}_subset.dict')
         corpus = [dictionary.doc2bow(word) for word in _list_grams(
@@ -487,8 +489,10 @@ def _train_save_dictionary_corpus(filein, n_grams, target,
         print(f'saved nlp_training_data/{target}_subset_corpus.mm')
     else:
         dictionary = corpora.Dictionary(_list_grams(filein, n_grams))
+        print('Dictionary len before filter = ', len(dictionary))
         dictionary.filter_extremes(no_below=5, no_above=0.5,
                                    keep_n=feature_count)
+        print('Dictionary len after filter = ', len(dictionary))
         dictionary.save(f'nlp_training_data/{target}_full.dict')
         corpus = [dictionary.doc2bow(word) for word in _list_grams(
             filein, n_grams)]
@@ -528,7 +532,6 @@ def _train_save_tfidf(filein, target, training=True):
                             '"train_save_dictionary_corpus" function.')
         tfidf = models.TfidfModel(corpus)
         tfidf.save(f'nlp_training_data/{target}_full.tfidf')
-        tfidf_corpus = tfidf[corpus]
     print('DONE!')
     return tfidf
 

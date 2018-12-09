@@ -156,8 +156,6 @@ def main(from_scratch=False,
             break
         best_c = best_model.C_
         df_coef = pd.DataFrame(best_model.coef_)
-        print(df_coef.head(20))
-        print(df_coef.head(-20))
         print('Training final model')
         m.logistic_regression_model('wiki_cache', 'all', target=target,
                                     C=best_c, build_sparse_matrices=True,
