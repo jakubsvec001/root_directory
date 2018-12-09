@@ -40,10 +40,20 @@ def cross_validate_multinomial_nb(db_name,
         ----------
         Parameters
         ----------
+        str: db_name,
+        str: collection_name,
+        str: target,
+        int: n_grams=3,
+        bool: shuffle=True,
+        int: feature_count=100000,
+        bool: build_sparse_matrices=True
         
         Returns
         -------
-        
+        list: y_test,
+        list: preds,
+        float: score,
+        sklearn model: model
     """
     start = default_timer()
     mc = MongoClient()

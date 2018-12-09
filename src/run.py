@@ -10,21 +10,16 @@ import glob
 import sys
 
 
-def get_depth_csv(target, depth):
-    """check if a csv of proper depth exists,
-    if not, create a new """
-    pass
-
-
 def get_target():
     """ Get input from user about category of choice
         ----------
         Parameters
         ----------
+        None
 
         Returns
         -------
-
+        str: target category
     """
     c = ['aeronautics', 'arts', 'biology', 'chemistry', 'computer science',
          'engineering', 'mathematics', 'philosophy', 'physics']
@@ -54,10 +49,11 @@ def get_depth():
         ----------
         Parameters
         ----------
+        None
 
         Returns
         -------
-
+        int: selected depth
     """
     depth = input("""How deep in the tree would you like to go?
     (2 or 3)\n\n
@@ -73,14 +69,15 @@ def get_depth():
 
 
 def train_final_model_input():
-    """
+    """get Y/N from user about continuing to final training
         ----------
         Parameters
         ----------
+        None
 
         Returns
         -------
-
+        str: Y / N
     """
     print('Would you like to continue and train the final model? ')
     response = input('Y / N: ')
@@ -96,10 +93,13 @@ def main(from_scratch=False,
         ----------
         Parameters
         ----------
+        from_scratch=False,
+        Cs=[0.01, 0.05, 0.1, 0.5, 1, 2, 4, 6, 8],
+        feature_count=100000)
 
         Returns
         -------
-
+        None
     """
     while True:
         target = get_target()

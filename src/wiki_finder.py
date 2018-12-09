@@ -232,7 +232,7 @@ def page_generator(lines, limit=None):
             raw_xml = ''.join(page)
             yield raw_xml
             page = []
-            sys.stdout.write('\r' + f'Search count: {search_count}')
+            # sys.stdout.write('\r' + f'Search count: {search_count}')
             if limit:
                 if search_count >= limit:
                     break
