@@ -1,0 +1,2781 @@
+title	predicted	actual	threshold_pred
+DAYDREAMER	0.20005178656929	0.0	True
+Oracle Unified Method	0.20008356457313686	0.0	True
+Manycore processor	0.2000904245918619	0.0	True
+ACM Transactions on Information Systems	0.2001609405663926	0.0	True
+Category:Computer science education by country	0.20025558028579024	0.0	True
+Donald D. Chamberlin	0.20034546600443426	0.0	True
+Scientific essentialism	0.2005770680263529	0.0	True
+Programming Language Design and Implementation	0.20058872080602608	0.0	True
+Juliana Freire	0.2006445524443836	0.0	True
+Open-question argument	0.20069031772089133	0.0	True
+Delimiter	0.20079757857904412	0.0	True
+Nikil Dutt	0.20081670430427145	0.0	True
+Memory disambiguation	0.200963281968141	0.0	True
+Learning relationship management	0.201063202356258	0.0	True
+Category:Artificial life models	0.2010684909031225	0.0	True
+Classification of the sciences (Peirce)	0.20107656464884865	0.0	True
+Objet petit a	0.2011035298617661	0.0	True
+Category:Computer science institutes in the Netherlands	0.20113383021456555	0.0	True
+Category:Genetics education	0.20113781819155271	0.0	True
+Eretrian school	0.20115171435845725	0.0	True
+Leon Shklar	0.20124121362688546	0.0	True
+Category:Biology-themed board games	0.20127746407904354	0.0	True
+RegexBuddy	0.20130180067422013	0.0	True
+Active defense	0.20131980992566656	0.0	True
+Himetric	0.20137984098459533	0.0	True
+Category:Finnish computer programmers	0.2015120142289092	0.0	True
+Category:Croatian computer programmers	0.2015120142289092	0.0	True
+Category:Irish computer programmers	0.2015120142289092	0.0	True
+Category:Australian computer programmers	0.2015120142289092	0.0	True
+Category:Sri Lankan computer programmers	0.2015120142289092	0.0	True
+Category:Canadian computer programmers	0.2015120142289092	0.0	True
+Category:Hungarian computer programmers	0.2015120142289092	0.0	True
+Category:British computer programmers	0.2015120142289092	0.0	True
+Category:Belgian computer programmers	0.2015120142289092	0.0	True
+Category:Iranian computer programmers	0.2015120142289092	0.0	True
+Category:Russian computer programmers	0.2015120142289092	0.0	True
+Category:Chinese computer programmers	0.2015120142289092	0.0	True
+Category:Swiss computer programmers	0.2015120142289092	0.0	True
+Category:Polish computer programmers	0.2015120142289092	0.0	True
+Category:Estonian computer programmers	0.2015120142289092	0.0	True
+Category:American computer programmers	0.2015120142289092	0.0	True
+Category:Austrian computer programmers	0.2015120142289092	0.0	True
+Category:Italian computer programmers	0.2015120142289092	0.0	True
+Category:Danish computer programmers	0.2015120142289092	0.0	True
+Category:Pakistani computer programmers	0.2015120142289092	0.0	True
+Category:Israeli computer programmers	0.2015120142289092	0.0	True
+Category:Indian computer programmers	0.2015120142289092	0.0	True
+Category:Singaporean computer programmers	0.2015120142289092	0.0	True
+Category:English computer programmers	0.2015120142289092	0.0	True
+Category:Kazakhstani computer programmers	0.2015120142289092	0.0	True
+Category:German computer programmers	0.2015120142289092	0.0	True
+Category:Welsh computer programmers	0.2015120142289092	0.0	True
+Category:French computer programmers	0.2015120142289092	0.0	True
+Category:Syrian computer programmers	0.2015120142289092	0.0	True
+Category:Nigerian computer programmers	0.2015120142289092	0.0	True
+Category:Taiwanese computer programmers	0.2015120142289092	0.0	True
+Category:Japanese computer programmers	0.2015120142289092	0.0	True
+Single instruction, multiple threads	0.20154727803575967	0.0	True
+Direct repeat	0.20154901166216435	0.0	True
+Template:Taxonomic links	0.20166414861084095	0.0	True
+Masaru Kitsuregawa	0.20187101779034206	0.0	True
+Texture filtering	0.20216117417276705	0.0	True
+Eurocrypt	0.20220152620049708	0.0	True
+Dining philosophers problem	0.20236903546942756	0.0	True
+Immunodiffusion	0.2024051595963039	0.0	True
+David De Roure	0.20259077873895856	0.0	True
+IEEE John von Neumann Medal	0.2026269693508453	0.0	True
+Category:Deterministic global optimization	0.20268803893969592	0.0	True
+Substring index	0.2027192723264397	0.0	True
+Category:Computer science institutes in Denmark	0.2027348958837661	0.0	True
+Anderson's rule (computer science)	0.20276490326738972	0.0	True
+HADES (software)	0.20279324627785053	0.0	True
+Enchanting (programming language)	0.20298230996803468	0.0	True
+Collaborative human interpreter	0.20298561623854575	0.0	True
+Spatial database	0.20299464750642887	0.0	True
+Sally Floyd	0.20302587007782374	0.0	True
+List of discrete event simulation software	0.2030334843196835	0.0	True
+Applied Maths	0.20306446048817606	0.0	True
+Category:IBM mainframe software	0.20309996561169494	0.0	True
+Antiphilosophy	0.2031399442367388	0.0	True
+Lattice Boltzmann methods	0.20318406036329298	0.0	True
+Onward!	0.20319590943023202	0.0	True
+Spike-timing-dependent plasticity	0.203204919680446	0.0	True
+Connection string	0.2032258154894912	0.0	True
+Lydia Kavraki	0.20325481716841404	0.0	True
+Category:Computer science institutes in Canada	0.2032665707266657	0.0	True
+Derivative code	0.20328123404722664	0.0	True
+Cyber self-defense	0.20328982810027024	0.0	True
+Anticausal system	0.20331516322370374	0.0	True
+Paula Bonta	0.2034501313083867	0.0	True
+Category:Computer systems researchers	0.2034607862808532	0.0	True
+Joseph Zachary	0.20351403242078026	0.0	True
+Kodu Game Lab	0.2036163525036861	0.0	True
+Constructive empiricism	0.20370573719679225	0.0	True
+IJCAI Award for Research Excellence	0.2037409948409893	0.0	True
+Continuous gusts	0.20377042110258275	0.0	True
+Performance Evaluation	0.20401542716826374	0.0	True
+Patrick J. Miller	0.2040597212531838	0.0	True
+Category:Association for Computing Machinery conferences	0.20412705558421051	0.0	True
+Involution (philosophy)	0.20422382363979155	0.0	True
+Michele Bruniges	0.2042486335639407	0.0	True
+Journal of Multimedia	0.20428059323808487	0.0	True
+Category:Anthropic principle	0.2043902090935212	0.0	True
+Delaunay tessellation field estimator	0.20451041619808788	0.0	True
+List of display servers	0.20453130208293724	0.0	True
+Alan W. Black	0.2046586738276464	0.0	True
+Index of analytic philosophy articles	0.20475385762299486	0.0	True
+Information visualization reference model	0.20478528918530026	0.0	True
+Shared memory	0.20488614796800425	0.0	True
+Journal of Artificial Intelligence Research	0.20493300423528585	0.0	True
+Formal ontology	0.20508016037756852	0.0	True
+Category:Computer science in South Korea	0.2051771916182	0.0	True
+Conference on Innovative Data Systems Research	0.20527714228553304	0.0	True
+Project Houdini	0.2054179049480233	0.0	True
+Rajesh K. Gupta	0.2054581876392957	0.0	True
+Category:Computer science institutes in Norway	0.2055355553133715	0.0	True
+Bob Sproull	0.2055820965846333	0.0	True
+Category:Database researchers	0.20568410595656655	0.0	True
+Cynthia Solomon	0.2057162540644762	0.0	True
+Category:Aviation ministers	0.2058446939490341	0.0	True
+Parallel I/O	0.20588467615684186	0.0	True
+Category:Anatomical simulation	0.2059145573132591	0.0	True
+W. Bruce Croft	0.2060576838302369	0.0	True
+GraphQL	0.20605898113760127	0.0	True
+Human-based computation	0.206095731058614	0.0	True
+Category:Software type stubs	0.20611607041415075	0.0	True
+Identity-based security	0.2061244024934761	0.0	True
+Category:OCaml software	0.2061621258499544	0.0	True
+Conda (package manager)	0.2061743186630121	0.0	True
+AN/SPN-46(V)2	0.20624142299420944	0.0	True
+Category:Environmentalist stubs	0.206295295890233	0.0	True
+Channelizer	0.2063661253072759	0.0	True
+Byzantine fault tolerance	0.20643344186054394	0.0	True
+Ramesh Sitaraman	0.2064723937208752	0.0	True
+Template:Taxonomic references	0.2065469795967292	0.0	True
+Category:Ludwig Wittgenstein	0.20656016523864676	0.0	True
+Category:Redirects from airline codes	0.2066924174981672	0.0	True
+ACM Transactions on Database Systems	0.20671818411789705	0.0	True
+Surajit Chaudhuri	0.20691023739433703	0.0	True
+African-American women in computer science	0.20725479644518013	0.0	True
+Christine L. Borgman	0.20733268541941566	0.0	True
+Ron Pinter	0.20738420554767245	0.0	True
+William Wulf	0.20742050687583632	0.0	True
+Apache Continuum	0.2074251106165456	0.0	True
+Spectral centroid	0.20743109122482686	0.0	True
+IFIP Working Group 2.1	0.20746855550860616	0.0	True
+Eric Brewer (scientist)	0.20754923740113654	0.0	True
+Ken Birman	0.20757570555852906	0.0	True
+Veronica Dahl	0.2076314049330668	0.0	True
+Adaptive compression	0.20766078128775056	0.0	True
+Caret (software)	0.2076676680786214	0.0	True
+Government and binding theory	0.20767343509453245	0.0	True
+Dual pipelining	0.20774248665887135	0.0	True
+TOOLS conference series	0.2077516085204274	0.0	True
+Daphne Koller	0.2078299432266811	0.0	True
+AI Memo	0.2078958313602024	0.0	True
+Prefuse	0.20793981347983934	0.0	True
+Faultless disagreement	0.20794158652606196	0.0	True
+Computer programming in the punched card era	0.2079751641101595	0.0	True
+Computational lexicology	0.20805603181392487	0.0	True
+Category:Computer science institutes in China	0.2081230101342392	0.0	True
+Category:Gödel Prize laureates	0.20815025368483805	0.0	True
+Category:Dijkstra Prize laureates	0.20815025368483805	0.0	True
+Category:Knuth Prize laureates	0.20815025368483805	0.0	True
+Category:Nevanlinna Prize laureates	0.20815025368483805	0.0	True
+Category:Haskell software	0.20816331396428014	0.0	True
+Vincent C. Müller	0.20822809188667976	0.0	True
+List of settlements in Wiltshire by population	0.20826049799371135	0.0	True
+Template:Marine Algae of California	0.2082891263837867	0.0	True
+Apache Jena	0.2083701377688627	0.0	True
+Noise-predictive maximum-likelihood detection	0.20853662865957215	0.0	True
+Verificationism	0.20861270859145328	0.0	True
+International Journal of Computational Intelligence and Applications	0.20866535333700392	0.0	True
+PLOT3D file format	0.20878140149608596	0.0	True
+Template:EATCS Award laureates	0.20883492200807727	0.0	True
+Large eddy simulation	0.20884716951148508	0.0	True
+Critical rationalism	0.2088724874269555	0.0	True
+Constructional system	0.20900245641200466	0.0	True
+Category:Computer-related introductions in 2012	0.2090419218971631	0.0	True
+Category:New Zealand computer scientists	0.2090729275806668	0.0	True
+Geoffrey Brennan	0.20909070780101516	0.0	True
+Sebastian Schaffert	0.20913578331483265	0.0	True
+File:WordQ speakQ.jpg	0.20920128153235745	0.0	True
+Martha Evens	0.20924110730961468	0.0	True
+Foundations and Trends in Theoretical Computer Science	0.2092720739279937	0.0	True
+List of critical theorists	0.20927270991306984	0.0	True
+The Logic of Life	0.20943583948445801	0.0	True
+Category:Philosophical societies	0.20956115975646866	0.0	True
+Category:Medicine in society	0.20956115975646866	0.0	True
+Category:Biology societies	0.20956115975646866	0.0	True
+Category:Botanical societies	0.20956115975646866	0.0	True
+Category:Wikipedia categories named after airlines	0.2096506625432272	0.0	True
+Intuition (Bergson)	0.20969602221163708	0.0	True
+Category:Regular expressions	0.2098543382264537	0.0	True
+Roman Yampolskiy	0.2100605738114852	0.0	True
+Specialization (logic)	0.2102332372362411	0.0	True
+Category:Electromagnetic simulation software	0.2102444461357216	0.0	True
+Adele Goldberg (computer scientist)	0.21037014994661427	0.0	True
+Chunking (psychology)	0.2104247988346057	0.0	True
+Social problem-solving	0.21044920641931245	0.0	True
+Reflection lines	0.21055413774349	0.0	True
+International Conference on Formal Techniques for Networked and Distributed Systems	0.2105896634539259	0.0	True
+Category:Fossil taxa by year of formal description	0.21076329825415824	0.0	True
+Category:Taxa by year of formal description	0.21076329825415824	0.0	True
+Bernd Bruegge	0.21082286644971096	0.0	True
+Human-based evolutionary computation	0.21093483096956386	0.0	True
+E (text editor)	0.2109364474682188	0.0	True
+Category:Semiotics	0.21101535704663246	0.0	True
+European Computer Science Summit	0.21130733909774688	0.0	True
+Transport triggered architecture	0.21132877895203975	0.0	True
+ACM Transactions on Applied Perception	0.21149280476748614	0.0	True
+Self-reference	0.21151502976483388	0.0	True
+Neuron (software)	0.2115266396071623	0.0	True
+Michael J. Flynn	0.2115464115318024	0.0	True
+Category:Abstract data types	0.2116396826213328	0.0	True
+Jean Nicod Prize	0.21166020830621535	0.0	True
+Category:Video game programmers by nationality	0.21166246344289	0.0	True
+International Conference on Machine Learning	0.21169422661711226	0.0	True
+Demarcation problem	0.21173597457024115	0.0	True
+Directory-based coherence	0.21181121674625134	0.0	True
+Anselmo Lastra	0.21184260046926487	0.0	True
+Category:Henry David Thoreau	0.2118673626881816	0.0	True
+Moravec's paradox	0.2119184863418391	0.0	True
+Natural language	0.21213565116686267	0.0	True
+École des technologies numériques appliquées	0.21221338759401245	0.0	True
+International Conference on Dependable Systems and Networks	0.21245008389725756	0.0	True
+Hamdan Dammag	0.21247310119918933	0.0	True
+Peter G. Neumann	0.21248142743931972	0.0	True
+Richard P. Gabriel	0.21262904695879573	0.0	True
+Category:Social computing researchers	0.2127752535487248	0.0	True
+Gerris (software)	0.21309634315234627	0.0	True
+Information visualization	0.2131375039256462	0.0	True
+Signal averaging	0.21323003540792934	0.0	True
+Belief–desire–intention model	0.21340934210266502	0.0	True
+Autonomous Agents and Multi-Agent Systems	0.21347251048535845	0.0	True
+Anant Agarwal	0.2134910556042424	0.0	True
+International Conference on Intelligent Tutoring Systems	0.21355366064753967	0.0	True
+Internet/Intranet Input Method Framework	0.21357021334412324	0.0	True
+Phasor approach to fluorescence lifetime and spectral imaging	0.2135745003822571	0.0	True
+Category:Atari ST software	0.21362409828509832	0.0	True
+Journal of Graphics Tools	0.21363023378644985	0.0	True
+Computational criminology	0.21363596752177266	0.0	True
+Boss key	0.21375479650453544	0.0	True
+Complex and Adaptive Systems Laboratory	0.21377046957343546	0.0	True
+Thomas A. Scott Fellowship in Hygiene	0.21379677765730565	0.0	True
+List of RISC OS bundled applications	0.21380067180140014	0.0	True
+Book:Naming convention (programming)	0.21383928464058996	0.0	True
+Natural Language Engineering	0.21389785261976715	0.0	True
+Category:Finite automata	0.2139352714209597	0.0	True
+Thiophanate-methyl	0.21402401108534955	0.0	True
+Irene Greif	0.21406767681859395	0.0	True
+Category:Microsoft Edge	0.21408765077225286	0.0	True
+Action selection	0.2141190339606671	0.0	True
+Scene statistics	0.2141248140884968	0.0	True
+List of ACM-W chapters	0.21414542078723287	0.0	True
+Astroinformatics	0.2142114039319332	0.0	True
+Process theory of composition	0.21425621219604335	0.0	True
+Cache hierarchy	0.21429284788265374	0.0	True
+Jen Golbeck	0.21463353815490413	0.0	True
+Inference attack	0.2147182358497054	0.0	True
+Category:Digital history projects	0.2149138811223024	0.0	True
+AQUA@home	0.2149356042088557	0.0	True
+Category:Association for the Advancement of Artificial Intelligence	0.2151282565783529	0.0	True
+James D. Hollan	0.21526933896939285	0.0	True
+École nationale supérieure d'informatique et de mathématiques appliquées de Grenoble	0.21529126339743887	0.0	True
+TECO (text editor)	0.2152999275512696	0.0	True
+Diagnosis (artificial intelligence)	0.2153402422521888	0.0	True
+Applications of artificial intelligence to legal informatics	0.2153765504082727	0.0	True
+Template:Nevanlinna Prize winners	0.2154018414049164	0.0	True
+Template:Turing Award laureates	0.2154446713140036	0.0	True
+Category:Problems on strings	0.2154592613008712	0.0	True
+George Ledin	0.2155497159523508	0.0	True
+Digital organism	0.2156273968797608	0.0	True
+MeCard (QR code)	0.2156899684699866	0.0	True
+Yi Mu (academic)	0.2159996133049364	0.0	True
+Byte addressing	0.21622034721696304	0.0	True
+Type-in program	0.21625365507872232	0.0	True
+Bill Griswold	0.21629993399366035	0.0	True
+International Symposium on Wearable Computers	0.21638068818612455	0.0	True
+Johan Bollen	0.2164066832974032	0.0	True
+Michael S. Montalbano	0.21642007680313474	0.0	True
+Category:Carnegie Mellon University software	0.2164979630801653	0.0	True
+Mary K. Hawes	0.21668837820680875	0.0	True
+Spectral leakage	0.21671150732160765	0.0	True
+Comparison of Internet Relay Chat daemons	0.21696529100009035	0.0	True
+Data drilling	0.2170972317831584	0.0	True
+Simulation & Gaming	0.21715221788402655	0.0	True
+Workshop on Generic Programming	0.21755772022407133	0.0	True
+Claude E. Shannon Award	0.21772101507082775	0.0	True
+Anne Case	0.21776880380518066	0.0	True
+Dan Farmer	0.21779461361273952	0.0	True
+Geekbench	0.21779627949985128	0.0	True
+Process theory	0.21794820556047506	0.0	True
+Category:Scheme (programming language)	0.2179567130665864	0.0	True
+File:Osxboxes.png	0.2181019899283808	0.0	True
+Ledger (journal)	0.21810782204166185	0.0	True
+Association for Computing Machinery	0.2181307185404752	0.0	True
+Memory management	0.2181506475629798	0.0	True
+Volunteer's dilemma	0.21826251084013915	0.0	True
+Layered security	0.218371417399299	0.0	True
+Category:System software	0.2185372477725536	0.0	True
+Jean Paul Van Bendegem	0.2185587425598028	0.0	True
+Category:Programming language semantics	0.21856122874084025	0.0	True
+Jim Kajiya	0.2186570332280177	0.0	True
+Michael A. Jackson	0.2187772714999366	0.0	True
+Microsoft Research	0.2187890339832424	0.0	True
+Hodgkin–Huxley model	0.2189045249960868	0.0	True
+Diff	0.2189779982867837	0.0	True
+WAMIT	0.2190104845603171	0.0	True
+Sample (graphics)	0.2190342137162164	0.0	True
+Template:Cerebrum labelled map	0.21905344240093552	0.0	True
+Category:Logicians	0.2191599173075968	0.0	True
+Nicola Pellow	0.2191867703320233	0.0	True
+Scalability	0.21918798931284092	0.0	True
+Yuko Munakata	0.2192825725948008	0.0	True
+Category:Software distribution platforms	0.21936106136034594	0.0	True
+Philip S. Yu	0.21956864614586855	0.0	True
+Stuart Feldman	0.21980568166590972	0.0	True
+Category:Computer science in Switzerland	0.2198826248540165	0.0	True
+Category:Computer science institutes in France	0.21989363129215345	0.0	True
+Delta Drawing	0.22000303733122045	0.0	True
+The Hillside Group	0.2200256182161265	0.0	True
+Neighbour-sensing model	0.22008441437141546	0.0	True
+Artificial imagination	0.22028656298462335	0.0	True
+Java version history	0.2204210071291176	0.0	True
+Michael Franz	0.22065862359453425	0.0	True
+Information oriented software development	0.22074490632840127	0.0	True
+Pattern Recognition (journal)	0.2207742082642686	0.0	True
+Bill Gropp	0.22077628442054453	0.0	True
+Alan Dix	0.22078150622998813	0.0	True
+Category:Video games by platform	0.2208676546188344	0.0	True
+Information Communications Technology education in the Philippines	0.22088892434303434	0.0	True
+Category:Microsoft BASIC	0.22118255603437784	0.0	True
+Thea D. Hodge	0.22123542239370256	0.0	True
+Lorraine Borman	0.22126640991507726	0.0	True
+Cristiano Castelfranchi	0.22128743012472726	0.0	True
+Parallel Processing Letters	0.22139128655566612	0.0	True
+Endophysics	0.22142653075896768	0.0	True
+Category:Concurrency (computer science)	0.22144352659800814	0.0	True
+Kotoeri	0.22146559595706145	0.0	True
+Gain-field encoding	0.2214849736519081	0.0	True
+Intrusion detection system evasion techniques	0.2215144229919365	0.0	True
+Irwin Sobel	0.2215345556643525	0.0	True
+Category:Association for Computing Machinery Special Interest Groups	0.2216702677321801	0.0	True
+Ronald Giere	0.22168805309523748	0.0	True
+Peter Jackson (scientist)	0.22170124583705805	0.0	True
+List of concept- and mind-mapping software	0.22177795913528076	0.0	True
+2D Filters	0.22190756999401887	0.0	True
+Chain of trust	0.22194114146938568	0.0	True
+FOIL (programming language)	0.2219858760189372	0.0	True
+Category:Medieval philosophy	0.2220663030396449	0.0	True
+Exact sciences	0.22217389875964905	0.0	True
+Coalescing (computer science)	0.22219755486892684	0.0	True
+Complex Systems (journal)	0.2222088966649048	0.0	True
+Category:Dutch computer programmers	0.2222778913002037	0.0	True
+Philosophy, politics and economics	0.2222902188937643	0.0	True
+Amy Ashurst Gooch	0.2226005523258881	0.0	True
+Category:Mobile software by operating system	0.22261757893790307	0.0	True
+Category:Screenshots of software by operating system	0.22261757893790307	0.0	True
+CHREST	0.22264594486352915	0.0	True
+Comparison of debuggers	0.22266753720692228	0.0	True
+Bit-oriented protocol	0.2227059058800888	0.0	True
+Stephanie Forrest	0.22278674151953348	0.0	True
+GENESIS (software)	0.2228813137862918	0.0	True
+Disquotational principle	0.2230795231049971	0.0	True
+Category:String data structures	0.22308995561608566	0.0	True
+Arvind Gupta (academic)	0.2232452317394343	0.0	True
+COSFIRE	0.223336870658082	0.0	True
+Loebner Prize	0.2235641472085432	0.0	True
+Category:Rewriting systems	0.2235695530641908	0.0	True
+Typed assembly language	0.22358173294706424	0.0	True
+Organismic computing	0.22360103450123855	0.0	True
+Category:Computer science websites	0.2236461182804862	0.0	True
+Category:Compiler construction	0.22375323537500025	0.0	True
+Portal:Computer security	0.22383827992789235	0.0	True
+Category:Rational Software software	0.22393064140230406	0.0	True
+Andrei Broder	0.2239814538823977	0.0	True
+Instruction window	0.2241351847956929	0.0	True
+Clipping (computer graphics)	0.224183626586602	0.0	True
+Category:X Window programs	0.22419415015518934	0.0	True
+Neurocomputational speech processing	0.2242743747395354	0.0	True
+Arlequin	0.2245572485288436	0.0	True
+List of Y-DNA single-nucleotide polymorphisms	0.22465495645531705	0.0	True
+Online aggregation	0.22467331393395865	0.0	True
+Behavior authoring	0.22470923456156405	0.0	True
+Workshop on Approximation and Online Algorithms	0.2247171642734279	0.0	True
+Social cloud computing	0.224951817053156	0.0	True
+AI@50	0.22511789042255234	0.0	True
+International Conference on Simulation and Modeling Methodologies, Technologies and Applications	0.22513650203483704	0.0	True
+Docblock	0.2251585351302408	0.0	True
+Dataflow architecture	0.22539464336410475	0.0	True
+Eigenmode expansion	0.22551410116123785	0.0	True
+Horizons: Software Starter Pack	0.22567857556919085	0.0	True
+Spatial twist continuum	0.2257052216904961	0.0	True
+Template:Knuth Prize laureates	0.2257397324122392	0.0	True
+Susan J. Eggers	0.2257500940145188	0.0	True
+Category:Computer science suffixes	0.22581495206789165	0.0	True
+Franz Alt (mathematician)	0.2258564295233769	0.0	True
+Glossary of ant terms	0.2259920007775891	0.0	True
+Daniel Jackson (computer scientist)	0.22613015765198125	0.0	True
+Oversampling	0.2261383009910178	0.0	True
+Herbrand Award	0.22615275541558724	0.0	True
+Category:Scientific simulation software	0.2261763317653225	0.0	True
+KTurtle	0.2262347971520831	0.0	True
+Project Narwhal	0.2264445638478139	0.0	True
+Karen Jean Meech	0.2265397430446089	0.0	True
+METATYPE1	0.2266245513488647	0.0	True
+Ingemar Cox	0.2266974087219653	0.0	True
+William C. Carter Award	0.226717388743634	0.0	True
+Category:Numerical climate and weather models	0.2269169054079834	0.0	True
+Definitionism	0.2269431033710279	0.0	True
+Category:Chilean computer scientists	0.22697727305888216	0.0	True
+Patrick Peter Chan	0.2270951652190238	0.0	True
+Meta	0.22720771101702766	0.0	True
+Nominal techniques	0.2272215647857097	0.0	True
+Data Base Task Group	0.2273346243753823	0.0	True
+SU2 code	0.22734298883024026	0.0	True
+International Cryptology Conference	0.22738078002068704	0.0	True
+RUR-PLE	0.2274901199441279	0.0	True
+Category:Formal specification	0.22755787363598326	0.0	True
+Rose Dieng-Kuntz	0.2277527271480962	0.0	True
+Impulse invariance	0.22777801222619706	0.0	True
+International Middleware Conference	0.22779989368140144	0.0	True
+Category:Ubiquitous computing researchers	0.2278252154430644	0.0	True
+Robert Hecht-Nielsen	0.2281153822638047	0.0	True
+Synthetic intelligence	0.22814583050769546	0.0	True
+Filter design	0.2283474279779356	0.0	True
+Neuroepistemology	0.2283681265727279	0.0	True
+Beam stack search	0.2284115930618041	0.0	True
+Category:Computer science in India	0.22846481738120086	0.0	True
+Sean Kandel	0.22851441699076155	0.0	True
+Encina (software)	0.22853673426210674	0.0	True
+Programming languages used in most popular websites	0.2285580935945064	0.0	True
+Coalition to Diversify Computing	0.22856070596276376	0.0	True
+IEEE Transactions on Evolutionary Computation	0.2285987200001443	0.0	True
+Maurizio Lenzerini	0.22859963249017426	0.0	True
+Language workbench	0.2286039717467604	0.0	True
+P = PSPACE problem	0.2286832376720349	0.0	True
+Glenn Henry (IT entrepreneur)	0.2288642093958703	0.0	True
+Image-based modeling and rendering	0.22887982562604994	0.0	True
+Quantum threshold theorem	0.2290508344211775	0.0	True
+Tagged architecture	0.22912382930287425	0.0	True
+Arthur Balfour Professor of Genetics	0.2291349191057135	0.0	True
+Digital filter	0.2291503140972159	0.0	True
+Category:Computer science in Belgium	0.2293388555028742	0.0	True
+Distributed artificial intelligence	0.2294130939105718	0.0	True
+Erdős–Rényi Prize	0.2294180474195517	0.0	True
+Inverse search	0.22954762159984704	0.0	True
+List of programming language researchers	0.22955468310815316	0.0	True
+MUSIC (algorithm)	0.22966715617662464	0.0	True
+Comparison of file verification software	0.22968685315046464	0.0	True
+Larry S. Davis	0.2298170362714233	0.0	True
+Electronic Colloquium on Computational Complexity	0.2298644394966484	0.0	True
+DENIS@Home	0.2299230983295872	0.0	True
+Strings (Unix)	0.2299311399322568	0.0	True
+Category:Fortran software	0.2300034251095321	0.0	True
+Sample-rate conversion	0.2300239241749986	0.0	True
+John Leslie King	0.2301098524448212	0.0	True
+Book:Sorting	0.2303269219726945	0.0	True
+Index of philosophy of language articles	0.23039449191228575	0.0	True
+Robic	0.2305738910288505	0.0	True
+Timothy Jurka	0.2306058621593331	0.0	True
+Falsifiability	0.2306187626691387	0.0	True
+Amsterdam Compiler Kit	0.2306232723413427	0.0	True
+Kenneth A De Jong	0.2306401609458437	0.0	True
+Distributed operating system	0.23075751466342906	0.0	True
+Propensity probability	0.23094670793523825	0.0	True
+Karl Lieberherr	0.2309860601770596	0.0	True
+Category:Computer science in the Netherlands	0.23100935904095726	0.0	True
+Knowledge-Based Systems (journal)	0.2310667575135395	0.0	True
+Geometric Arithmetic Parallel Processor	0.23133085520340124	0.0	True
+Memetic Computing Society	0.2313933614944141	0.0	True
+Advanced Programming Specialist Group	0.2315667292699683	0.0	True
+Category:Computer scientist stubs	0.2316324771138165	0.0	True
+Fábio Kon	0.2316463223912036	0.0	True
+Margaret Masterman	0.2318196110827119	0.0	True
+Stefano Soatto	0.231858626304642	0.0	True
+Race condition	0.23186493351280274	0.0	True
+Information Processing Letters	0.2318769612346521	0.0	True
+Workshop on Algorithmic Approaches for Transportation Modeling, Optimization, and Systems	0.2319202123994522	0.0	True
+Book:Design Patterns	0.2319860273123533	0.0	True
+Algorithmic bias	0.2321038012559153	0.0	True
+Electronic Notes in Theoretical Computer Science	0.2321176003623348	0.0	True
+Steven Skiena	0.2321588488706285	0.0	True
+Demonic non-determinism	0.23217521393040536	0.0	True
+ImageNet	0.23240453994972035	0.0	True
+Methodism (philosophy)	0.2324756355165752	0.0	True
+Overlapping markup	0.2325418968751785	0.0	True
+Ora Kedem	0.23257131502422415	0.0	True
+Richard Boyd	0.23260192766039506	0.0	True
+Weasel program	0.2328110482340693	0.0	True
+Shape correction function	0.2328452023512117	0.0	True
+Journal of Computer-Mediated Communication	0.2329050059244976	0.0	True
+Comparison of documentation generators	0.2329936499927813	0.0	True
+Category:Senior Members of the ACM	0.23305889857749876	0.0	True
+William C. Mann	0.2331071222677024	0.0	True
+Amy L. Lansky	0.2331388627492545	0.0	True
+International Joint Conference on Automated Reasoning	0.23314443499367465	0.0	True
+Jack Dennis	0.2331619550677404	0.0	True
+Laurent Itti	0.2332402666250327	0.0	True
+Mango (software)	0.2333049573285233	0.0	True
+Image texture	0.2333312299138139	0.0	True
+Seymour Papert	0.2336968244632124	0.0	True
+Texture mapping	0.23384395584725054	0.0	True
+Journal of the Brazilian Computer Society	0.23389978105847894	0.0	True
+Marcus Hartog	0.2341787492370069	0.0	True
+Tierra (computer simulation)	0.23424425737136165	0.0	True
+RapidMiner	0.2343693641848534	0.0	True
+Indocrypt	0.2343812926406252	0.0	True
+Zooloretto	0.2344650898710511	0.0	True
+Qualification problem	0.23453793614054114	0.0	True
+Parallel processing (DSP implementation)	0.2345519889747292	0.0	True
+Hackety Hack	0.2345541182124581	0.0	True
+Sarah Ann Douglas	0.23455502399978695	0.0	True
+Category:Great Internet Mersenne Prime Search	0.2346428998065087	0.0	True
+List of Canadian philosophers	0.23469468074128425	0.0	True
+2–3 heap	0.2347442101616155	0.0	True
+(1+ε)-approximate nearest neighbor search	0.2347587641238682	0.0	True
+Apache Brooklyn	0.23519454040232085	0.0	True
+Computer architecture simulator	0.2352074122243436	0.0	True
+Robert R. Korfhage	0.23522478741584374	0.0	True
+ICPRAM	0.23523695783589896	0.0	True
+Electronic Workshops in Computing	0.23541127294564898	0.0	True
+Reproducing kernel particle method	0.2354697080409725	0.0	True
+International Journal of Computational Methods	0.23556178141272524	0.0	True
+Category:Soviet computer scientists	0.23566892096952174	0.0	True
+Category:Program transformation	0.23575986859591505	0.0	True
+ACM Software System Award	0.2357635595025222	0.0	True
+Hans-Peter Kriegel	0.23576394693536884	0.0	True
+Samuel Madden (computer scientist)	0.23578596291479156	0.0	True
+Harry Buhrman	0.23592277295679964	0.0	True
+Coding bootcamp	0.23594232573834284	0.0	True
+International Journal of Computer Vision	0.2359446582981851	0.0	True
+P = BPP problem	0.2359523288751393	0.0	True
+PISO algorithm	0.2360392838579639	0.0	True
+ToonTalk	0.23605920857616194	0.0	True
+Flory convention	0.2362632086674121	0.0	True
+James Heckman	0.23629041488919944	0.0	True
+Category:Norsk Data software	0.23669716929957346	0.0	True
+Category:IBM Research computer scientists	0.2369579290185001	0.0	True
+AUSM	0.2371409620616097	0.0	True
+Adele Goldstine	0.23717113375027085	0.0	True
+Category:PHP software	0.2371827901720021	0.0	True
+Category:Pascal software	0.2371997749000497	0.0	True
+International Systems and Storage Conference	0.23735112860715676	0.0	True
+Antepredicament	0.2373558520064477	0.0	True
+Temporal multithreading	0.23740784348740146	0.0	True
+L. Peter Deutsch	0.2374543047016317	0.0	True
+Discrete-time beamforming	0.2375151065533936	0.0	True
+CP-67	0.2375556137446628	0.0	True
+Toolbox (software)	0.23775060827599456	0.0	True
+Nitrokey	0.237810827918499	0.0	True
+Alexander L. Wolf	0.2378155769730087	0.0	True
+List of translation software	0.2380786910737101	0.0	True
+European Joint Conferences on Theory and Practice of Software	0.2382790190672553	0.0	True
+Guang Gao	0.2383218040807631	0.0	True
+Category:Logo programming language family	0.2383293438323484	0.0	True
+IITRAN	0.23860872429058946	0.0	True
+Category:International Association for Cryptologic Research fellows	0.2386223205461761	0.0	True
+List of spatial analysis software	0.23863963822406475	0.0	True
+Here document	0.2386719114058985	0.0	True
+Metastability in the brain	0.2386962620519063	0.0	True
+Category:South African computer scientists	0.23875180918422825	0.0	True
+Category:Personal digital assistant software	0.2387986953454593	0.0	True
+Turtle Geometry	0.2388241775001444	0.0	True
+Block contention	0.2388790576287063	0.0	True
+International Journal of Wavelets, Multiresolution and Information Processing	0.2389971787663334	0.0	True
+Population informatics	0.2390487443674922	0.0	True
+Category:Bioethics journals	0.23908622476434044	0.0	True
+Persistent Object Identifier	0.2392081307801681	0.0	True
+Polyworld	0.2392671030387627	0.0	True
+Edsger W. Dijkstra Prize in Distributed Computing	0.2392828329029761	0.0	True
+Sinc filter	0.23941012932682396	0.0	True
+Computational humor	0.2394252596503557	0.0	True
+Hybrid intelligent system	0.23950002390568065	0.0	True
+Dagfinn Føllesdal	0.23950867639921386	0.0	True
+MPT8080	0.2395289138175207	0.0	True
+Category:Wikipedia books on computer science	0.2397516269409347	0.0	True
+Promise theory	0.2398509576840507	0.0	True
+Deadline-monotonic scheduling	0.239881665877288	0.0	True
+Adaptive heap sort	0.2399688604803478	0.0	True
+Category:Fellows of the British Computer Society	0.2401387994636711	0.0	True
+Edward M. McCreight	0.24017008682500496	0.0	True
+Category:Logic stubs	0.24020430126709716	0.0	True
+ARITH Symposium on Computer Arithmetic	0.240227193643412	0.0	True
+Disruptor (software)	0.2403598590795614	0.0	True
+Triplestore	0.24043289092462186	0.0	True
+Tarka sastra	0.240439549680004	0.0	True
+Semantic memory	0.2408104109370225	0.0	True
+Oscar Nierstrasz	0.2408805872545331	0.0	True
+ACM Transactions on Graphics	0.2410541246115967	0.0	True
+Category:Fellows of the Association for Computing Machinery	0.2412774616989701	0.0	True
+Federated Computing Research Conference	0.24140598513253897	0.0	True
+Nominalism	0.2414456011538336	0.0	True
+Language-agnostic	0.2415262628948389	0.0	True
+Category:Linux distribution logos	0.2416804308228105	0.0	True
+Barendregt–Geuvers–Klop conjecture	0.2417892099931839	0.0	True
+Population vector	0.2418555605119733	0.0	True
+Ellis Horowitz	0.24188072302399216	0.0	True
+Computational RAM	0.2418917850127531	0.0	True
+Journal of Grid Computing	0.2419510178970393	0.0	True
+Ideal observer analysis	0.2420652855331334	0.0	True
+Category:Computer science in China	0.2421826428381623	0.0	True
+Lexical definition	0.2422106180355957	0.0	True
+Biochemical systems theory	0.2422321906031387	0.0	True
+Gofer (programming language)	0.2424752758761426	0.0	True
+Praxeology	0.24263241351642506	0.0	True
+UP Diliman Department of Computer Science	0.24264478035293044	0.0	True
+List of Six Sigma software packages	0.24268561733900065	0.0	True
+Dynamic data	0.2426906886115983	0.0	True
+Category:Cognition	0.24269381199123116	0.0	True
+Jeff Dean (computer scientist)	0.2428276168063547	0.0	True
+School of Computing (Robert Gordon University)	0.24283555817055574	0.0	True
+Application streaming	0.2429125260850644	0.0	True
+Unity amplitude	0.2429216589475577	0.0	True
+Explanatory model	0.24295565627734986	0.0	True
+Anastasia Ailamaki	0.2431278941071878	0.0	True
+Numerically controlled oscillator	0.2431406537638729	0.0	True
+Turtle graphics	0.24329488780365946	0.0	True
+Higher Computing	0.24330095308528402	0.0	True
+Reticulation (single-access key)	0.2434112519287427	0.0	True
+Category:Distributed computing architecture	0.2434897128044295	0.0	True
+Computational archaeology	0.243495508505988	0.0	True
+Portal:Logic	0.2437371151484319	0.0	True
+Jeanne Ferrante	0.2437835604168481	0.0	True
+Automatic layout	0.2437906062379255	0.0	True
+Robert Tomasulo	0.2438405294247081	0.0	True
+Berggruen Prize	0.2438648918371486	0.0	True
+Alice (software)	0.2438737494284645	0.0	True
+Stencyl	0.24387771596490224	0.0	True
+Truth	0.24392551488235134	0.0	True
+Category:Cellular automaton software	0.24394040981315596	0.0	True
+Gerth Stølting Brodal	0.2439740831407917	0.0	True
+Joseph A. Konstan	0.243995806544644	0.0	True
+Photometric stereo	0.24403593282724534	0.0	True
+DUAL (cognitive architecture)	0.2441788409089921	0.0	True
+Category:Computer data storage	0.24426605349615066	0.0	True
+DIALIGN-TX	0.2443655595959704	0.0	True
+Category:Triangulation (geometry)	0.2444055956702036	0.0	True
+DREAD (risk assessment model)	0.2444197309499543	0.0	True
+SemEval	0.24452431843530176	0.0	True
+Constrained Delaunay triangulation	0.2446090766615593	0.0	True
+Simulation noise	0.2446114460191845	0.0	True
+Kevoree	0.2446203548956628	0.0	True
+National Institutes of Health Director's Pioneer Award	0.2448475411683459	0.0	True
+Information and Computation	0.24489515835429854	0.0	True
+Menthor Editor	0.2452054205886306	0.0	True
+Maurice Herlihy	0.24522525159875866	0.0	True
+Bio-inspired computing	0.2452418055949746	0.0	True
+MASON (Java)	0.2452467378997001	0.0	True
+Computation offloading	0.24549333643710985	0.0	True
+Template:Biological rules	0.2455840208683681	0.0	True
+Comparison of continuous integration software	0.2456950991615371	0.0	True
+List of applications using PKCS 11	0.2458169579138557	0.0	True
+Popek and Goldberg virtualization requirements	0.24582098220570295	0.0	True
+BlueJ	0.2460105938982256	0.0	True
+Category:British Computer Society	0.24603522692772575	0.0	True
+List of academic computer science departments	0.2461505526749213	0.0	True
+Wendy Kellogg	0.24625488191855505	0.0	True
+Open Roberta	0.2464660578783882	0.0	True
+Genetic and Evolutionary Computation Conference	0.2465532940445623	0.0	True
+Regina Barzilay	0.2467047804016541	0.0	True
+Stylometry	0.24672058324938215	0.0	True
+Cheng Xiang Zhai	0.2468895079805652	0.0	True
+List of presidents of the British Computer Society	0.2469956844020268	0.0	True
+Truth-conditional semantics	0.2470438199727245	0.0	True
+Symposium on Principles of Programming Languages	0.24725771011328185	0.0	True
+Category:Human-based computation	0.24736364339547295	0.0	True
+Laura M. Haas	0.2473772315642025	0.0	True
+Susan Gerhart	0.2474385144605553	0.0	True
+Control-flow integrity	0.2475078711108576	0.0	True
+Church–Turing–Deutsch principle	0.2478099306496187	0.0	True
+Empirical Methods in Natural Language Processing	0.2480013559760484	0.0	True
+Salva congruitate	0.2480346152307947	0.0	True
+Degree of isochronous distortion	0.248061963553538	0.0	True
+Pressure-correction method	0.24807461361993785	0.0	True
+Gerd Gigerenzer	0.2480859529131645	0.0	True
+Open-source software security	0.24810606975539184	0.0	True
+International Workshop on First-Order Theorem Proving	0.2482854843958569	0.0	True
+Category:Wikipedia categories named after operating systems	0.24832724149123325	0.0	True
+Normalized frequency (unit)	0.2483507626158604	0.0	True
+Edward Feigenbaum	0.2484531551988677	0.0	True
+ASR-complete	0.2486551860781282	0.0	True
+Adaptive predictive coding	0.24879417622299585	0.0	True
+Category:Console applications	0.2490310440574467	0.0	True
+Binding problem	0.2490775664428948	0.0	True
+Xputer	0.2491527508691747	0.0	True
+Flux limiter	0.24986998507162345	0.0	True
+Very long instruction word	0.2498739341346513	0.0	True
+Category:Database normalization	0.24995779486925385	0.0	True
+Category:Ukrainian computer scientists	0.2500867273408866	0.0	True
+Category:Video game controversies	0.2501936858349765	0.0	True
+Edward G. Coffman Jr.	0.2501960417919208	0.0	True
+Cornelis H. A. Koster	0.2503314298834943	0.0	True
+Software design pattern	0.2503659247097981	0.0	True
+Category:Pseudorandomness	0.250458698759408	0.0	True
+Berkeley IRAM project	0.2505112202309589	0.0	True
+Category:Computational astronomy	0.2505670570779735	0.0	True
+Branch target predictor	0.2508520722622225	0.0	True
+Image gradient	0.25087663439088914	0.0	True
+Plane Crazy (video game)	0.25089414095331963	0.0	True
+Web@cademie	0.2510301416403669	0.0	True
+Glyph (data visualization)	0.2511922353248938	0.0	True
+Symposium on Operating Systems Principles	0.25127716490652513	0.0	True
+Category:Uruguayan computer scientists	0.25134152452258	0.0	True
+Visual analytics	0.2514649408215076	0.0	True
+Cache pollution	0.25155742630852845	0.0	True
+Template:Asian Pacific Phycology	0.25178724346216097	0.0	True
+Mass matrix	0.2518261146342963	0.0	True
+How to Design Programs	0.2518801797044149	0.0	True
+Digital electronic computer	0.25196132850064346	0.0	True
+Machine Learning (journal)	0.2520733737774433	0.0	True
+ICAART	0.2522955657491213	0.0	True
+IBM System/360 architecture	0.2524862932837416	0.0	True
+Universal science	0.25252243066477936	0.0	True
+John Cocke	0.2526385513901039	0.0	True
+Template:Gödel Prize laureates	0.25265493024900143	0.0	True
+Brian O'Shaughnessy (philosopher)	0.2528644045410535	0.0	True
+Category:Life extension	0.2528893673372837	0.0	True
+Dictionary of Algorithms and Data Structures	0.2529221502591393	0.0	True
+Filter bank	0.25322499426870376	0.0	True
+International Components for Unicode	0.2532896638602343	0.0	True
+Craig Silverstein	0.25331483771796903	0.0	True
+Robert Bruce Findler	0.2535732977913842	0.0	True
+Centre for Computational Geography	0.2536195766945928	0.0	True
+Jürgen Schmidhuber	0.25366763487191096	0.0	True
+Artificial Intelligence: A Modern Approach	0.2537617830625413	0.0	True
+MathSciNet	0.25381127380458085	0.0	True
+Larceny (Scheme implementation)	0.2538702853434177	0.0	True
+Delta modulation	0.25393132162979465	0.0	True
+Brace matching	0.2539811397677409	0.0	True
+Software and Systems Modeling	0.25404250555594804	0.0	True
+ACM SIGHPC	0.2542452423031749	0.0	True
+Category:Association for Computing Machinery	0.25428422693830005	0.0	True
+Exponential integrate-and-fire	0.2543174177513258	0.0	True
+Kaiser window	0.2543564913766697	0.0	True
+Jonathan Bowen	0.2545039357282523	0.0	True
+Jessica Fridrich	0.2545082752452829	0.0	True
+Branch Queue	0.2547034145326525	0.0	True
+Processor register	0.25492111836578746	0.0	True
+Byl's loop	0.25520460919363275	0.0	True
+Andrew Thompson (parasitologist)	0.2553154276179883	0.0	True
+Li Huatian	0.2553348571980487	0.0	True
+Rene Vidal	0.2556815930436485	0.0	True
+Corticocortical coherence	0.25578226287340217	0.0	True
+Bidji	0.2559289139595725	0.0	True
+Nick Gerakines	0.2563601436985641	0.0	True
+History of the Scheme programming language	0.25655920753286937	0.0	True
+Category:Convex optimization	0.2569167147956504	0.0	True
+Bootstrap percolation	0.2570163146308998	0.0	True
+Viscous vortex domains method	0.25715673152584473	0.0	True
+Martyn Amos	0.2571598222002377	0.0	True
+Effective number of bits	0.25718525522701635	0.0	True
+Finite impulse response	0.2571902308027061	0.0	True
+Radial immunodiffusion	0.2572643045880384	0.0	True
+Luigi Logrippo	0.2572865086934259	0.0	True
+Time-sharing system evolution	0.25733948141064633	0.0	True
+Sarita Adve	0.2575398622516914	0.0	True
+Susan Eisenbach	0.2576195201945953	0.0	True
+Discrete Mathematics & Theoretical Computer Science	0.25762876791812983	0.0	True
+Jack Lutz	0.25774150654088657	0.0	True
+Gaetano Borriello	0.25782771601102433	0.0	True
+Sequence graph	0.2581248873010407	0.0	True
+Scottish Informatics and Computer Science Alliance	0.2582186433859863	0.0	True
+Category:Fixed-base operators	0.2583995449606455	0.0	True
+Category:Aircraft operations	0.2583995449606455	0.0	True
+1975 in philosophy	0.2585741192519533	0.0	True
+Cobweb (clustering)	0.2588514458217922	0.0	True
+Langton's loops	0.2588636469198736	0.0	True
+Beier–Neely morphing algorithm	0.25899216468884273	0.0	True
+Category:Concurrent computing	0.2590420239679885	0.0	True
+Symposium on Principles and Practice of Parallel Programming	0.259061272423501	0.0	True
+Hutter Prize	0.25917889270136435	0.0	True
+XPIC	0.25918370228160503	0.0	True
+Blackboard system	0.2592500707121866	0.0	True
+Scott Hudson (computer scientist)	0.2594027625179866	0.0	True
+Category:Philosophers by position	0.2594179639380038	0.0	True
+Stephen R. Bourne	0.2596031734240977	0.0	True
+Category:Strongly NP-complete problems	0.2597270737791893	0.0	True
+Philosophical Gourmet Report	0.2598218556798331	0.0	True
+Upwind differencing scheme for convection	0.2598365190434526	0.0	True
+Carla Ellis	0.2598839253664437	0.0	True
+Conference on Computer Vision and Pattern Recognition	0.2599072641273587	0.0	True
+Category:Computer science literature	0.2601756774466286	0.0	True
+Java Task Force	0.2602616008764975	0.0	True
+Peter Chen	0.26038432844739456	0.0	True
+Jessica Hodgins	0.2606626227262082	0.0	True
+Normal form (natural deduction)	0.26069032457253905	0.0	True
+Category:Formal methods people	0.26082210020113666	0.0	True
+Hany Farid	0.2608987385645739	0.0	True
+Barbara Liskov	0.2609387481720081	0.0	True
+Category:Algorithmic information theory	0.2609422123999454	0.0	True
+Cluster Computing (journal)	0.2611692787077428	0.0	True
+Frederick Jelinek	0.2612108743366158	0.0	True
+Sprite (computer graphics)	0.2613714376866883	0.0	True
+Category:X (company)	0.2614413743117855	0.0	True
+Prefetching	0.2614632436035899	0.0	True
+EPSI	0.26146361232456755	0.0	True
+Dispersive flies optimisation	0.26150472050062445	0.0	True
+Category:Evolution of language	0.2615663986411612	0.0	True
+Category:Theories of language	0.2615663986411612	0.0	True
+Category:Alien language	0.2615663986411612	0.0	True
+Deadlock	0.2615992768511086	0.0	True
+Category:Complexity classes	0.2616059560629667	0.0	True
+Hollerith constant	0.26173666328968825	0.0	True
+Tempotron	0.2617965765630436	0.0	True
+Category:Computer networking conferences	0.2618318213121945	0.0	True
+Category:Operating system kernels	0.2619844893895468	0.0	True
+Template:ICD-10 category	0.2624544036013253	0.0	True
+Category:Histologists	0.2624544036013253	0.0	True
+Munindar P. Singh	0.2625596380242453	0.0	True
+Category:Software programmed in BASIC	0.26264624377554663	0.0	True
+Detached eddy simulation	0.2627834899458468	0.0	True
+Milind Tambe	0.262960041069562	0.0	True
+Category:SRI International software	0.2629767391670521	0.0	True
+Fast multipole method	0.263185438056209	0.0	True
+Computer Graphics: Principles and Practice	0.2633831120577544	0.0	True
+Concepts, Techniques, and Models of Computer Programming	0.2634065529137255	0.0	True
+International Conference on Architectural Support for Programming Languages and Operating Systems	0.2634419225617503	0.0	True
+Simple interactive object extraction	0.26345890287446433	0.0	True
+False diffusion	0.26358430231848423	0.0	True
+Finite volume method for unsteady flow	0.2636735216661676	0.0	True
+Henry Baker (computer scientist)	0.2637426810448965	0.0	True
+Ernesto Damiani	0.2639257997815045	0.0	True
+Alfred Spector	0.263974416009782	0.0	True
+European Association for Theoretical Computer Science	0.2639887610583045	0.0	True
+Dynamic priority scheduling	0.2640669302897464	0.0	True
+Nektar++	0.26412570060045143	0.0	True
+IEEE Transactions on Pattern Analysis and Machine Intelligence	0.2641748650982052	0.0	True
+List of information graphics software	0.2643276319461507	0.0	True
+Turing test	0.2643769365477365	0.0	True
+Category:Bibliographic databases in computer science	0.2643797322778985	0.0	True
+Thomas Sterling (computing)	0.26456733642534663	0.0	True
+Category:NP-complete problems	0.2646004782811385	0.0	True
+Category:Programming contests	0.2648282001580405	0.0	True
+Category:Computer science in Bangladesh	0.2650181194398265	0.0	True
+Concept	0.2650374043478303	0.0	True
+Riemann solver	0.26517560232898263	0.0	True
+Category:Go software	0.26530503084019164	0.0	True
+Artificial psychology	0.2653080914292379	0.0	True
+Category:Logic	0.2653346388431337	0.0	True
+Dines Bjørner	0.26547265919388296	0.0	True
+Wenfei Fan	0.2654792353952017	0.0	True
+Types and Programming Languages	0.26550262339321273	0.0	True
+Dartmouth workshop	0.2661732069201725	0.0	True
+Fuzzy Sets and Systems	0.2662493866605242	0.0	True
+Dichotomy	0.2663815794139696	0.0	True
+Category:Frequent flyer programs	0.2664537983598827	0.0	True
+Rete algorithm	0.2664754845835963	0.0	True
+Adaptive equalizer	0.2665101304231336	0.0	True
+Janice E. Cuny	0.26658633519037017	0.0	True
+International Conference on Pattern Recognition and Image Analysis	0.2669483273702992	0.0	True
+Özalp Babaoğlu	0.2670683804619756	0.0	True
+Talmudical hermeneutics	0.2670689783490496	0.0	True
+Bilinear transform	0.26712457206944257	0.0	True
+Daniel G. Bobrow	0.2671451205954006	0.0	True
+Category:Computer science institutes	0.26740185900292435	0.0	True
+Fred B. Schneider	0.26749474971213955	0.0	True
+AspectJ	0.267552004797892	0.0	True
+Directory-based cache coherence	0.26770651591248323	0.0	True
+Category:Computer science in France	0.2677116062784482	0.0	True
+Tracy Camp	0.2679367381915918	0.0	True
+Elastic matching	0.2679547461132007	0.0	True
+Stagecast Creator	0.2679862359486935	0.0	True
+Frances E. Allen	0.26806989668879244	0.0	True
+Bachelor of Computer Application	0.2681781849687989	0.0	True
+Wildcard character	0.2681902665182031	0.0	True
+Lori A. Clarke	0.2682025511203399	0.0	True
+Michael Luck (computer scientist)	0.2682670777164036	0.0	True
+Henry Silton Harris	0.2683230490584783	0.0	True
+Category:Mexican computer programmers	0.2683507387990636	0.0	True
+Victor Allis	0.26856477737791784	0.0	True
+Blockhead (thought experiment)	0.26859489316665985	0.0	True
+Category:Turbulence models	0.26897436152952475	0.0	True
+Parser Grammar Engine	0.2689872314384628	0.0	True
+Behavior informatics	0.2690617549384396	0.0	True
+Sidney Fernbach Award	0.2692434709715402	0.0	True
+Matt Kaufmann	0.2694924642770589	0.0	True
+International Symposium on Reliable Distributed Systems	0.2695760784074845	0.0	True
+Electronic Proceedings in Theoretical Computer Science	0.2696785939719133	0.0	True
+Ipke Wachsmuth	0.2698779414982395	0.0	True
+Adaptive k-d tree	0.2699543102710608	0.0	True
+Marc Auslander	0.27004695737490025	0.0	True
+Pisarenko harmonic decomposition	0.2702934799813689	0.0	True
+Category:Video games by century	0.2705073044007643	0.0	True
+Category:Programming languages	0.27083509677694195	0.0	True
+Hari Balakrishnan	0.2710319761185171	0.0	True
+Fast-and-frugal trees	0.2711534782427316	0.0	True
+Logic for Programming, Artificial Intelligence and Reasoning	0.27126225865679765	0.0	True
+Bibcode	0.2712876888528568	0.0	True
+Category:Free software by programming language	0.2713188106671604	0.0	True
+Semiotic theory of Charles Sanders Peirce	0.2713855238462364	0.0	True
+Lapped transform	0.2715703627191017	0.0	True
+Ivan Bratko (computer scientist)	0.2715737462175133	0.0	True
+Full table scan	0.271652875675614	0.0	True
+Racetrack problem	0.271777369638654	0.0	True
+Category:Internationalization and localization	0.2719830668102406	0.0	True
+String interpolation	0.2721092727955643	0.0	True
+List of Fellows of the Association for Computing Machinery	0.27247478108331274	0.0	True
+Popper and After	0.2726405668399092	0.0	True
+IBM SystemT	0.27274025682366626	0.0	True
+Virgil D. Gligor	0.2730038661946424	0.0	True
+List of countries by past and future population	0.2730845219748384	0.0	True
+International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems	0.27321732653017083	0.0	True
+Category:Computer graphics data structures	0.274052962096811	0.0	True
+Journal of Automated Reasoning	0.2740919351214148	0.0	True
+LaDema Langdon	0.27411983307952736	0.0	True
+Joyce Farrell	0.2742028402274057	0.0	True
+Walls and Mirrors	0.2743975638292642	0.0	True
+Gerhard Fischer (professor)	0.2744852730233596	0.0	True
+Anne-Marie Kermarrec	0.2745055060047544	0.0	True
+Double compare-and-swap	0.2746274798684846	0.0	True
+Comparison of instruction set architectures	0.2747141086215834	0.0	True
+Category:Computer graphics	0.2747788530852547	0.0	True
+Docstring	0.2748079286034853	0.0	True
+Theodosios Pavlidis	0.2748443875071108	0.0	True
+Category:Programming language theory	0.2748501036700536	0.0	True
+International Conference on Service Oriented Computing	0.2750301256878005	0.0	True
+COMAL	0.2750955284355314	0.0	True
+Categories (Peirce)	0.2751612346939395	0.0	True
+Monica S. Lam	0.2752732731475149	0.0	True
+Deterministic parsing	0.275279446935741	0.0	True
+ACM Student Research Competition	0.27533800710191736	0.0	True
+Frege's puzzles	0.27533994934092193	0.0	True
+Delta-sigma modulation	0.2754007703816249	0.0	True
+Data Privacy Lab	0.2754541388718327	0.0	True
+Cladogram	0.2754647355793443	0.0	True
+List of members of the National Academy of Sciences (computer and information sciences)	0.27557704012628353	0.0	True
+Frontiers of Computer Science	0.27558142486992243	0.0	True
+Andy Wellings	0.27562764834734066	0.0	True
+ACM SIGOPS	0.2756853708651367	0.0	True
+PL/C	0.27602771030105955	0.0	True
+Allen B. Downey	0.2763003695929715	0.0	True
+Mary Kenneth Keller	0.2763336851857577	0.0	True
+SIGSIM	0.2764177944960851	0.0	True
+Category:Permutation patterns	0.27669200768934343	0.0	True
+Integrational linguistics	0.2767309125720126	0.0	True
+Category:Canadian computer scientists	0.27683264876747915	0.0	True
+Category:Maldivian computer scientists	0.27683264876747915	0.0	True
+Category:Bashkir computer scientists	0.27683264876747915	0.0	True
+Category:Danish computer scientists	0.27683264876747915	0.0	True
+Category:Moldovan computer scientists	0.27683264876747915	0.0	True
+Category:Slovenian computer scientists	0.27683264876747915	0.0	True
+Category:Swiss computer scientists	0.27683264876747915	0.0	True
+Category:Taiwanese computer scientists	0.27683264876747915	0.0	True
+Category:Bangladeshi computer scientists	0.27683264876747915	0.0	True
+Category:English computer scientists	0.27683264876747915	0.0	True
+Category:Pakistani computer scientists	0.27683264876747915	0.0	True
+Category:Chinese computer scientists	0.27683264876747915	0.0	True
+Category:Romanian computer scientists	0.27683264876747915	0.0	True
+Category:Spanish computer scientists	0.27683264876747915	0.0	True
+Category:Thai computer scientists	0.27683264876747915	0.0	True
+Category:Ghanaian computer scientists	0.27683264876747915	0.0	True
+Category:Polish computer scientists	0.27683264876747915	0.0	True
+Category:Portuguese computer scientists	0.27683264876747915	0.0	True
+Category:Guatemalan computer scientists	0.27683264876747915	0.0	True
+Category:Azerbaijani computer scientists	0.27683264876747915	0.0	True
+Category:Latvian computer scientists	0.27683264876747915	0.0	True
+Category:Icelandic computer scientists	0.27683264876747915	0.0	True
+Category:American computer scientists	0.27683264876747915	0.0	True
+Template:Compu-scientist-stub	0.27683264876747915	0.0	True
+Category:Serbian computer scientists	0.27683264876747915	0.0	True
+Category:Argentine computer scientists	0.27683264876747915	0.0	True
+Category:Russian computer scientists	0.27683264876747915	0.0	True
+Category:Kenyan computer scientists	0.27683264876747915	0.0	True
+Category:Indian computer scientists	0.27683264876747915	0.0	True
+Category:Italian computer scientists	0.27683264876747915	0.0	True
+Category:Austrian computer scientists	0.27683264876747915	0.0	True
+Category:Women computer scientists	0.27683264876747915	0.0	True
+Category:Greek computer scientists	0.27683264876747915	0.0	True
+Category:Japanese computer scientists	0.27683264876747915	0.0	True
+Category:Dutch computer scientists	0.27683264876747915	0.0	True
+Category:Swedish computer scientists	0.27683264876747915	0.0	True
+Category:Turkish computer scientists	0.27683264876747915	0.0	True
+Category:Israeli computer scientists	0.27683264876747915	0.0	True
+Category:Mexican computer scientists	0.27683264876747915	0.0	True
+Category:Slovak computer scientists	0.27683264876747915	0.0	True
+Category:Sri Lankan computer scientists	0.27683264876747915	0.0	True
+Category:Australian computer scientists	0.27683264876747915	0.0	True
+Category:Norwegian computer scientists	0.27683264876747915	0.0	True
+Category:German computer scientists	0.27683264876747915	0.0	True
+Category:Belarusian computer scientists	0.27683264876747915	0.0	True
+Category:Nigerian computer scientists	0.27683264876747915	0.0	True
+Category:Hungarian computer scientists	0.27683264876747915	0.0	True
+Category:Finnish computer scientists	0.27683264876747915	0.0	True
+Category:Brazilian computer scientists	0.27683264876747915	0.0	True
+Category:French computer scientists	0.27683264876747915	0.0	True
+Category:Singaporean computer scientists	0.27683264876747915	0.0	True
+Category:Czech computer scientists	0.27683264876747915	0.0	True
+Category:Irish computer scientists	0.27683264876747915	0.0	True
+Category:Sindhi computer scientists	0.27683264876747915	0.0	True
+Category:Belgian computer scientists	0.27683264876747915	0.0	True
+Category:Iranian computer scientists	0.27683264876747915	0.0	True
+Book:Databases	0.2768936008822048	0.0	True
+Category:Computer graphics researchers	0.2769015484214914	0.0	True
+Apple Worm	0.2769666974879481	0.0	True
+K-line (artificial intelligence)	0.27698397346580145	0.0	True
+Michael Hinchey	0.27705563798612465	0.0	True
+Category:Computer science education	0.2770853906882114	0.0	True
+Bidirectionalization	0.2771872506805015	0.0	True
+Education informatics	0.2773230323145885	0.0	True
+Snap! (programming language)	0.2773522073219827	0.0	True
+Wollheim's paradox	0.2776091482008291	0.0	True
+Compilers: Principles, Techniques, and Tools	0.27791317029203205	0.0	True
+Theoretical neuromorphology	0.2779349970350592	0.0	True
+Michigan Terminal System	0.2779941890529291	0.0	True
+Category:Software programmed in Java (programming language)	0.27803894456972245	0.0	True
+Catherine McGeoch	0.2782886478613796	0.0	True
+Computational human modeling	0.2784280812527421	0.0	True
+Summer School Marktoberdorf	0.2785389485544267	0.0	True
+Peter Lucas (computer scientist)	0.2785540349553379	0.0	True
+Diversity in computing	0.2786802798376741	0.0	True
+Category:Energy economics	0.2789217151313897	0.0	True
+FEATool Multiphysics	0.278981761794792	0.0	True
+M2M (Eclipse)	0.2790035154099913	0.0	True
+Brown University Interactive Language	0.2792982368211624	0.0	True
+Dick Grune	0.2793444189480328	0.0	True
+Geoffrey C. Fox	0.2793930810203812	0.0	True
+Category:Criticism of Google	0.2794208581258813	0.0	True
+Craig Gentry (computer scientist)	0.27946008847992604	0.0	True
+StarLogo	0.2795807764499069	0.0	True
+T.H. Tse	0.2795815630868015	0.0	True
+Category:Programming languages conferences	0.27975692220471804	0.0	True
+TYPSET and RUNOFF	0.2797819330972697	0.0	True
+Thonny	0.279799972201146	0.0	True
+KL-ONE	0.27997411829035884	0.0	True
+Mayfield's paradox	0.2801713641655801	0.0	True
+Concurrence (quantum computing)	0.2801726681302785	0.0	True
+Hindsight optimization	0.28017868809756985	0.0	True
+DrawBot	0.2801848423469579	0.0	True
+Code on demand	0.2803042126665561	0.0	True
+Arimaa	0.2803042231465902	0.0	True
+Universal relation assumption	0.280420398653336	0.0	True
+Category:Berkeley Open Infrastructure for Network Computing projects	0.2806794389669509	0.0	True
+History of Programming Languages	0.2807802489859401	0.0	True
+Addressing mode	0.2807962472345877	0.0	True
+Trace Cache	0.2808568178602953	0.0	True
+RMIT School of Science	0.28096891923469136	0.0	True
+Codd's cellular automaton	0.2812828548353935	0.0	True
+HOBBIES (electromagnetic solver)	0.2813435399274372	0.0	True
+Ramification problem	0.2813500387770892	0.0	True
+Philip S. Abrams	0.2815811868610781	0.0	True
+List of computer science conference acronyms	0.2816661501492229	0.0	True
+Digital signal processing	0.2817600152557498	0.0	True
+Nyquist rate	0.2817777381662633	0.0	True
+MIDACO	0.28209094516175903	0.0	True
+Quadrature mirror filter	0.28217152539286805	0.0	True
+Gordon Hunter (academic)	0.2822807801845915	0.0	True
+International Conference on Applications and Theory of Petri Nets and Concurrency	0.2824732870393465	0.0	True
+Alesis Artificial Intelligence	0.2826624406411556	0.0	True
+University Voting Systems Competition	0.2828983883032111	0.0	True
+Compile time	0.28351324350506024	0.0	True
+Nyquist ISI criterion	0.28355024128725864	0.0	True
+Factor oracle	0.2836062725010639	0.0	True
+Jean-Loup Baer	0.28373911055640444	0.0	True
+Anti-realism	0.28408177107753824	0.0	True
+Jim Davies (computer scientist)	0.2841217573013111	0.0	True
+CompuMath Citation Index	0.28412871185335664	0.0	True
+Kathleen McKeown	0.2841660640359576	0.0	True
+Dorothy E. Denning	0.2842319287105817	0.0	True
+Compressed suffix array	0.2842940070990909	0.0	True
+Shmuel Winograd	0.2844303747809681	0.0	True
+Gordon Bell Prize	0.2844373056651435	0.0	True
+Clarity test	0.2844971346806826	0.0	True
+VisAD	0.2845846281732822	0.0	True
+CESIL	0.28476802547306884	0.0	True
+Code rate	0.284790110280888	0.0	True
+Longuet-Higgins Prize	0.2848358749834358	0.0	True
+Journal of the ACM	0.2848605676771979	0.0	True
+Janet L. Kolodner	0.28487519308084164	0.0	True
+Distributional–relational database	0.2850113216145645	0.0	True
+Simon Blackburn	0.2850606105492518	0.0	True
+Slot (computer architecture)	0.2851878406034382	0.0	True
+Josh Fisher	0.2853738691798345	0.0	True
+Madhyamakālaṃkāra	0.2853908893867925	0.0	True
+Andrew Martin (computer scientist)	0.2854831853932366	0.0	True
+Workshop on Cryptographic Hardware and Embedded Systems	0.2858065477878046	0.0	True
+Stanford DASH	0.2859896353750684	0.0	True
+Entity–attribute–value model	0.2860159659201035	0.0	True
+Natural Computing (journal)	0.2860810974682574	0.0	True
+C++ string handling	0.28634282758105145	0.0	True
+MagicPlot	0.28640079897993403	0.0	True
+International Symposium on Mathematical Foundations of Computer Science	0.2872098470823176	0.0	True
+SIMD	0.2872542179632448	0.0	True
+Category:Stochastic optimization	0.2873078180043536	0.0	True
+Category:Combinatorial optimization	0.2873078180043536	0.0	True
+Algebraic reconstruction technique	0.2873388130588977	0.0	True
+Confusion network	0.28749162744751583	0.0	True
+Abstraction layer	0.2876216027854323	0.0	True
+Robert Harper (computer scientist)	0.2884119338152023	0.0	True
+Explainable Artificial Intelligence	0.2884840581745481	0.0	True
+Milner Award	0.28854348403788155	0.0	True
+Edouard Bugnion	0.28867125942567545	0.0	True
+Category:E-Science	0.288682677484606	0.0	True
+ACM Computing Surveys	0.2887237792922073	0.0	True
+Escuela Superior Latinoamericana de Informática	0.2887432548996801	0.0	True
+Elbow method (clustering)	0.2888276241873945	0.0	True
+Argument map	0.2888932260116233	0.0	True
+Color histogram	0.28895887558477695	0.0	True
+Producer–consumer problem	0.2889829077097683	0.0	True
+Bing Liu	0.2891098048151676	0.0	True
+FIR transfer function	0.2892294360177861	0.0	True
+ACM Transactions on Algorithms	0.2894564973463289	0.0	True
+Presburger Award	0.28949343539427164	0.0	True
+Kinetic minimum box	0.2895945329514039	0.0	True
+Planar (computer graphics)	0.2900433400774016	0.0	True
+Scientific Research Institute of System Development	0.29013971830936497	0.0	True
+Proper name (philosophy)	0.29021928416809634	0.0	True
+Parallel constraint satisfaction processes	0.2903663538246153	0.0	True
+Category:Artificial intelligence conferences	0.2904455443039496	0.0	True
+Journal of Artificial Societies and Social Simulation	0.2905222213570789	0.0	True
+Microarchitecture simulation	0.2910543744240455	0.0	True
+Category:Biochemistry methods	0.29107911814194315	0.0	True
+Category:Cellular automaton patterns	0.29122762628032617	0.0	True
+Category:Computer security	0.29138955863824945	0.0	True
+CR Rao Advanced Institute of Mathematics, Statistics and Computer Science	0.29140817848062195	0.0	True
+ABC (programming language)	0.2914235745401294	0.0	True
+ADS-AC	0.291785069974104	0.0	True
+List of artificial intelligence projects	0.291837578384003	0.0	True
+Infinite impulse response	0.2918640490093441	0.0	True
+Allen Holub	0.29200202982990825	0.0	True
+Structure and Interpretation of Computer Programs	0.2920209605440704	0.0	True
+ReCALL (journal)	0.29204282998652514	0.0	True
+Proof-of-space	0.29205507071004544	0.0	True
+Google Japanese Input	0.2920986706264889	0.0	True
+BabelNet	0.2921172360368308	0.0	True
+ELAN (programming language)	0.2922030418972726	0.0	True
+David Forsyth (computer scientist)	0.2922405781054698	0.0	True
+Elaine M. McGraw	0.2923410004093837	0.0	True
+Category:Fault-tolerant computer systems	0.2931103602273757	0.0	True
+Kinetic diameter (data)	0.2931277323752239	0.0	True
+International Colloquium on Structural Information and Communication Complexity	0.2933538741804038	0.0	True
+Association for Logic Programming	0.2936285121943494	0.0	True
+Viola–Jones object detection framework	0.29368917481578793	0.0	True
+Address space	0.2941086289324251	0.0	True
+Metacharacter	0.29414120640197383	0.0	True
+Category:Signal processing conferences	0.29428284292894963	0.0	True
+Von Neumann universal constructor	0.29432696115940643	0.0	True
+Systemography	0.2945792672678089	0.0	True
+Journal of Statistical Software	0.2946908520911932	0.0	True
+Babelfy	0.29500157307108826	0.0	True
+Category:Computer science educators	0.2951177948372044	0.0	True
+Nijaz Ibrulj	0.2951299423424505	0.0	True
+Semantic error	0.2951438833897456	0.0	True
+Alon Halevy	0.2953593425515961	0.0	True
+Cascaded integrator–comb filter	0.29571807870313915	0.0	True
+Christopher Bishop	0.2958268480715663	0.0	True
+Category:Bioscience education	0.29594972283012483	0.0	True
+John D. Gannon	0.2961316674125227	0.0	True
+List of PBKDF2 implementations	0.29626426442421666	0.0	True
+Consortium for Computing Sciences in Colleges	0.2962643915983131	0.0	True
+Walrasian auction	0.2964745939758246	0.0	True
+Andrew Clausen	0.29654208981215874	0.0	True
+Tree rearrangement	0.29655515012053324	0.0	True
+PlatBox Project	0.29655881075863305	0.0	True
+Swamping problem	0.2966068506241084	0.0	True
+H. T. Kung	0.2966393873368281	0.0	True
+Category:Computer science papers	0.2966442394153521	0.0	True
+Formal Aspects of Computing	0.2968584703848369	0.0	True
+ACM Computing Reviews	0.2975504648633663	0.0	True
+E. Allen Emerson	0.2977092102484286	0.0	True
+Technology transfer in computer science	0.29803460168042234	0.0	True
+Problem of future contingents	0.2981194217917951	0.0	True
+B-heap	0.2982210561368264	0.0	True
+Category:Algorithms and data structures stubs	0.2982231376672525	0.0	True
+French Institute for Research in Computer Science and Automation	0.2982583305931596	0.0	True
+Computational Complexity Conference	0.2983963773522938	0.0	True
+List of cryptology conferences	0.2989543688463314	0.0	True
+Volume of fluid method	0.29919592089046193	0.0	True
+Discursive dilemma	0.29933387444807963	0.0	True
+SIGNAL (programming language)	0.2993718036352705	0.0	True
+Clarence Ellis (computer scientist)	0.29939373972490696	0.0	True
+Ewan Stafford Page	0.2993940746638349	0.0	True
+Kathryn S. McKinley	0.2996378656264391	0.0	True
+Samir Das	0.2997612914041673	0.0	True
+Window function	0.299797741648641	0.0	True
+Memory model (programming)	0.2998294042708268	0.0	True
+Netflix Prize	0.29990023973496377	0.0	True
+Abstract syntax	0.2999536722288687	0.0	True
+Category:Computer science competitions	0.3001429674604089	0.0	True
+Comparison of machine translation applications	0.3003122902638241	0.0	True
+International Journal of Applied Mathematics and Computer Science	0.30032841700249263	0.0	True
+Commensurability (philosophy of science)	0.3004291483517493	0.0	True
+Department of Computer Science, FMPI, Comenius University	0.3004996592525183	0.0	True
+RoboMind	0.3005392671426853	0.0	True
+AP Computer Science Principles	0.3005705259581112	0.0	True
+Comparison of regular expression engines	0.3006643478404874	0.0	True
+Jean Dunbabin	0.30077902168522874	0.0	True
+Counterpart theory	0.3010162777162895	0.0	True
+Category:Computer security academics	0.301182356534948	0.0	True
+Randal Bryant	0.3017079624079121	0.0	True
+Modified Harvard architecture	0.30172154616279034	0.0	True
+Category:Bird censuses	0.3020287547711469	0.0	True
+Memory-prediction framework	0.302043582748578	0.0	True
+Computational linguistics	0.3023089631294968	0.0	True
+Hal Abelson	0.30252228342184445	0.0	True
+Mark N. Wegman	0.3026524135454428	0.0	True
+Ruth Aylett	0.30323233990399645	0.0	True
+Raptor (programming language)	0.30357615657097325	0.0	True
+List of computer science conferences	0.30385824801588	0.0	True
+Feng's classification	0.3041546584318189	0.0	True
+Conference on Web and Internet Economics	0.30434521874293297	0.0	True
+Matt Welsh (computer scientist)	0.3044296386095986	0.0	True
+Constrained clustering	0.3045677001668881	0.0	True
+George Lindor Brown	0.30467623204668937	0.0	True
+Template:DSP	0.3047611803055772	0.0	True
+Wildmat	0.3048095917189412	0.0	True
+Received view of theories	0.305058963192996	0.0	True
+Highly optimized tolerance	0.3054327380002233	0.0	True
+Alan Turing Centenary Conference	0.30586062660674496	0.0	True
+Epsilon transition	0.3064856565108149	0.0	True
+ReteOO	0.3065962334246242	0.0	True
+Computer Science (journal)	0.306724027338249	0.0	True
+IEEE Transactions on Neural Networks and Learning Systems	0.3069695843637965	0.0	True
+Flaviu Cristian	0.3069988638445406	0.0	True
+Category:Fisheries science	0.3070471568367395	0.0	True
+Sequential logic	0.3076986071785159	0.0	True
+Research Institute for Symbolic Computation	0.3077062463153166	0.0	True
+Category:Areas of computer science	0.30779946116252377	0.0	True
+Thomas E. Anderson	0.3079557571450037	0.0	True
+Cone algorithm	0.3082654228529743	0.0	True
+Terry Halpin	0.30832397601419137	0.0	True
+Immersed boundary method	0.30849648507991656	0.0	True
+Langton's ant	0.3085109190125359	0.0	True
+Fabric of Security	0.3085661812942891	0.0	True
+Hopscotch (programming language)	0.3086218979774472	0.0	True
+Journal of Machine Learning Research	0.3086657996901643	0.0	True
+2D adaptive filters	0.3087704647606906	0.0	True
+Contextual image classification	0.30894762837776235	0.0	True
+Virtual synchrony	0.30904534573710674	0.0	True
+Regulatory feedback network	0.30905330061616165	0.0	True
+Maximum parsimony (phylogenetics)	0.309164396328231	0.0	True
+Computational journalism	0.3092218539546069	0.0	True
+Eight Ones	0.3092364842173153	0.0	True
+CS50	0.3093898545891607	0.0	True
+Kinetic width	0.3094794580185292	0.0	True
+Ceteris paribus	0.309623684550402	0.0	True
+International Journal of Software and Informatics	0.30970170387331264	0.0	True
+Combs method	0.3098938976393327	0.0	True
+Functional theories of grammar	0.3099097036902421	0.0	True
+Gamma-Re Transition Model	0.3099583194515313	0.0	True
+Ralph-Johan Back	0.3100008551536555	0.0	True
+International Conference on Theory and Applications of Models of Computation	0.3100284642609141	0.0	True
+Syntax	0.3101517982171426	0.0	True
+Rapira	0.3103128106056573	0.0	True
+SIMPLE algorithm	0.3103233582611601	0.0	True
+MCACEA	0.31049539981317403	0.0	True
+Voronoi pole	0.3107139044600419	0.0	True
+CodinGame	0.3108276406116204	0.0	True
+Kinetic smallest enclosing disk	0.31111511802380626	0.0	True
+Category:Computational learning theory	0.31112064213246565	0.0	True
+Chord (concurrency)	0.31118056917696685	0.0	True
+CLEAN (algorithm)	0.3112630324281501	0.0	True
+Ian Foster	0.3115928824759105	0.0	True
+Thomas W. Reps	0.3116143488939126	0.0	True
+Minimum bounding rectangle	0.3116314806642549	0.0	True
+SLAM project	0.3116523924153521	0.0	True
+Semantic holism	0.31169305936032976	0.0	True
+Alfred Aho	0.31171253671044324	0.0	True
+Difference list	0.3117856299518365	0.0	True
+Gunk (mereology)	0.3118448265719858	0.0	True
+Microfit	0.3123378087801344	0.0	True
+R. Kent Dybvig	0.3125278850166901	0.0	True
+Glossary of computer software terms	0.3125985963894503	0.0	True
+Amoeba (operating system)	0.31270023734038943	0.0	True
+Felix Gers	0.3131245793092684	0.0	True
+Data processing inequality	0.3133189988440786	0.0	True
+Software distribution	0.3133626593289189	0.0	True
+Erhard Rahm	0.3133648036475964	0.0	True
+Category:Ribbon symbolism	0.3135284607772684	0.0	True
+Category:Medical symbols	0.3135284607772684	0.0	True
+Computational irreducibility	0.3137249923640404	0.0	True
+Introduction to Automata Theory, Languages, and Computation	0.3137475765982796	0.0	True
+HyperTalk	0.3140420030371533	0.0	True
+Leon J. Osterweil	0.3140819239344136	0.0	True
+Category:Brevity codes	0.3141271762099024	0.0	True
+Category:Neural coding	0.3141271762099024	0.0	True
+Backward chaining	0.3142023307719506	0.0	True
+Evolving intelligent system	0.3142184951482521	0.0	True
+Neurocomputing (journal)	0.3142823663585236	0.0	True
+CIFAR-10	0.3143381966629613	0.0	True
+Corinna Cortes	0.31433938876442913	0.0	True
+Jim Woodcock	0.3144002349317768	0.0	True
+T-vertices	0.31451948783581285	0.0	True
+DISCUS	0.3147566422916219	0.0	True
+Tanel Tammet	0.3148080995457052	0.0	True
+Matched Z-transform method	0.3149166352568613	0.0	True
+List of Jewish American computer scientists	0.31511694200998364	0.0	True
+Schoonschip	0.31512617453789243	0.0	True
+Carl Ebeling	0.3152230919782962	0.0	True
+Paris Kanellakis Award	0.3153923559580373	0.0	True
+Quaject	0.31546126917954104	0.0	True
+Probabilistic database	0.31546587258790776	0.0	True
+Defining length	0.3154866820832096	0.0	True
+Forrest Iandola	0.3155099546692329	0.0	True
+Tversky index	0.3157259585932	0.0	True
+The Journal of Supercomputing	0.315777214838593	0.0	True
+Conditional operator	0.3158821556972531	0.0	True
+Effective complexity	0.3160026990863868	0.0	True
+Naturalistic theories of mental representation	0.3160145660429506	0.0	True
+Category:Logical paradoxes	0.3160855210945941	0.0	True
+Category:Philosophical paradoxes	0.3160855210945941	0.0	True
+Category:Decision-making paradoxes	0.3160855210945941	0.0	True
+List of Unified Modeling Language tools	0.3161256580416276	0.0	True
+Successive approximation ADC	0.31612787295749106	0.0	True
+JSBML	0.31630743744080464	0.0	True
+Cone tracing	0.3165146536478479	0.0	True
+Category:Recipients of the ACM Prize in Computing	0.3165442098839004	0.0	True
+Valerie Barr	0.31670107966411964	0.0	True
+Beta encoder	0.3167131424152998	0.0	True
+Template:Algorithm-stub	0.3167946512666548	0.0	True
+Glob (programming)	0.31684183950359457	0.0	True
+Bare machine	0.3168495558790155	0.0	True
+Generation time	0.3169051420401169	0.0	True
+Nonobtuse mesh	0.3169293437584034	0.0	True
+Sartaj Sahni	0.3170477288378689	0.0	True
+Bertrand Meyer	0.3176887939850457	0.0	True
+Von Neumann architecture	0.3178101018181609	0.0	True
+Obfuscation (software)	0.3178186766252202	0.0	True
+Marr Prize	0.31833738900397346	0.0	True
+Algorithmic entities	0.3184883287975152	0.0	True
+Robert Hyatt	0.31859576475376505	0.0	True
+Category:Behaviorism	0.318801999006625	0.0	True
+Inquiry	0.3188229636927228	0.0	True
+Acta Informatica	0.3188836339454407	0.0	True
+Computing (journal)	0.3188985085050726	0.0	True
+Automatic bug fixing	0.3190119818403425	0.0	True
+Category:Risk	0.3190238826724907	0.0	True
+DBLP	0.3190809159771637	0.0	True
+Superscalar processor	0.31908210122026703	0.0	True
+Central composite design	0.31911852709369243	0.0	True
+Computational semiotics	0.3191920186099401	0.0	True
+Panos Kalnis	0.3199540365699266	0.0	True
+Ch (computer programming)	0.3203305398335517	0.0	True
+The Complexity of Songs	0.32038796695481664	0.0	True
+Template:Presburger winners	0.32039673205695723	0.0	True
+Template:Jepson eFlora	0.3206384224919189	0.0	True
+Zeno (programming language)	0.32091528012801424	0.0	True
+Paul Hudak	0.3210040914362705	0.0	True
+Computer bridge	0.3215013502388919	0.0	True
+Theory of descriptions	0.3216590797541466	0.0	True
+Discrete frequency domain	0.3218259850236546	0.0	True
+Jeroo	0.32222654419242897	0.0	True
+Hexagonal sampling	0.3222539207213641	0.0	True
+Types of mesh	0.3223262016198916	0.0	True
+Susan L. Graham	0.3223794401898565	0.0	True
+Computer graphics (computer science)	0.32267923614082683	0.0	True
+Theory of Cryptography Conference	0.32295075377840915	0.0	True
+Steered-Response Power Phase Transform	0.323050608677158	0.0	True
+Darwin machine	0.32313528000457403	0.0	True
+Leslie P. Kaelbling	0.3237896873903246	0.0	True
+Pushmeet Kohli	0.3238542634535697	0.0	True
+Lecture Notes in Computer Science	0.32387042156831675	0.0	True
+Bridging model	0.3239335616836377	0.0	True
+Solution algorithms for pressure-velocity coupling in steady flows	0.3239364556881081	0.0	True
+Category:Lists of computer scientists	0.324087319814557	0.0	True
+Texts in Theoretical Computer Science	0.32409534544083546	0.0	True
+Computational phylogenetics	0.3241353570504881	0.0	True
+Aum Programming Language	0.32414648924298817	0.0	True
+Peter Flach	0.32416102412826336	0.0	True
+Alt-Ergo	0.32416130241888746	0.0	True
+Brad Karp	0.32419879580716165	0.0	True
+Trimming (computer programming)	0.3243900788659656	0.0	True
+Fan-out (software)	0.3243978834359749	0.0	True
+Implication table	0.3246039834290033	0.0	True
+Perl Compatible Regular Expressions	0.3246959572040603	0.0	True
+Luis von Ahn	0.3248931950296464	0.0	True
+Integrational theory of language	0.32570278348734016	0.0	True
+Peter Brusilovsky	0.3260619719813258	0.0	True
+Johannes Gehrke	0.3263431959429113	0.0	True
+Indian Association for Research in Computing Science	0.3263668800601915	0.0	True
+Morris–Lecar model	0.32655379472016965	0.0	True
+Comparison of application virtualization software	0.3266543303155257	0.0	True
+Sidney Michaelson	0.3268317874500285	0.0	True
+Unscrupulous diner's dilemma	0.3271390467029609	0.0	True
+EACSL	0.3278425273369754	0.0	True
+Christos Faloutsos	0.32797848522621825	0.0	True
+Computational electromagnetics	0.3280049712764119	0.0	True
+Applied Cryptography and Network Security	0.3280730947175274	0.0	True
+No-no paradox	0.3286055043826242	0.0	True
+Logical positivism	0.3292816985350033	0.0	True
+Comparison of Unicode encodings	0.32935476574357603	0.0	True
+Semantic view of theories	0.32973636743333035	0.0	True
+Algorithms (journal)	0.3299659811821187	0.0	True
+Prize for Innovation in Distributed Computing	0.3300234728280001	0.0	True
+Netstring	0.3300894625093771	0.0	True
+3D reconstruction from multiple images	0.33015415174022983	0.0	True
+AgentCubes	0.33036955864715645	0.0	True
+Category:Computer science conferences	0.3306002386595661	0.0	True
+Method stub	0.33060782999825256	0.0	True
+Context principle	0.33064821918012666	0.0	True
+20Q	0.33066639834280576	0.0	True
+Central differencing scheme	0.33107727840336626	0.0	True
+Nancy Lynch	0.331102316837368	0.0	True
+Human-based computation game	0.3311814479201465	0.0	True
+Monotonic query	0.33123617857836	0.0	True
+Category:Quantum complexity theory	0.3313097313410645	0.0	True
+Paradigms of AI Programming: Case Studies in Common Lisp	0.3313133195508211	0.0	True
+Peter J. Denning	0.331440946051263	0.0	True
+Concurrency semantics	0.3317680642694969	0.0	True
+Data item	0.3318041031589917	0.0	True
+Gary T. Leavens	0.3318875831236697	0.0	True
+Computer simulation	0.3318945937764937	0.0	True
+John F. Hughes	0.33208084907443164	0.0	True
+Sven Koenig (computer scientist)	0.3322848279398247	0.0	True
+Horst Feistel	0.3323264643739339	0.0	True
+Category:Tablet computers by year of introduction	0.33243605489704503	0.0	True
+Mark Guzdial	0.33282093893780124	0.0	True
+Category:Algorithmic complexity attacks	0.3328842116075653	0.0	True
+Mixed linear complementarity problem	0.33291377468849576	0.0	True
+Astronomy and Computing	0.33299002771688313	0.0	True
+Bayesian approaches to brain function	0.33315805418679656	0.0	True
+UPGMA	0.3331740492284941	0.0	True
+ReDoS	0.33355641990359675	0.0	True
+Alan Perlis	0.3337036533190817	0.0	True
+Sugarscape	0.3339079573037629	0.0	True
+Attribute domain	0.3339786515326324	0.0	True
+Problem of the criterion	0.3340200013518463	0.0	True
+Probability in the Engineering and Informational Sciences	0.334032782695358	0.0	True
+Sequential euclidean distance transforms	0.33423352193871075	0.0	True
+RuleML Symposium	0.33439981412503283	0.0	True
+Dynamic link matching	0.33525941799897097	0.0	True
+Tin Kam Ho	0.3356182520441836	0.0	True
+Gordon Cormack	0.3358498521658457	0.0	True
+XDAIS algorithms	0.33619238130032303	0.0	True
+Category:String collation algorithms	0.33625361730210296	0.0	True
+Marching triangles	0.3364535839749079	0.0	True
+Chris Wallace (computer scientist)	0.3373044225413093	0.0	True
+John Hughes (computer scientist)	0.3374271935489193	0.0	True
+Password Hashing Competition	0.3374594898199785	0.0	True
+CGAL	0.3381316098867008	0.0	True
+Shape table	0.3385543139790595	0.0	True
+Graham Kendall	0.33862920994254203	0.0	True
+Comparison of parser generators	0.3388874129587631	0.0	True
+Category:Computer science writers	0.3394565934281311	0.0	True
+Raphael Rom	0.3401928743874929	0.0	True
+Journal of Computer and System Sciences	0.3404688572761311	0.0	True
+Joe Stoy	0.3404852544865263	0.0	True
+Thomas H. Cormen	0.34050261212621763	0.0	True
+Continuous Function Chart	0.3408076721430826	0.0	True
+Jon Crowcroft	0.3409939337406976	0.0	True
+Category:String sorting algorithms	0.3414094912053229	0.0	True
+Tessellation (computer graphics)	0.34152552203430914	0.0	True
+Mexican International Conference on Artificial Intelligence	0.3417388983694214	0.0	True
+Technology Education and Literacy in Schools	0.3418222390284693	0.0	True
+WPGMA	0.34197714647424043	0.0	True
+Pulse computation	0.34204241969553234	0.0	True
+Fan triangulation	0.34230760481613176	0.0	True
+Economics of security	0.34231337834696196	0.0	True
+Rope (data structure)	0.3426466607671768	0.0	True
+V-optimal histograms	0.3426760249524425	0.0	True
+Knuth Prize	0.3431012045272241	0.0	True
+Runtime verification	0.3436569415897361	0.0	True
+Susan B. Davidson	0.34415864255348283	0.0	True
+Clarke's generalized Jacobian	0.3441844474760859	0.0	True
+Joseph M. Hellerstein	0.3442488469215092	0.0	True
+Behavioral modeling in computer-aided design	0.3442723113746933	0.0	True
+Category:Computer science departments	0.3446975574871026	0.0	True
+Conference on Neural Information Processing Systems	0.3448475885642158	0.0	True
+MSU Faculty of Computational Mathematics and Cybernetics	0.34500486763175736	0.0	True
+Martin Kay	0.3452215504735867	0.0	True
+Logical pluralism	0.3460090081161077	0.0	True
+Michael F. Cohen	0.3461596680614893	0.0	True
+Mathai Joseph	0.3464511392819015	0.0	True
+Edgar F. Codd	0.346853577167087	0.0	True
+Range reporting	0.3469915881403838	0.0	True
+Retiming	0.3470451322834585	0.0	True
+Dependency theory (database theory)	0.3471655543014809	0.0	True
+Symposium on Applied Computing	0.3471795380273981	0.0	True
+Template:Computer graphics	0.34748752459650656	0.0	True
+Single Table Inheritance	0.3477185544533504	0.0	True
+Michael Kölling	0.34846746575137594	0.0	True
+Access level	0.3485214185372976	0.0	True
+ACM Transactions on Programming Languages and Systems	0.3485240827620005	0.0	True
+Hybrid-core computing	0.34865415221438045	0.0	True
+Alasdair Turner	0.34883854279959914	0.0	True
+Logical Decisions	0.34908474988126675	0.0	True
+Weighted Voronoi diagram	0.34926017795151576	0.0	True
+Cryptographic splitting	0.34963420553665475	0.0	True
+Philosothon	0.35025663601840273	0.0	True
+Substring	0.35032207815139593	0.0	True
+Block cellular automaton	0.3504265687568614	0.0	True
+John Backus	0.3504544327182377	0.0	True
+Computing with words and perceptions	0.3506365512261024	0.0	True
+Winifred Asprey	0.3506636687849918	0.0	True
+The Correlation between Relatives on the Supposition of Mendelian Inheritance	0.3509104704979702	0.0	True
+Centroidal Voronoi tessellation	0.35099365104311564	0.0	True
+Logical Methods in Computer Science	0.3514748377026988	0.0	True
+Range query tree	0.3514852616735755	0.0	True
+Quantum Byzantine agreement	0.3515317261279676	0.0	True
+Sexual dimorphism measures	0.35199217182985565	0.0	True
+Hit-testing	0.35200702835150205	0.0	True
+Wavelet Tree	0.3520589553065639	0.0	True
+Spaced learning	0.3523164154448798	0.0	True
+Computational heuristic intelligence	0.3526292521862653	0.0	True
+Srinivasan Keshav	0.35275839212741295	0.0	True
+Collision (computer science)	0.353083777701673	0.0	True
+PILOT	0.3533949120913436	0.0	True
+Tom (pattern matching language)	0.3540637486456318	0.0	True
+Samir Khuller	0.3542350354660215	0.0	True
+A-buffer	0.3542535688164138	0.0	True
+Computational geophysics	0.35427170091294224	0.0	True
+Ming C. Lin	0.3544451493131564	0.0	True
+Balking pattern	0.3545394538144546	0.0	True
+BK-tree	0.35478910917159523	0.0	True
+ALF (proof assistant)	0.3548725749045885	0.0	True
+Alphabet of human thought	0.354880448097508	0.0	True
+Data cube	0.35496050757393205	0.0	True
+Cliff Jones (computer scientist)	0.3550342440369127	0.0	True
+Susan B. Horwitz	0.35576809023532674	0.0	True
+Incremental heuristic search	0.355923653779928	0.0	True
+Category:Sequence alignment algorithms	0.3561064817135201	0.0	True
+Lois Haibt	0.35616935078404155	0.0	True
+Category:Programming language researchers	0.35633429921043863	0.0	True
+Category:Computer science journals	0.35633984902667953	0.0	True
+Category:Theoretical computer science conferences	0.35653938051448986	0.0	True
+Rudolf Berghammer	0.35672055635252103	0.0	True
+John Fitch (computer scientist)	0.35727222728978364	0.0	True
+Journal of Logic and Computation	0.35738584162963444	0.0	True
+Power law scheme	0.3576047940103246	0.0	True
+Brodal queue	0.35833797252845884	0.0	True
+Active object	0.3585483191048026	0.0	True
+Data truncation	0.3589170554941613	0.0	True
+Gordon–Loeb model	0.35903953869594063	0.0	True
+Russell Greiner	0.3590737364720377	0.0	True
+List of functional connectivity software	0.3595708876847383	0.0	True
+PACELC theorem	0.3596409592929697	0.0	True
+Grid classification	0.35966351536365593	0.0	True
+Incompressible string	0.3597482994000666	0.0	True
+Degree of parallelism	0.35978923992797096	0.0	True
+CADE ATP System Competition	0.3603830103249397	0.0	True
+Thorsten Altenkirch	0.3604350513556376	0.0	True
+Journal of Formalized Reasoning	0.360444069002804	0.0	True
+Vagrant predicate	0.3606438716011065	0.0	True
+Self-refuting idea	0.36111080136174506	0.0	True
+Category:Formal methods stubs	0.3612091361231723	0.0	True
+Munching square	0.3613597542532108	0.0	True
+First Draft of a Report on the EDVAC	0.3616730075530352	0.0	True
+Null-terminated string	0.36191021899838055	0.0	True
+ABA problem	0.3620587109032461	0.0	True
+Eric Allender	0.3622868512136529	0.0	True
+Serge Abiteboul	0.3623220063881386	0.0	True
+Conflict resolution strategy	0.3626319324867147	0.0	True
+Intension	0.3629438482279029	0.0	True
+Stochastic Eulerian Lagrangian method	0.3630828859039811	0.0	True
+Computer Science Teachers Association	0.3634551538802387	0.0	True
+British Machine Vision Conference	0.36347728192417456	0.0	True
+Book:3D rendering	0.36354169281461024	0.0	True
+Weak Büchi automaton	0.3636827389204784	0.0	True
+Intelligent Decision System	0.36377941355853455	0.0	True
+Nicolai Petkov	0.3637901632159489	0.0	True
+Available expression	0.3651198624874645	0.0	True
+MUSCL scheme	0.36552222464993256	0.0	True
+Dynamic SSL	0.3655368054971385	0.0	True
+Dahl–Nygaard Prize	0.36558049939814335	0.0	True
+Category:Distributed computing conferences	0.3656159591818813	0.0	True
+Computational complexity of matrix multiplication	0.36565609775101615	0.0	True
+K-D-B-tree	0.3660962527812589	0.0	True
+Garth Gibson	0.3661476198990656	0.0	True
+Pascal (programming language)	0.3666115026295506	0.0	True
+Pragmatic mapping	0.3668479686724366	0.0	True
+Spike-triggered covariance	0.3668643262384893	0.0	True
+Finite pointset method	0.36707411258651934	0.0	True
+Category:Hypercomputation	0.3671865387887226	0.0	True
+Morphometrics	0.3672876719357056	0.0	True
+Fundamenta Informaticae	0.3674918507702787	0.0	True
+Category:Species groups	0.36756971987845577	0.0	True
+Glossary of computer graphics	0.3677067658108381	0.0	True
+Milan Vojnovic	0.3678283754675372	0.0	True
+Nello Cristianini	0.3679048392605023	0.0	True
+Spectral estimation of multidimensional signals	0.3679997083960096	0.0	True
+Chih-Jen Lin	0.3681448400470697	0.0	True
+Category:Data structures	0.3688195446882908	0.0	True
+Codd's 12 rules	0.368946918285048	0.0	True
+Template:TaiBNET	0.36899658993305856	0.0	True
+Cognitive tutor	0.3690118889443092	0.0	True
+Mathematical Optimization Society	0.3690737736241636	0.0	True
+Geodesic grid	0.3692940122503163	0.0	True
+Bin (computational geometry)	0.3693184950871581	0.0	True
+Computational visualistics	0.3702666504418993	0.0	True
+Book:Computer science	0.37044258557877424	0.0	True
+Finite Legendre transform	0.3707433913875232	0.0	True
+Tractable problem	0.3707516282844272	0.0	True
+Neural coding	0.37105181715917696	0.0	True
+Greedy triangulation	0.3710647952165754	0.0	True
+UCBLogo	0.3711221904202304	0.0	True
+Semantic analysis (computational)	0.3715168776611457	0.0	True
+Donald Knuth	0.3715492749295744	0.0	True
+Quantization (signal processing)	0.3717139394590825	0.0	True
+Postcondition	0.3717333719801857	0.0	True
+International Symposium on Fundamentals of Computation Theory	0.3719251604702383	0.0	True
+Martin Campbell-Kelly	0.3721436102998932	0.0	True
+Goal programming	0.3725516216917642	0.0	True
+Laurie Hendren	0.37311777732233853	0.0	True
+DREAM (software)	0.3732796908197784	0.0	True
+Nancy M. Amato	0.3732918308383953	0.0	True
+String interning	0.3735292188105228	0.0	True
+FreeOTP	0.3736007651182232	0.0	True
+Two Generals' Problem	0.3743988318379657	0.0	True
+Kinetic triangulation	0.3745479936153911	0.0	True
+Visual Logic	0.3746526823245363	0.0	True
+Category:Pattern matching programming languages	0.3746818204676755	0.0	True
+Automated machine learning	0.3750261805736238	0.0	True
+Degree of truth	0.375042614889469	0.0	True
+Alexandra Illmer Forsythe	0.3751196630678985	0.0	True
+David S. Johnson	0.3753641100158582	0.0	True
+Elliott Organick	0.37577866000103183	0.0	True
+Starvation (computer science)	0.37588734941132973	0.0	True
+Adaptive filter	0.3764371799898947	0.0	True
+Richard E. Pattis	0.3775087418277435	0.0	True
+M-tree	0.377925751962698	0.0	True
+String literal	0.3786995740568042	0.0	True
+Integral nonlinearity	0.3788039687198676	0.0	True
+Category:Aviation schools	0.37883413831469903	0.0	True
+Category:Kyoto School	0.37883413831469903	0.0	True
+Category:Coding schools	0.37883413831469903	0.0	True
+Neats and scruffies	0.3798265011210451	0.0	True
+Parks–McClellan filter design algorithm	0.3801811098382948	0.0	True
+Richards controller	0.3804472492361344	0.0	True
+Data science	0.3806324662059745	0.0	True
+Paradox	0.3809216635744066	0.0	True
+Quantum supremacy	0.38192239595637856	0.0	True
+Tamara G. Kolda	0.3819654616819714	0.0	True
+Moshe Vardi	0.3820091573549495	0.0	True
+Cornell University Programming Language	0.3820285149721365	0.0	True
+Zhou Chaochen	0.3820586937670257	0.0	True
+Quasi-triangulation	0.3820930319256787	0.0	True
+Overlap coefficient	0.382093756109156	0.0	True
+Ken Forbus	0.3823421736225367	0.0	True
+Category:Computational resources	0.3824382375219309	0.0	True
+Adaptive optimization	0.3828655766339735	0.0	True
+Chase (algorithm)	0.3829439808241935	0.0	True
+Neural decoding	0.3830345087736178	0.0	True
+Finite volume method for one-dimensional steady state diffusion	0.3831481382603401	0.0	True
+Suffix array	0.3834840298414861	0.0	True
+Category:OpenSolaris-derived software distributions	0.3837842482728172	0.0	True
+Kathleen Fisher	0.3839461869096832	0.0	True
+NeuronStudio	0.3839900329435168	0.0	True
+Projection method (fluid dynamics)	0.3841352902178136	0.0	True
+Symposium on Trends in Functional Programming	0.3842867306748134	0.0	True
+Jane Hillston	0.3848031658124712	0.0	True
+Computer Arimaa	0.3848977916383738	0.0	True
+David J. Malan	0.3849052549886432	0.0	True
+SP/k	0.3850156882541149	0.0	True
+Resel	0.38502002795009377	0.0	True
+Thomas G. Dietterich	0.3852206863691693	0.0	True
+ACM Prize in Computing	0.3855576533055904	0.0	True
+International Symposium on Distributed Computing	0.385737054983227	0.0	True
+Category:Educational programming languages	0.3861459926336344	0.0	True
+Category:Criticisms of programming languages	0.3861459926336344	0.0	True
+OpenCV	0.3861524122493717	0.0	True
+Mehran Sahami	0.3863163102288067	0.0	True
+Keynes–Ramsey rule	0.3866587369663751	0.0	True
+Leslie Blackett Wilson	0.3867499228951876	0.0	True
+Warnier/Orr diagram	0.386790286885396	0.0	True
+ARS++	0.3869003123911241	0.0	True
+Digital signal (signal processing)	0.3869452690109454	0.0	True
+International Conference on Logic Programming	0.3871499618874227	0.0	True
+Tetsuo Asano	0.3872040921006745	0.0	True
+Essentials of Programming Languages	0.3872865101993131	0.0	True
+Quantum machine learning	0.38748005235346017	0.0	True
+Paradox of analysis	0.3876586083351068	0.0	True
+Ricardo Baeza-Yates	0.387676548701395	0.0	True
+Prentice Hall International Series in Computer Science	0.38767760156647774	0.0	True
+Boris Aronov	0.38778425170380665	0.0	True
+Software development effort estimation	0.38808420003256944	0.0	True
+Grammar systems theory	0.3883648525746135	0.0	True
+Category:Scientific computing researchers	0.3885740655504193	0.0	True
+Competitions and prizes in artificial intelligence	0.3886851728694288	0.0	True
+Forward anonymity	0.38871603641553604	0.0	True
+Descent direction	0.3890493537470015	0.0	True
+Best bin first	0.3892155989564682	0.0	True
+Mixed complementarity problem	0.3896485472299571	0.0	True
+High-resolution scheme	0.3898293134694389	0.0	True
+Thomas N. Hibbard	0.39006047570399693	0.0	True
+C string handling	0.3900863212830376	0.0	True
+John C. Butcher	0.3902479263253508	0.0	True
+David L. Dill	0.390442242398546	0.0	True
+List of Russian IT developers	0.39122682315335183	0.0	True
+Quadrature based moment methods	0.3919535287055456	0.0	True
+Category:Unsolved problems in computer science	0.39218226714725096	0.0	True
+Database theory	0.3923956486594158	0.0	True
+Fanya Montalvo	0.3925091373702415	0.0	True
+International Journal of Foundations of Computer Science	0.3926329433373412	0.0	True
+Dynamic Data Driven Applications Systems	0.3929989702255951	0.0	True
+DOPIPE	0.3931338597815593	0.0	True
+Klara Kedem	0.3932985907317604	0.0	True
+Multidimensional DSP with GPU Acceleration	0.3933858495826779	0.0	True
+Category:Vienna Circle	0.3934370776581784	0.0	True
+Doo–Sabin subdivision surface	0.393604007818335	0.0	True
+Finite volume method for two dimensional diffusion problem	0.3936800698319259	0.0	True
+Introduction to the Theory of Computation	0.39456740932568257	0.0	True
+Compressed sensing	0.3946541946986635	0.0	True
+Burden of proof (philosophy)	0.3947064078871657	0.0	True
+Barbara Boucher Owens	0.39490129974201693	0.0	True
+Comparison of disk encryption software	0.3949968949105795	0.0	True
+Rectilinear minimum spanning tree	0.3960626123386221	0.0	True
+Symposium on Foundations of Computer Science	0.39697042335389016	0.0	True
+Dahlia Malkhi	0.3977522157461227	0.0	True
+Algorithms Unlocked	0.3977696677559704	0.0	True
+Rasterisation	0.3978961154001285	0.0	True
+Computer Aided Verification	0.3981727491598345	0.0	True
+Margaret Marrs	0.398361869936318	0.0	True
+Clifford Stein	0.3985921795464001	0.0	True
+Robert W. Floyd	0.3987457910038849	0.0	True
+Liskov substitution principle	0.3988425745447994	0.0	True
+Concurrent MetateM	0.3990092763927292	0.0	True
+Journal of Computational Geometry	0.3992159759628466	0.0	True
+Luca Cardelli	0.3995773470246747	0.0	True
+Peter Buneman	0.3995847920898287	0.0	True
+Coastline paradox	0.3996301669965524	0.0	True
+Lifting scheme	0.39990075019334337	0.0	True
+Principle of compositionality	0.3999826347993917	0.0	True
+Object point	0.4002133720732585	0.0	True
+Tucker Prize	0.4002307524512842	0.0	True
+Critical Security Parameter	0.4003358101630807	0.0	True
+Bandlimiting	0.4003488551705232	0.0	True
+Model-based specification	0.4005794790468519	0.0	True
+Robert B. Schnabel	0.4006045008575479	0.0	True
+Nell B. Dale	0.4007913582938785	0.0	True
+Andrew Colin	0.40101758677821103	0.0	True
+Simple matching coefficient	0.4021373427392543	0.0	True
+Category:Computer olympiads	0.4023513699713982	0.0	True
+Upsampling	0.4024005633358578	0.0	True
+Atropos scheduler	0.4024220583292136	0.0	True
+Batch normalization	0.4026199803269872	0.0	True
+ACM SIGACT	0.40271826595059423	0.0	True
+Simplified Instructional Computer	0.4029774803350519	0.0	True
+AI Challenge	0.40344579001086295	0.0	True
+Logic and dialectic	0.4036837042019791	0.0	True
+Range tree	0.4037418789543225	0.0	True
+British Colloquium for Theoretical Computer Science	0.4040576325016407	0.0	True
+Probabilistic bisimulation	0.40406056189607975	0.0	True
+Guy Blelloch	0.40420278401052573	0.0	True
+Category:Academic programming languages	0.4042916141083085	0.0	True
+Artspeak	0.4046836307793925	0.0	True
+Abox	0.4049198333328802	0.0	True
+Category:Researchers in geometric algorithms	0.4049883717590756	0.0	True
+Temporal difference learning	0.4050136512524432	0.0	True
+Voronoi diagram	0.40541249408832464	0.0	True
+Category:Researchers in distributed computing	0.4059695699670831	0.0	True
+LCP array	0.40609634381130016	0.0	True
+On the Cruelty of Really Teaching Computer Science	0.4061495829772647	0.0	True
+Najm al-Dīn al-Qazwīnī al-Kātibī	0.4063341001574976	0.0	True
+BURS	0.4063413511445474	0.0	True
+Alan H. Borning	0.4063466983406864	0.0	True
+Tal Rabin	0.40646201229952816	0.0	True
+Susan Landau	0.4066903194322634	0.0	True
+Context-adaptive variable-length coding	0.4069124126241481	0.0	True
+Fritz John conditions	0.4071006375594128	0.0	True
+Definite description	0.40710624183819377	0.0	True
+Rajeev Alur	0.40727680800120253	0.0	True
+Syntax error	0.4075806186746143	0.0	True
+Flowgorithm	0.40783241359632944	0.0	True
+Differential nonlinearity	0.40815580117817496	0.0	True
+C. Dianne Martin	0.4082320249850169	0.0	True
+String metric	0.4083392690145101	0.0	True
+Symposium on Parallelism in Algorithms and Architectures	0.4084910381646669	0.0	True
+Kenneth E. Iverson	0.4086939671187909	0.0	True
+Cognitive computer	0.4092545249386148	0.0	True
+Journal of Graph Algorithms and Applications	0.4093424458431326	0.0	True
+Precondition	0.4099000294866386	0.0	True
+List of educational programming languages	0.4101251621779666	0.0	True
+Symbol grounding problem	0.41033049082269935	0.0	True
+Bounding volume hierarchy	0.4104854295855525	0.0	True
+Benoit Mandelbrot	0.4105559802270665	0.0	True
+State transition table	0.4105696717264472	0.0	True
+Association for Symbolic Logic	0.4107326626739149	0.0	True
+Natural language processing	0.4107759506636267	0.0	True
+Zero-order hold	0.4112111791950713	0.0	True
+Zvi Galil	0.4113163801521901	0.0	True
+Hacker's Delight	0.4113901265394074	0.0	True
+Decision list	0.4118018976294068	0.0	True
+Comma code	0.4125010812850258	0.0	True
+Workshop on Logic, Language, Information and Computation	0.4126037975680135	0.0	True
+BCS-FACS	0.4130603640925162	0.0	True
+Certainty	0.4133832057478133	0.0	True
+List of computer science journals	0.4136029226828276	0.0	True
+Fail-stop	0.4139136055406119	0.0	True
+Mihir Bellare	0.4140298589768287	0.0	True
+International Olympiad in Informatics	0.4140510748220177	0.0	True
+Computer security model	0.4140664362462788	0.0	True
+Maximal pair	0.41514167141798464	0.0	True
+David Gries	0.4151869071316205	0.0	True
+Discrete wavelet transform	0.4153663037741026	0.0	True
+Partha Niyogi	0.41538343259385935	0.0	True
+Canopy clustering algorithm	0.4155072581668166	0.0	True
+Life-like cellular automaton	0.4156986909914373	0.0	True
+Algorithm BSTW	0.41575351679607503	0.0	True
+Non-repudiation	0.4160459476929453	0.0	True
+SIAM Journal on Computing	0.4166678207633879	0.0	True
+Iain S. Duff	0.4167100949425581	0.0	True
+POPLmark challenge	0.4170545928937582	0.0	True
+Steve Schneider (computer scientist)	0.4174547850020689	0.0	True
+David F. Bacon	0.4176798375985336	0.0	True
+Ian Goodfellow	0.4179023804505746	0.0	True
+Von Neumann neighborhood	0.4181768545628231	0.0	True
+Susan H. Rodger	0.4185061954215414	0.0	True
+Artificial stupidity	0.4189663829135047	0.0	True
+Michael J. Franklin	0.4190115898289054	0.0	True
+Multiply–accumulate operation	0.4192940118504659	0.0	True
+Dichotomic search	0.4193550899899617	0.0	True
+Generalized suffix tree	0.4196726858110811	0.0	True
+Deterministic automaton	0.42012639833648696	0.0	True
+Pebble automaton	0.420252724570238	0.0	True
+Multidimensional Multirate Systems	0.420256582771942	0.0	True
+Best, worst and average case	0.4206932099888993	0.0	True
+Descriptivist theory of names	0.42087205916267895	0.0	True
+Barrier resilience	0.42125500559037815	0.0	True
+Diploma in Computer Science	0.4213237029176843	0.0	True
+Introduction to Algorithms	0.42143471841107133	0.0	True
+Radhia Cousot	0.4216659912789119	0.0	True
+Suffix automaton	0.42204176096604107	0.0	True
+Logic and rationality	0.4223438377370631	0.0	True
+State encoding for low power	0.4223474194391139	0.0	True
+Book:Computer Programming	0.4224246834966351	0.0	True
+Cubesort	0.422524144862892	0.0	True
+Computer Science Tripos	0.4229570665217132	0.0	True
+Gillian Lovegrove	0.4231781814695634	0.0	True
+Stephen M. Watt	0.42342658939757255	0.0	True
+Norman E. Gibbs	0.4237202406122112	0.0	True
+Kinetic convex hull	0.4237597481070872	0.0	True
+Proof-carrying code	0.42439494970713304	0.0	True
+Journal of Logical and Algebraic Methods in Programming	0.4249318728048408	0.0	True
+Carla Gomes	0.4249433980200692	0.0	True
+John Fitzgerald (computer scientist)	0.42523659139915176	0.0	True
+Approximate computing	0.4252426709829664	0.0	True
+Survival analysis	0.4255537236856112	0.0	True
+Comparison of programming languages (strings)	0.4256048552501842	0.0	True
+PDE surface	0.4256628698023694	0.0	True
+Michael Gelfond	0.4257738773596989	0.0	True
+Hypothetico-deductive model	0.42588224912751904	0.0	True
+PVLV	0.4260641374993286	0.0	True
+List of distributed computing conferences	0.42611890962919663	0.0	True
+Hagit Attiya	0.4262554014823686	0.0	True
+OpenBSD security features	0.4263603910822398	0.0	True
+Category:DNA sequencing	0.4263825259759721	0.0	True
+SIMPLEC algorithm	0.4267665405991449	0.0	True
+Polygonizer	0.4269063639436724	0.0	True
+Danny Dolev	0.4273490117837264	0.0	True
+FM-index	0.4279667045027853	0.0	True
+Symposium on Theory of Computing	0.4289720653451586	0.0	True
+Category:Computer science stubs	0.4294666489936421	0.0	True
+Computer scientist	0.42957474611124535	0.0	True
+Wolfram Language	0.4298205935749886	0.0	True
+Alternating tree automata	0.4300697095245765	0.0	True
+European Symposium on Algorithms	0.4301463117722899	0.0	True
+Bernard Galler	0.43061771079528893	0.0	True
+Language-based security	0.431164332366298	0.0	True
+DFT matrix	0.43154909731934055	0.0	True
+International Symposium on Algorithms and Computation	0.4318462863637476	0.0	True
+Proximal operator	0.4326184756568211	0.0	True
+Cost efficiency	0.4329615685327841	0.0	True
+Galves–Löcherbach model	0.43315695568670703	0.0	True
+Category:Microsoft Dynamics	0.43318959106492294	0.0	True
+Compressed pattern matching	0.4332176045013187	0.0	True
+Racket (programming language)	0.4341841264465706	0.0	True
+Watchman route problem	0.4345297926635629	0.0	True
+The Computer Journal	0.434547155392012	0.0	True
+Wojciech Zaremba	0.4347381658967335	0.0	True
+ICGA Journal	0.4349985202119407	0.0	True
+Sun-Ni law	0.4351816000699715	0.0	True
+Relational database	0.4353759581773605	0.0	True
+Michael Garey	0.4356480108993924	0.0	True
+Lowest common ancestor	0.4356926425557025	0.0	True
+Models of neural computation	0.4357535932599189	0.0	True
+Book:Data structures	0.4361714760399675	0.0	True
+Chandrajit Bajaj	0.4365904831463944	0.0	True
+Generalized star height problem	0.4368120506960494	0.0	True
+Darkforest	0.43691958315906004	0.0	True
+Category:Structural complexity theory	0.4371899012914468	0.0	True
+Computational economics	0.43733154604266905	0.0	True
+Stencil code	0.4380543931897587	0.0	True
+Lattice delay network	0.4381072096490881	0.0	True
+Motion planning	0.4386890291806773	0.0	True
+Conference on Implementation and Application of Automata	0.4390639119897749	0.0	True
+A++	0.4393026886255992	0.0	True
+Parsing	0.43953369540363296	0.0	True
+Wolfe conditions	0.4396350068337532	0.0	True
+Kernel adaptive filter	0.4398672794926344	0.0	True
+Suffix tree	0.4405469004964595	0.0	True
+Book:Programming Languages	0.4405914945284789	0.0	True
+Computational fluid dynamics	0.4407198390221769	0.0	True
+Fast Software Encryption	0.4408443226462624	0.0	True
+Niklaus Wirth	0.4412211298142647	0.0	True
+Computational finance	0.4416057448841352	0.0	True
+Microsoft Small Basic	0.4418590286612376	0.0	True
+TUTOR (programming language)	0.4422206962987174	0.0	True
+Distributed Computing (journal)	0.4428362930910858	0.0	True
+Perlin noise	0.4431487632033672	0.0	True
+SUPS	0.4434301022914308	0.0	True
+Rival conceptions of logic	0.4435861777817798	0.0	True
+Fundamental Concepts in Programming Languages	0.4440115202256527	0.0	True
+Computational cognition	0.4445158315799337	0.0	True
+Triangle fan	0.4453335131606583	0.0	True
+International Journal of Computational Geometry and Applications	0.4454278527160773	0.0	True
+Invariant-based programming	0.4460844004275792	0.0	True
+2D computer graphics	0.4463953382494241	0.0	True
+Stencil jumping	0.4466496100274954	0.0	True
+Paden–Kahan subproblems	0.4468138817098952	0.0	True
+Category:Programming games	0.4469176992413544	0.0	True
+Egon Börger	0.4469738667715983	0.0	True
+Enumerator (computer science)	0.4469745174109019	0.0	True
+Higher-Order and Symbolic Computation	0.4471119580488136	0.0	True
+David Hedgley	0.4473841698209649	0.0	True
+Deductive classifier	0.4479846029520462	0.0	True
+Statistical static timing analysis	0.4481437652450157	0.0	True
+Symposium on Principles of Distributed Computing	0.4483539570081446	0.0	True
+Scattering-matrix method	0.44849904033409627	0.0	True
+Nested set model	0.4489266352157116	0.0	True
+Book:Fundamental Data Structures	0.4503703239185757	0.0	True
+ACM Transactions on Computational Logic	0.4511262645725696	0.0	True
+Jack Dongarra	0.4514155401984261	0.0	True
+Thierry Coquand	0.4515325181473676	0.0	True
+Martín Abadi	0.4516843951062582	0.0	True
+Nominal terms (computer science)	0.4518038044501394	0.0	True
+Richard Bird (computer scientist)	0.4519275011105639	0.0	True
+Arnold Dresden	0.4526140600168905	0.0	True
+Continuous automaton	0.4528372731385634	0.0	True
+Category:Wikipedia categories named after programming languages	0.4533229894039079	0.0	True
+European Symposium on Programming	0.4533554490109111	0.0	True
+Lise Getoor	0.453434198748844	0.0	True
+Asynchronous cellular automaton	0.4536440300884257	0.0	True
+Jaro–Winkler distance	0.4541829012542711	0.0	True
+Reentrancy (computing)	0.4542911535571935	0.0	True
+Backtracking line search	0.4547475828306145	0.0	True
+Wolfgang Händler	0.4550085815744263	0.0	True
+Formal equivalence checking	0.4551344517016097	0.0	True
+International Conference on Functional Programming	0.4553236666701354	0.0	True
+Similarities between Wiener and LMS	0.4553275667278521	0.0	True
+Adversarial machine learning	0.455481070968795	0.0	True
+Belief revision	0.4555290544024606	0.0	True
+Jean-Daniel Boissonnat	0.4556975076476131	0.0	True
+Local feature size	0.4557510077331521	0.0	True
+Symposium on Theoretical Aspects of Computer Science	0.4561432505797245	0.0	True
+Ronald Fagin	0.4562865736281826	0.0	True
+Continuous simulation	0.4564799197484342	0.0	True
+Leonid Libkin	0.4566507127906858	0.0	True
+Argumentation framework	0.4566919787168729	0.0	True
+Quantum complexity theory	0.4568286750257603	0.0	True
+Lottery paradox	0.4569004191451483	0.0	True
+Unfolding (DSP implementation)	0.4572665740516344	0.0	True
+Linked timestamping	0.4573042345066318	0.0	True
+Computer experiment	0.4573614078544738	0.0	True
+Book:Compiler construction	0.4574781674440296	0.0	True
+He Jifeng	0.4575185907502396	0.0	True
+Arithmetic IF	0.4576865069359393	0.0	True
+Weakened weak form	0.4578428912663608	0.0	True
+Temporal logic in finite-state verification	0.4585604801668331	0.0	True
+Diffuse element method	0.4589926299278341	0.0	True
+Pedro Domingos	0.4590850417428651	0.0	True
+Vector-radix FFT algorithm	0.4595152278334125	0.0	True
+Bitonic tour	0.4595862618150624	0.0	True
+Applicative functor	0.459872836398711	0.0	True
+James Cordy	0.4601691550473998	0.0	True
+Category:Computational hardness assumptions	0.4603449830347929	0.0	True
+ECL programming language	0.4603577584796096	0.0	True
+Second-order cellular automaton	0.4609002752774592	0.0	True
+Length extension attack	0.461183486054428	0.0	True
+LC-3	0.4616402084196581	0.0	True
+Algorithmica	0.4616731415635278	0.0	True
+Tony Hoare	0.4618219178019484	0.0	True
+Robin Milner	0.46185297596394703	0.0	True
+Comparison of programming languages (functional programming)	0.4620492205665655	0.0	True
+Eric S. Roberts	0.4623460171612086	0.0	True
+Lustre (programming language)	0.4624884175635871	0.0	True
+Line fitting	0.4626644274403906	0.0	True
+AgentSheets	0.4628460253605978	0.0	True
+Mathesis universalis	0.4629344242617365	0.0	True
+Perceptrons (book)	0.4630376651157879	0.0	True
+QED manifesto	0.463054548621629	0.0	True
+William Cook (computer scientist)	0.4634584769995172	0.0	True
+History of natural language processing	0.4636231917803566	0.0	True
+Syntactic methods	0.4638667777597358	0.0	True
+International Conference on Rewriting Techniques and Applications	0.4640576032337596	0.0	True
+Combinatorics, Probability and Computing	0.4641951959214458	0.0	True
+Cognitive model	0.4648668226220437	0.0	True
+Steiner's calculus problem	0.464887785056258	0.0	True
+Superiorization	0.4649527724172165	0.0	True
+Fortune's algorithm	0.4653388594478478	0.0	True
+Steiner point (computational geometry)	0.4676532134854634	0.0	True
+Python (programming language)	0.4688765635409038	0.0	True
+Category:Convex hull algorithms	0.4692714234020719	0.0	True
+Minimum-Pairs Protocol	0.4692900492963314	0.0	True
+Category:Formal methods publications	0.4693611539358164	0.0	True
+Dan Boneh	0.4693807035971165	0.0	True
+Non-uniform discrete Fourier transform	0.4702159263757572	0.0	True
+Comparison of system dynamics software	0.4711149495308583	0.0	True
+Joseph Halpern	0.4719996793071926	0.0	True
+Comparison of programming languages (string functions)	0.4723027596165993	0.0	True
+International Colloquium on Automata, Languages and Programming	0.4726961805509943	0.0	True
+Tree walking automaton	0.4727989825545154	0.0	True
+Hierarchical RBF	0.4730543836406794	0.0	True
+State space enumeration	0.4733485697307005	0.0	True
+Agent-based computational economics	0.474158867877244	0.0	True
+Matthias Felleisen	0.4743309621464566	0.0	True
+Matching wildcards	0.4747793381838028	0.0	True
+Meshfree methods	0.4748860036390646	0.0	True
+Yoshua Bengio	0.4754390600569773	0.0	True
+Ackley function	0.4756967940253145	0.0	True
+Edmund M. Clarke	0.4760465907726898	0.0	True
+Retrenchment (computing)	0.4760472048211745	0.0	True
+Nataša Jonoska	0.4764807855300375	0.0	True
+Attribute-oriented programming	0.4769566636957879	0.0	True
+Ragel	0.4775886630317629	0.0	True
+Category:Computer graphics algorithms	0.478100122403678	0.0	True
+Pico (programming language)	0.4789496064694354	0.0	True
+Star-free language	0.4790232820430442	0.0	True
+Computational semantics	0.4790816533413243	0.0	True
+Log-space transducer	0.4793518807577989	0.0	True
+Pebble game	0.4795527576727284	0.0	True
+Journal of Automata, Languages and Combinatorics	0.4804392188877813	0.0	True
+Anna Karlin	0.4809868827495466	0.0	True
+Michael Luby	0.481062826211668	0.0	True
+JFLAP	0.4814418872034694	0.0	True
+(a,b)-tree	0.4815314977046632	0.0	True
+Bidirectional map	0.4815710459743513	0.0	True
+Bachelor of Computer Science	0.4816072407130639	0.0	True
+Kinetic closest pair	0.4836239021357448	0.0	True
+Minimum phase	0.4837425294140933	0.0	True
+School of Computational Sciences, Swami Ramanand Teerth Marathwada University	0.4838262845988872	0.0	True
+QUICK scheme	0.4839630131124317	0.0	True
+Santosh Vempala	0.4841019427555362	0.0	True
+Alex Graves (computer scientist)	0.4845730673834026	0.0	True
+Selected Areas in Cryptography	0.4851287732977462	0.0	True
+Financial modeling	0.4857230764791006	0.0	True
+Multiple-conclusion logic	0.4861245470361806	0.0	True
+Indirect self-reference	0.4863583812597812	0.0	True
+Edsger W. Dijkstra	0.4865665979851697	0.0	True
+Corner solution	0.4867410552261562	0.0	True
+Avrim Blum	0.4886609381641144	0.0	True
+Vertex (computer graphics)	0.4887722185547154	0.0	True
+Journal of Computing Sciences in Colleges	0.4894475362039725	0.0	True
+Finite volume method	0.4895487479074996	0.0	True
+Symbolic simulation	0.4896145244773306	0.0	True
+Daniel J. Bernstein	0.4897099338066193	0.0	True
+Ernst-Rüdiger Olderog	0.4908211880705023	0.0	True
+Shimon Even	0.4909310615629206	0.0	True
+Applicative universal grammar	0.4911514751697314	0.0	True
+Timothy J. Hickey	0.4911995786591083	0.0	True
+Gerchberg–Saxton algorithm	0.4913870336888596	0.0	True
+Connectionist expert system	0.4915721530186294	0.0	True
+Ranked alphabet	0.49187406367441794	0.0	True
+Faith Ellen	0.4921863854833939	0.0	True
+SP-DEVS	0.4930223809111194	0.0	True
+Monge array	0.4939222948084421	0.0	True
+AWPP (complexity)	0.4943685785829891	0.0	True
+Quantitative comparative linguistics	0.4949111857700176	0.0	True
+Lance Fortnow	0.4950644658739532	0.0	True
+2D Z-transform	0.4951629912987992	0.0	True
+Category:Theoretical computer science stubs	0.4955350346858771	0.0	True
+LIBSVM	0.4955449919437381	0.0	True
+Augmented transition network	0.4957643165175669	0.0	True
+Brian (software)	0.4958467698266248	0.0	True
+Assertion (software development)	0.4958616171509659	0.0	True
+Verification condition generator	0.4958723101716415	0.0	True
+Nesting algorithm	0.4959782559795297	0.0	True
+Handbook of Automated Reasoning	0.4964339419689998	0.0	True
+Michael Goldsmith (computer scientist)	0.4966314313664208	0.0	True
+Victor Vianu	0.4972337239323414	0.0	True
+Adversary model	0.4972867670445155	0.0	True
+Upwind scheme	0.4973171930973972	0.0	True
+Genus–differentia definition	0.4973407448014191	0.0	True
+Cooperative distributed problem solving	0.4974017746685019	0.0	True
+Arthur Samuel	0.4974908906339928	0.0	True
+Pitteway triangulation	0.4978511463818784	0.0	True
+Tim Teitelbaum	0.4985942474772887	0.0	True
+Radix tree	0.4988750751314113	0.0	True
+Binary space partitioning	0.4989183295253902	0.0	True
+Continuous spatial automaton	0.4990052938486628	0.0	True
+Randomness merger	0.4992071556819776	0.0	True
+Quadtree	0.4992503556236326	0.0	True
+Haskell (programming language)	0.4998512001747861	0.0	True
+Beam and Warming scheme	0.5000581974305718	0.0	True
+Canonical normal form	0.5003401137002933	0.0	True
+International Conference on Developments in Language Theory	0.5004294538971158	0.0	True
+Symbolic execution	0.5004501345057654	0.0	True
+Partial word	0.500526518353834	0.0	True
+The Pattern on the Stone	0.5007597910807762	0.0	True
+Robert Lee Constable	0.5009875252163265	0.0	True
+Category:Parameterized complexity	0.5014485328382804	0.0	True
+Category:Descriptive complexity	0.5014485328382804	0.0	True
+Category:Circuit complexity	0.5014485328382804	0.0	True
+Journal of Symbolic Computation	0.5022503320277619	0.0	True
+Descriptional Complexity of Formal Systems	0.5034722543157063	0.0	True
+Extremal optimization	0.5035197124975157	0.0	True
+Qualification principle	0.5042050480831709	0.0	True
+Boundary element method	0.5043036856415353	0.0	True
+David Blei	0.504420580538377	0.0	True
+Journal of Functional Programming	0.5045841533575579	0.0	True
+Scaling pattern of occupancy	0.5051598462292132	0.0	True
+Conjunctive query	0.5058088847752824	0.0	True
+David P. Dobkin	0.5062732783158753	0.0	True
+Rectilinear Steiner tree	0.5066187169152624	0.0	True
+Automated Mathematician	0.5077633527413301	0.0	True
+Spectrum continuation analysis	0.5082720259370976	0.0	True
+Riemann problem	0.5084887533920861	0.0	True
+Bayesian estimation of templates in computational anatomy	0.5087475603735543	0.0	True
+Sriramachakra	0.5088125872611823	0.0	True
+Anne Condon	0.5088792559216699	0.0	True
+Timeline of scientific computing	0.5090622740733634	0.0	True
+Glossary of computer science	0.5092429509263853	0.0	True
+Constraint automaton	0.5093660094082255	0.0	True
+Asymptotic decider	0.5101496470767598	0.0	True
+Terminal and nonterminal symbols	0.5102586272332562	0.0	True
+Erwin Engeler	0.5112054346666818	0.0	True
+Computational intelligence	0.5114033076034203	0.0	True
+Keith Clark	0.5118165112237809	0.0	True
+Moore neighborhood	0.5129331640073542	0.0	True
+Multidelay block frequency domain adaptive filter	0.5136031274522223	0.0	True
+Mortality (computability theory)	0.5136637706262225	0.0	True
+HyperFun	0.5140975610688423	0.0	True
+Swizzling (computer graphics)	0.5143089132564929	0.0	True
+Regulated rewriting	0.5150190330237848	0.0	True
+Computational Statistics & Data Analysis	0.5164199981002362	0.0	True
+Robust optimization	0.5167891238454507	0.0	True
+Circuit Value Problem	0.516857265564059	0.0	True
+Concatenation	0.5170926008477615	0.0	True
+Signed overpunch	0.5172820920848289	0.0	True
+Relaxation (approximation)	0.5174460682380341	0.0	True
+Triangulated irregular network	0.5179713104311522	0.0	True
+Spike-triggered average	0.5185607345905382	0.0	True
+Range searching	0.5188496510051688	0.0	True
+X-Machine Testing	0.519200127943692	0.0	True
+SIAM Journal on Scientific Computing	0.5193269475151956	0.0	True
+Bounding interval hierarchy	0.5203749909265132	0.0	True
+Total variation diminishing	0.5203980914896192	0.0	True
+Extended static checking	0.5211797799152702	0.0	True
+Rina Dechter	0.5215854242224824	0.0	True
+Circuit (computer science)	0.5225022491867679	0.0	True
+Gödel's ontological proof	0.5225554470393067	0.0	True
+Multi-objective optimization	0.5227809822337215	0.0	True
+Leaf language	0.5232550447182291	0.0	True
+String kernel	0.5250510855442051	0.0	True
+Literal (computer programming)	0.5252228399280129	0.0	True
+Book:Encryption	0.525542055142353	0.0	True
+Sanjeev Khanna	0.5260072994455011	0.0	True
+Ensemble averaging (machine learning)	0.5260552241155593	0.0	True
+IBM 4767	0.5269109458844713	0.0	True
+Analysis of similarities	0.5285756083351881	0.0	True
+Bisimulation	0.5286385731772267	0.0	True
+Combinatorica	0.5287798474618575	0.0	True
+Gradient pattern analysis	0.5289701433552627	0.0	True
+Logarithmic number system	0.5293571970479067	0.0	True
+Bernard Chazelle	0.5294615710286326	0.0	True
+Symposium on Discrete Algorithms	0.5295473804740908	0.0	True
+Optimistic knowledge gradient	0.5298037405863906	0.0	True
+Intelligent control	0.5305561434005803	0.0	True
+Algebraic Logic Functional programming language	0.5306072021811402	0.0	True
+String generation	0.5313134641923348	0.0	True
+Federated Logic Conference	0.5323439357379739	0.0	True
+Peter Ružička	0.5326223584607104	0.0	True
+Teiresias algorithm	0.5327924954423469	0.0	True
+Function-level programming	0.5328660500470555	0.0	True
+Paradoxes of material implication	0.533284290823428	0.0	True
+Multidimensional filter design and implementation	0.5333450746547607	0.0	True
+Lars Arge	0.5341409089444508	0.0	True
+Shiing-Shen Chern	0.5342920925632968	0.0	True
+Boolean circuit	0.5347683353631917	0.0	True
+Computation history	0.5349546864944811	0.0	True
+Brenda Baker	0.5355838984822767	0.0	True
+Local optimum	0.5356529621370221	0.0	True
+Binary moment diagram	0.536328563767896	0.0	True
+Moses Charikar	0.537624131041641	0.0	True
+Category:Program analysis	0.538285053138247	0.0	True
+Category:Theoretical computer scientists	0.5391264513493179	0.0	True
+Majority problem (cellular automaton)	0.5399904609573037	0.0	True
+Polyhedral terrain	0.5402015104959644	0.0	True
+RAMiCS	0.5412682536081523	0.0	True
+Owen Astrachan	0.541484604443238	0.0	True
+Largest empty rectangle	0.5416492474081829	0.0	True
+Artificial intelligence	0.5421351013883329	0.0	True
+Typed lambda calculus	0.5439926077649534	0.0	True
+Timed automaton	0.5442219001530159	0.0	True
+Quantum digital signature	0.5446771044144304	0.0	True
+Minimum bounding box algorithms	0.5454192849294451	0.0	True
+History monoid	0.5461594217239217	0.0	True
+Notation for theoretic scheduling problems	0.5465454474065345	0.0	True
+Rastrigin function	0.5470624555507388	0.0	True
+Elementary cellular automaton	0.5476698637777723	0.0	True
+Any-angle path planning	0.5489778211844984	0.0	True
+Infinite tree automaton	0.5490877431364711	0.0	True
+Hybrid automaton	0.5490900013509015	0.0	True
+Multidimensional Digital Pre-distortion	0.5493612604755124	0.0	True
+Mordechai Ben-Ari	0.5498982092110186	0.0	True
+Side effect (computer science)	0.5510501422336688	0.0	True
+Cylindric numbering	0.5519651157838027	0.0	True
+Logical form	0.5522273576246068	0.0	True
+Temporal logic of actions	0.5524424196010361	0.0	True
+Vladimir Lifschitz	0.5528910161007258	0.0	True
+SWAT and WADS conferences	0.5533176105400608	0.0	True
+Bishop–Cannings theorem	0.5533481016451022	0.0	True
+List of abstractions (computer science)	0.5538885374354281	0.0	True
+Triangle mesh	0.5540628403874139	0.0	True
+Dependency relation	0.5541317384391001	0.0	True
+Eric Hehner	0.5545514113792714	0.0	True
+Nigel Horspool	0.5549383732397514	0.0	True
+Free parameter	0.5554879730691449	0.0	True
+Folding (DSP implementation)	0.5558736983113338	0.0	True
+Expression problem	0.5562411522506703	0.0	True
+Visibility graph	0.5566460632246699	0.0	True
+Commentz-Walter algorithm	0.5574013453000658	0.0	True
+Largest empty sphere	0.5574642267990142	0.0	True
+Computation	0.5578701978273574	0.0	True
+GenI process	0.5585589368651614	0.0	True
+Priority search tree	0.5586794634778572	0.0	True
+Category:Optimization in vector spaces	0.5588295945541862	0.0	True
+AP Computer Science	0.559714084322424	0.0	True
+Parallel multidimensional digital signal processing	0.5601935719931765	0.0	True
+Computing Machinery and Intelligence	0.5605266512605122	0.0	True
+Line segment intersection	0.5606491599727145	0.0	True
+Workshop on Reachability Problems	0.5630013667766554	0.0	True
+Strict function	0.5639224708598186	0.0	True
+Line spectral pairs	0.563961895023169	0.0	True
+Logic of Computable Functions	0.5641308638616024	0.0	True
+Fitch's paradox of knowability	0.5641376855886955	0.0	True
+Monotone polygon	0.5645020756502152	0.0	True
+Turing (programming language)	0.5646104820927764	0.0	True
+Reversible cellular automaton	0.5646925594706192	0.0	True
+Kousha Etessami	0.5648910784400876	0.0	True
+Instance selection	0.5654231428196627	0.0	True
+Semantics of logic	0.5679399061313293	0.0	True
+Richard E. Ladner	0.5680927980885091	0.0	True
+Context tree weighting	0.568323997187034	0.0	True
+Level ancestor problem	0.5690714359485869	0.0	True
+Category:Digital geometry	0.5693498789263178	0.0	True
+Lee distance	0.5701298927648452	0.0	True
+Computers and Intractability	0.5702417282809051	0.0	True
+List of interactive geometry software	0.5703245661787781	0.0	True
+Traveler's dilemma	0.5704738890298736	0.0	True
+Geometric primitive	0.5706561986445595	0.0	True
+Nina Amenta	0.5718629128615901	0.0	True
+Simulation preorder	0.5738698470373267	0.0	True
+ProgramByDesign	0.574545814032875	0.0	True
+Automata construction	0.5747419303366437	0.0	True
+Quine (computing)	0.5751042477630239	0.0	True
+Empty string	0.5757951734677476	0.0	True
+Linear temporal logic to Büchi automaton	0.5761641594100329	0.0	True
+Corrado Böhm	0.5762761303769501	0.0	True
+Doubly connected edge list	0.576334188664584	0.0	True
+Pierluigi Crescenzi	0.5764236241219423	0.0	True
+Ukkonen's algorithm	0.5769712656322619	0.0	True
+Michael J. Fischer	0.5773406173608187	0.0	True
+Encrypted function	0.5774763753162043	0.0	True
+Fourier analysis	0.5778435528066874	0.0	True
+Hyperparameter optimization	0.5786198341726637	0.0	True
+Stuttering equivalence	0.5790330889463273	0.0	True
+Bilevel optimization	0.5790859715322131	0.0	True
+Computational logic	0.5802694423295325	0.0	True
+Universal logic	0.5809696418651671	0.0	True
+Vladik Kreinovich	0.5812465858145804	0.0	True
+Paper bag problem	0.5814967293677296	0.0	True
+Nonuniform sampling	0.5815694271248535	0.0	True
+Lempel-Ziv complexity	0.5824176826139812	0.0	True
+Deterministic global optimization	0.5837007510887992	0.0	True
+Constraint (mathematics)	0.5841479680395698	0.0	True
+Blahut–Arimoto algorithm	0.5845013593445542	0.0	True
+Log-space computable function	0.5851951456420155	0.0	True
+Occam learning	0.5860400582162901	0.0	True
+Geometric hashing	0.5865297948612358	0.0	True
+AI-complete	0.5871950675847649	0.0	True
+Allan Borodin	0.5873357700592837	0.0	True
+JUNG	0.5874722603964397	0.0	True
+AP Computer Science A	0.5880337718693521	0.0	True
+Philip Wadler	0.5881312167850195	0.0	True
+List of uncertainty propagation software	0.5888562352730667	0.0	True
+Reduction Operator	0.5898002052620679	0.0	True
+Optimal control	0.5919557980475201	0.0	True
+Leslie Lamport	0.5930360071843046	0.0	True
+Soft computing	0.5931284108467793	0.0	True
+Steiner tree problem	0.5946528943501502	0.0	True
+Barycentric subdivision	0.5952631286062631	0.0	True
+Symbolic-numeric computation	0.595343053918449	0.0	True
+Inductive programming	0.5955301010568149	0.0	True
+Low (complexity)	0.5958417822905788	0.0	True
+Visibility polygon	0.5963732283453764	0.0	True
+James Demmel	0.5963921341100654	0.0	True
+Cylindrification	0.5965536919130575	0.0	True
+Logic of class	0.5969276475534107	0.0	True
+Concurrency (computer science)	0.5971526891014601	0.0	True
+Convex layers	0.5972822065037757	0.0	True
+JTS Topology Suite	0.5973088813875648	0.0	True
+Algebraic specification	0.5975793454718002	0.0	True
+Tree (automata theory)	0.5980518733156412	0.0	True
+Bird–Meertens formalism	0.5982813287151278	0.0	True
+Undefined value	0.5987641300376245	0.0	True
+List of model checking tools	0.5988536313442417	0.0	True
+Bounding volume	0.5997341394570974	0.0	True
+Symposium on Logic in Computer Science	0.5999565527445578	0.0	True
+List of arbitrary-precision arithmetic software	0.6002770997610141	0.0	True
+Chew's second algorithm	0.600459559465768	0.0	True
+Mahaney's theorem	0.6006249989844941	0.0	True
+Category:String matching algorithms	0.6011546716122574	0.0	True
+Folded Reed–Solomon code	0.6018998437534488	0.0	True
+Alpha shape	0.6023985469974009	0.0	True
+Triangle strip	0.6027595358674045	0.0	True
+MacCormack method	0.6032963220790684	0.0	True
+Category:Mathematics of computing	0.6034734630675964	0.0	True
+Dijkstra Prize	0.6041170539702374	0.0	True
+Neural computation	0.6044956736285353	0.0	True
+Logical depth	0.6047359036187148	0.0	True
+IBM 4768	0.6051842512806175	0.0	True
+Godunov's scheme	0.6053711086801258	0.0	True
+Logic error	0.6056053276120257	0.0	True
+Fuzzy logic	0.6059123254178055	0.0	True
+Fast Algorithms for Multidimensional Signals	0.6063245116695327	0.0	True
+Ludwig Staiger	0.6064983708317698	0.0	True
+RCOS (computer sciences)	0.6067102063654561	0.0	True
+Deterministic acyclic finite state automaton	0.6070321945248609	0.0	True
+Category:Evolutionary computation	0.6074696110993468	0.0	True
+Category:Diversity in computing	0.6074696110993468	0.0	True
+Category:Heterogeneous computing	0.6074696110993468	0.0	True
+Category:Classes of computers	0.6074696110993468	0.0	True
+Category:Incremental computing	0.6074696110993468	0.0	True
+Category:Network computer (brand)	0.6074696110993468	0.0	True
+Category:Soft computing	0.6074696110993468	0.0	True
+Category:Advanced RISC Computing	0.6074696110993468	0.0	True
+Category:Geometric algorithms	0.6075989102280601	0.0	True
+TScript	0.6076952536859369	0.0	True
+Least mean squares filter	0.6089039322179239	0.0	True
+Potato peeling	0.6090588792779499	0.0	True
+Kevin Lano	0.6101943590359716	0.0	True
+Strong NP-completeness	0.6103261446288981	0.0	True
+Information and computer science	0.6117364856884135	0.0	True
+Katrina Ligett	0.6120293125941949	0.0	True
+Star-shaped polygon	0.6124402057419636	0.0	True
+Reed–Muller code	0.6129417085302405	0.0	True
+Inderjit Dhillon	0.6133120536679868	0.0	True
+Attributional calculus	0.6135606524817889	0.0	True
+Lax–Wendroff method	0.6135812990829217	0.0	True
+Point location	0.6139429995808872	0.0	True
+Extractor (mathematics)	0.6143251636052739	0.0	True
+Science of value	0.6146855981432048	0.0	True
+Coinduction	0.6157343939142892	0.0	True
+Prakash Panangaden	0.6157871884617916	0.0	True
+GADDAG	0.6163854465096329	0.0	True
+Topological derivative	0.6164605791375706	0.0	True
+Admissible heuristic	0.6168077097387193	0.0	True
+Concurrent algorithm	0.6175946551965578	0.0	True
+Nicolò Cesa-Bianchi	0.6177079267607688	0.0	True
+Straight skeleton	0.6179006885863823	0.0	True
+Edit distance	0.6186507401107956	0.0	True
+Polygon covering	0.6188952438972043	0.0	True
+Category:Theory of computation	0.6203596798068096	0.0	True
+Geometric design	0.620506906623204	0.0	True
+Coreset	0.6206030099033574	0.0	True
+Spectral element method	0.6207073350054425	0.0	True
+Recursively enumerable language	0.6207233731507756	0.0	True
+Data analysis	0.6212352183855778	0.0	True
+Privacy-preserving computational geometry	0.6221587214835	0.0	True
+Dan Hirschberg	0.6224400111578979	0.0	True
+Least-squares spectral analysis	0.6224741211469091	0.0	True
+Hardness of approximation	0.6227395246616754	0.0	True
+Complexity index	0.6231098840126623	0.0	True
+S-procedure	0.6231540188509325	0.0	True
+Levenshtein distance	0.6234287424450194	0.0	True
+Yao's test	0.6246848078032994	0.0	True
+Oz (programming language)	0.627121475744092	0.0	True
+Supnick matrix	0.6273243523167521	0.0	True
+Richard Fateman	0.6278132746107234	0.0	True
+Linear search problem	0.6281771661063544	0.0	True
+Epistemic modal logic	0.6281933212590448	0.0	True
+Boolean	0.6291395428627148	0.0	True
+Computation tree	0.6293380526045441	0.0	True
+Nerode Prize	0.6295715840827131	0.0	True
+Map segmentation	0.6298930425353347	0.0	True
+Quantum algorithm	0.6302886318836103	0.0	True
+Sheila Greibach	0.6305290331886909	0.0	True
+Numerical methods in fluid mechanics	0.6309035734265649	0.0	True
+Kleene award	0.6321068597970633	0.0	True
+McNaughton's theorem	0.6334658961359321	0.0	True
+Circuit complexity	0.6341033449771929	0.0	True
+Linear-nonlinear-Poisson cascade model	0.6341438187418428	0.0	True
+Generalized Büchi automaton	0.6353018987226546	0.0	True
+Delaunay triangulation	0.6355371292982732	0.0	True
+Category:2000s in computer science	0.6355374509752936	0.0	True
+Category:1960s in computer science	0.6355374509752936	0.0	True
+Category:1950s in computer science	0.6355374509752936	0.0	True
+Category:2020s in computer science	0.6355374509752936	0.0	True
+Category:1930s in computer science	0.6355374509752936	0.0	True
+Category:1980s in computer science	0.6355374509752936	0.0	True
+Category:1940s in computer science	0.6355374509752936	0.0	True
+Category:2010s in computer science	0.6355374509752936	0.0	True
+Category:1990s in computer science	0.6355374509752936	0.0	True
+Category:1970s in computer science	0.6355374509752936	0.0	True
+Template:Comp-sci-stub	0.6355374509752936	0.0	True
+Category:2020 in computer science	0.6355374509752936	0.0	True
+Triangulation (geometry)	0.6355958580797811	0.0	True
+Convergence (logic)	0.6369421845999902	0.0	True
+Matthew Hennessy	0.6377391620359064	0.0	True
+Mutual recursion	0.637900642366835	0.0	True
+List of programming languages for artificial intelligence	0.6392442179037778	0.0	True
+List of optimization software	0.6398742586506684	0.0	True
+Prune and search	0.6401088965975715	0.0	True
+Mikhail Atallah	0.6427246377492674	0.0	True
+Finite & Deterministic Discrete Event System Specification	0.6436307795252546	0.0	True
+Divergence (computer science)	0.643646915751516	0.0	True
+Computationally bounded adversary	0.6438106760682678	0.0	True
+Urquhart graph	0.6444715625924172	0.0	True
+Power diagram	0.6447274242169265	0.0	True
+Principle of bivalence	0.6453147592975502	0.0	True
+Rod Downey	0.6456493729497388	0.0	True
+Damerau–Levenshtein distance	0.6466825957833156	0.0	True
+Korea Olympiad in Informatics	0.6468952386717658	0.0	True
+Nonfirstorderizability	0.6469437803279678	0.0	True
+List of pioneers in computer science	0.6479346649575859	0.0	True
+Recognizable set	0.6488683579740411	0.0	True
+Hamming distance	0.6500752520313736	0.0	True
+McCarthy 91 function	0.6512903436088335	0.0	True
+Basis pursuit denoising	0.6513380463874041	0.0	True
+List decoding	0.6522650160647603	0.0	True
+Invariant (computer science)	0.6526183683357882	0.0	True
+Non-local variable	0.6536723239484765	0.0	True
+Gunther Schmidt	0.6537596743563104	0.0	True
+Category:Fungal models	0.6541513709124626	0.0	True
+Category:Consistency models	0.6541513709124626	0.0	True
+Category:Biological models	0.6541513709124626	0.0	True
+Category:Database models	0.6541513709124626	0.0	True
+Higher-order abstract syntax	0.6551413822982853	0.0	True
+Boolean operations on polygons	0.6553015117063841	0.0	True
+Regular expression	0.655357428508002	0.0	True
+Semi-Yao graph	0.6559951690259309	0.0	True
+Arrangement (space partition)	0.6582881781387511	0.0	True
+Padding argument	0.6584204240982553	0.0	True
+Brooks–Iyengar algorithm	0.6584365374147324	0.0	True
+Semi-deterministic Büchi automaton	0.6588533943043825	0.0	True
+Nested word	0.6594068398399396	0.0	True
+Numerical linear algebra	0.6595916494296559	0.0	True
+Whittaker–Shannon interpolation formula	0.6602054893051634	0.0	True
+Frame problem	0.6603618257558671	0.0	True
+Space partitioning	0.6604836351836346	0.0	True
+Probability interpretations	0.6608488853225899	0.0	True
+Point set triangulation	0.6624608564637271	0.0	True
+Boolean hierarchy	0.6631558852044863	0.0	True
+Dana Angluin	0.663763097078408	0.0	True
+Don Coppersmith	0.6652889468287786	0.0	True
+International Symposium on Symbolic and Algebraic Computation	0.6655027525469607	0.0	True
+Valerie King	0.6681919794858718	0.0	True
+Dynamic convex hull	0.6692277320960539	0.0	True
+List of computer scientists	0.6692953888320484	0.0	True
+BlooP and FlooP	0.6697354923398923	0.0	True
+Dominance-based rough set approach	0.6711393949836489	0.0	True
+Fixed-radius near neighbors	0.6713348324784512	0.0	True
+Refinement (computing)	0.6719873305975502	0.0	True
+Scale factor (computer science)	0.6733100750837658	0.0	True
+Pattern matching	0.6743757596975802	0.0	True
+Π-calculus	0.6748818357581439	0.0	True
+Combinatorial search	0.6755349905717389	0.0	True
+Dynamic epistemic logic	0.6760123410297312	0.0	True
+Size-change termination principle	0.6764129696730614	0.0	True
+Approximate string matching	0.6764151114028357	0.0	True
+String (computer science)	0.6775379839116947	0.0	True
+Imieliński-Lipski algebra	0.6779664374710048	0.0	True
+Chebyshev center	0.6804792252589731	0.0	True
+FTCS scheme	0.6810453117869092	0.0	True
+X + Y sorting	0.6813765451391194	0.0	True
+Category:Critical theory	0.6814542801851361	0.0	True
+Category:Ethical theories	0.6814542801851361	0.0	True
+Category:Metaphysical theories	0.6814542801851361	0.0	True
+Category:Queer theory	0.6814542801851361	0.0	True
+Category:Political theories	0.6814542801851361	0.0	True
+Category:Epistemological theories	0.6814542801851361	0.0	True
+Category:Economic theories	0.6814542801851361	0.0	True
+Category:Feminist theory	0.6814542801851361	0.0	True
+Category:Database theory	0.6814542801851361	0.0	True
+Polyphase matrix	0.681545758198957	0.0	True
+Floyd's triangle	0.6815822210672072	0.0	True
+Reachability problem	0.6816095370577981	0.0	True
+Exact algorithm	0.6835821218755611	0.0	True
+Multidimensional sampling	0.6838401767440678	0.0	True
+Rough set	0.6843043319942019	0.0	True
+Fast Walsh–Hadamard transform	0.6853418956368517	0.0	True
+Sparse language	0.6856875363526415	0.0	True
+Glossary of artificial intelligence	0.6858900634894696	0.0	True
+Herbrandization	0.6866283493772285	0.0	True
+And-inverter graph	0.68691516257939	0.0	True
+Most frequent k characters	0.6877226275012249	0.0	True
+Proof of knowledge	0.6879114263041013	0.0	True
+Vector optimization	0.6885367569071001	0.0	True
+Simply typed lambda calculus	0.6900703996079681	0.0	True
+Kenneth L. Clarkson	0.6900823116425863	0.0	True
+Stefan Burr	0.6912535988288855	0.0	True
+Transformation matrix	0.6917884658283187	0.0	True
+The Art of Computer Programming	0.6922830362903304	0.0	True
+Real RAM	0.6929881997982387	0.0	True
+Parallel computation thesis	0.6933467799155452	0.0	True
+Lateral computing	0.6933577266760403	0.0	True
+List of rules of inference	0.6933913728600024	0.0	True
+Sørensen–Dice coefficient	0.6939544927002433	0.0	True
+Opaque forest problem	0.6944795137453068	0.0	True
+String operations	0.6951510569561421	0.0	True
+Switching lemma	0.6953043907366668	0.0	True
+Nearest neighbor search	0.6953429242172201	0.0	True
+Feasible region	0.6954442078374823	0.0	True
+Programming language theory	0.6955149020679434	0.0	True
+Quadratically constrained quadratic program	0.6962198269582347	0.0	True
+Yao graph	0.696299280267712	0.0	True
+Power graph analysis	0.6968436569854503	0.0	True
+Bowyer–Watson algorithm	0.6979405935047907	0.0	True
+Wolfram code	0.6995688212908975	0.0	True
+Category:Graph drawing	0.7003362681974059	0.0	True
+Bilinear time–frequency distribution	0.7005957393591246	0.0	True
+Begriffsschrift	0.7006065980486064	0.0	True
+Programming Computable Functions	0.7032076276949258	0.0	True
+Bigraph	0.7044893008291937	0.0	True
+Complete (complexity)	0.7050990264544813	0.0	True
+K-server problem	0.7058459190829185	0.0	True
+Tree automaton	0.7076671865232993	0.0	True
+Rotating calipers	0.7077621635312268	0.0	True
+Supertoroid	0.7086294239699522	0.0	True
+Implicit computational complexity	0.7089563477924008	0.0	True
+Symmetrization methods	0.7103702237055709	0.0	True
+Jaccard index	0.7104423661292179	0.0	True
+Hennessy–Milner logic	0.7111390644975137	0.0	True
+Tree transducer	0.7113021190781187	0.0	True
+Andreas Brandstädt	0.7118399334212067	0.0	True
+Interactive proof system	0.7121459393634896	0.0	True
+K-d tree	0.7123726104813496	0.0	True
+Lazy caterer's sequence	0.7134728213312418	0.0	True
+Automata theory	0.7138585444817437	0.0	True
+Category:Mathematical optimization software	0.7141244081004379	0.0	True
+Chan's algorithm	0.7144223245029259	0.0	True
+List of statistical packages	0.7144536730806894	0.0	True
+Wang tile	0.7144587580249179	0.0	True
+Loop invariant	0.7147266332891932	0.0	True
+Unifying Theories of Programming	0.7150672365622909	0.0	True
+Surjunctive group	0.7168534057756093	0.0	True
+Homotopy type theory	0.7170808410706234	0.0	True
+Interactive computation	0.7174364342463054	0.0	True
+Wagner–Fischer algorithm	0.7174694859239784	0.0	True
+Theil–Sen estimator	0.717862930560006	0.0	True
+Bistritz stability criterion	0.7184540726802621	0.0	True
+Michael Sipser	0.7189261984308529	0.0	True
+Richard P. Brent	0.7191472483629542	0.0	True
+Discrete optimization	0.7193755145790943	0.0	True
+Simulation-based optimization	0.7200571692542341	0.0	True
+Weak NP-completeness	0.7217497235308259	0.0	True
+Superquadrics	0.7223149344627502	0.0	True
+Well-structured transition system	0.7224367671317674	0.0	True
+Simplicial depth	0.7227902939702202	0.0	True
+Certificate (complexity)	0.7237391119429537	0.0	True
+Minkowski addition	0.7243776499911988	0.0	True
+And–or tree	0.7245253109154189	0.0	True
+Symmetric Turing machine	0.7246323042043641	0.0	True
+Michael Shub	0.7253404499186121	0.0	True
+Boolean network	0.7265957525235375	0.0	True
+Dolev–Yao model	0.7273995226088587	0.0	True
+Quickhull	0.7288728530178702	0.0	True
+Guess value	0.7294399406608482	0.0	True
+Computation tree logic	0.7297106479051794	0.0	True
+Rosenbrock function	0.7306179391176694	0.0	True
+Satisfiability modulo theories	0.7313589008710478	0.0	True
+Semigroup action	0.7317354672620947	0.0	True
+Fractional cascading	0.7327489357118768	0.0	True
+Computational social choice	0.7328927208248524	0.0	True
+Planar straight-line graph	0.7329581426894519	0.0	True
+Polygon triangulation	0.7336235563816015	0.0	True
+Complement (complexity)	0.7344287747901429	0.0	True
+Computational learning theory	0.7353935898367746	0.0	True
+Lloyd's algorithm	0.7368972738681513	0.0	True
+PL/0	0.7369370142277248	0.0	True
+Polygon partition	0.7375474478771161	0.0	True
+Superellipsoid	0.7383703445503158	0.0	True
+Effective method	0.7387030757012811	0.0	True
+Kirkpatrick–Seidel algorithm	0.7388485505898257	0.0	True
+Algorithmic probability	0.7389564723163092	0.0	True
+Parareal	0.7390372695371431	0.0	True
+Courant–Friedrichs–Lewy condition	0.7405180866729607	0.0	True
+Simplicial complex	0.7407604697379525	0.0	True
+Level-set method	0.7418945716133156	0.0	True
+Averaging argument	0.7422397094136439	0.0	True
+Proximity problems	0.7428599483156046	0.0	True
+Gift wrapping algorithm	0.7441761709304883	0.0	True
+American Computer Science League	0.7457597961648241	0.0	True
+Granular computing	0.7459633890853815	0.0	True
+Sweep line algorithm	0.7466934749167491	0.0	True
+Sum-of-squares optimization	0.7478176844916004	0.0	True
+Midpoint circle algorithm	0.7486292662065119	0.0	True
+Description logic	0.7519291593106817	0.0	True
+Goertzel algorithm	0.7519506456590414	0.0	True
+Ruppert's algorithm	0.7537908716294858	0.0	True
+Post correspondence problem	0.7548763219304364	0.0	True
+Verification and validation of computer simulation models	0.7549258466395224	0.0	True
+Randomness extractor	0.7551798189321534	0.0	True
+Linear complementarity problem	0.7559561741197907	0.0	True
+Proper complexity function	0.7560401215084743	0.0	True
+Combinatorial optimization	0.7566654345817561	0.0	True
+Theta graph	0.7567275844162751	0.0	True
+Referential transparency	0.7568492826233362	0.0	True
+Primitive notion	0.756963539561905	0.0	True
+Exact cover	0.758462366162131	0.0	True
+Unary language	0.7594779900282878	0.0	True
+Formal verification	0.7597155498057315	0.0	True
+Miklós Ajtai	0.7603602967408406	0.0	True
+CC system	0.760563150862122	0.0	True
+Category:Mathematical optimization	0.7611811725011384	0.0	True
+Wald's maximin model	0.7614759540163358	0.0	True
+Stephen Cook	0.7616449944901886	0.0	True
+Shapiro polynomials	0.7636705509816908	0.0	True
+Constrained optimization	0.7649605994897591	0.0	True
+Formal methods	0.7650462927186845	0.0	True
+Convex volume approximation	0.76539066101228	0.0	True
+Machtey Award	0.7656210491008295	0.0	True
+David Eppstein	0.7672812203720036	0.0	True
+Primitive recursive set function	0.767560730881096	0.0	True
+Blum's speedup theorem	0.767607661125325	0.0	True
+Complementation of Büchi automaton	0.7682280966754704	0.0	True
+Category:Aviation statistics	0.7739570831935962	0.0	True
+Computational resource	0.7744906798354841	0.0	True
+Pankaj K. Agarwal	0.7746073480250523	0.0	True
+Lax–Friedrichs method	0.7747415945048988	0.0	True
+Pseudorandomness	0.7756338079880924	0.0	True
+Constructible function	0.7776273809725469	0.0	True
+Block Lanczos algorithm	0.7790080504462099	0.0	True
+Convex hull	0.7810861562084604	0.0	True
+Loop variant	0.7811514725822262	0.0	True
+Discrete-time Fourier transform	0.7829538676779422	0.0	True
+Line–line intersection	0.7830430493551873	0.0	True
+Fast Fourier transform	0.7853918097454149	0.0	True
+Recursively enumerable set	0.7863526290777919	0.0	True
+Real computation	0.7870841949740822	0.0	True
+Advice (complexity)	0.7872290322380473	0.0	True
+Function representation	0.789260841739647	0.0	True
+Signomial	0.7898800963227197	0.0	True
+Computational group theory	0.7906746314281873	0.0	True
+Dynamic problem (algorithms)	0.7913720983245751	0.0	True
+Lagrange multiplier	0.791490046796878	0.0	True
+Curve fitting	0.7926175763031624	0.0	True
+Bentley–Ottmann algorithm	0.7938786427335548	0.0	True
+Differentiable neural computer	0.7940868110518635	0.0	True
+Maxima of a point set	0.7957854066161708	0.0	True
+Dual norm	0.7969866476177593	0.0	True
+Computational statistics	0.7973299768279123	0.0	True
+Well-separated pair decomposition	0.7974785867423339	0.0	True
+Configuration graph	0.7978873295947194	0.0	True
+Busy beaver	0.7983839590801836	0.0	True
+Recursive language	0.8009756968648829	0.0	True
+List of open-source software for mathematics	0.8012386063738935	0.0	True
+Universal hashing	0.8014220408458191	0.0	True
+Categorical logic	0.8042003050498898	0.0	True
+Discrete Fourier transform	0.804595065243593	0.0	True
+Geometric complexity theory	0.8049546556702215	0.0	True
+Error tolerance (PAC learning)	0.8056361156740448	0.0	True
+Syntax (logic)	0.807171897795015	0.0	True
+Point set registration	0.8077764945471282	0.0	True
+Category:Program logic	0.8082926736453918	0.0	True
+Category:Concepts in logic	0.8082926736453918	0.0	True
+Category:Philosophical logic	0.8082926736453918	0.0	True
+Backtracking	0.8096199471326923	0.0	True
+Half-exponential function	0.8116665504677748	0.0	True
+Bayesian programming	0.8117312428942471	0.0	True
+Asymptotic computational complexity	0.8136402869755766	0.0	True
+Recursion	0.8155155739498037	0.0	True
+Finite element method	0.8171741227135154	0.0	True
+Communication complexity	0.8176438308950821	0.0	True
+Institution (computer science)	0.8178135841393991	0.0	True
+Outline of computer science	0.8194671473602904	0.0	True
+Anytime algorithm	0.8196640472310897	0.0	True
+Nondeterministic algorithm	0.8199419502765799	0.0	True
+Non-classical logic	0.8200993258957419	0.0	True
+Convex hull algorithms	0.8206094316867855	0.0	True
+Geometric median	0.8208532954055912	0.0	True
+Intersection (Euclidean geometry)	0.8220202054861351	0.0	True
+Bareiss algorithm	0.8237053661978939	0.0	True
+Computation in the limit	0.8240333235082394	0.0	True
+Semi-membership	0.8280467433328891	0.0	True
+Karush–Kuhn–Tucker conditions	0.8292200844733151	0.0	True
+Natural proof	0.8293434181620121	0.0	True
+Graham scan	0.8306263053196591	0.0	True
+Point in polygon	0.8316369867089408	0.0	True
+Omega language	0.8321391104028741	0.0	True
+Recursive set	0.8327035227710089	0.0	True
+Bregman divergence	0.8330426071312858	0.0	True
+Predicate transformer semantics	0.8332359375830974	0.0	True
+Triangulation (topology)	0.8333328994893735	0.0	True
+Admissible numbering	0.8334086926092347	0.0	True
+Rational set	0.8344676159521633	0.0	True
+Semi-Thue system	0.8346330400780805	0.0	True
+Cobham's thesis	0.8350724632222081	0.0	True
+Apollonian network	0.8358653185045929	0.0	True
+Gödel Prize	0.8412605909783099	0.0	True
+Descriptive complexity theory	0.8414663253215565	0.0	True
+NP-completeness	0.8453368106426219	0.0	True
+Corecursion	0.8455082302553022	0.0	True
+Distributed constraint optimization	0.8480133864529957	0.0	True
+First-class function	0.8482448327640839	0.0	True
+Verification-based message-passing algorithms in compressed sensing	0.8486576656746488	0.0	True
+Yao's principle	0.8489855457983797	0.0	True
+Smoothed analysis	0.8501647001610719	0.0	True
+No free lunch in search and optimization	0.8503947791132697	0.0	True
+One-way function	0.8508447798628356	0.0	True
+Representer theorem	0.8508711729644319	0.0	True
+Turing degree	0.8521454414310731	0.0	True
+Klee–Minty cube	0.8522041709410301	0.0	True
+Farthest-first traversal	0.8528365334314278	0.0	True
+Noncommutative signal-flow graph	0.8538052897455326	0.0	True
+Category:Parsing algorithms	0.8546033699780414	0.0	True
+Category:Phonetic algorithms	0.8546033699780414	0.0	True
+Category:Analysis of algorithms	0.8546033699780414	0.0	True
+Pattern theory	0.8577397641588205	0.0	True
+L-notation	0.8582677169851599	0.0	True
+Discrete cosine transform	0.8594838093490671	0.0	True
+Pseudo-Boolean function	0.8615163273274515	0.0	True
+Z-order curve	0.8633732688055965	0.0	True
+Hypercomputation	0.8642908173346773	0.0	True
+Median graph	0.8667013648839267	0.0	True
+Pattern language (formal languages)	0.8678026073462336	0.0	True
+Ramer–Douglas–Peucker algorithm	0.8692985308042179	0.0	True
+Dis-unification (computer science)	0.8724849244877216	0.0	True
+Pattern recognition	0.8726343140931437	0.0	True
+Pseudo-polynomial time	0.8740615846883498	0.0	True
+Gödel machine	0.8784545472474986	0.0	True
+Closest pair of points problem	0.8803600920751083	0.0	True
+Small-bias sample space	0.8853674274194328	0.0	True
+Primitive recursive function	0.8859000480046537	0.0	True
+Convex optimization	0.8867080843060476	0.0	True
+Recursion (computer science)	0.8895725204306184	0.0	True
+Beta skeleton	0.8902054593950882	0.0	True
+Numerical algebraic geometry	0.8928292278640684	0.0	True
+Property testing	0.8934064460277769	0.0	True
+Unique games conjecture	0.8947660256364077	0.0	True
+Sum of radicals	0.8949164229306988	0.0	True
+Approximation algorithm	0.8955973760810367	0.0	True
+Universality probability	0.8984128696650144	0.0	True
+Analysis of algorithms	0.8988775553620181	0.0	True
+Complexity class	0.9047229943540006	0.0	True
+Pseudotriangle	0.9072681617775786	0.0	True
+Turing completeness	0.9083966021602536	0.0	True
+Fulkerson Prize	0.9086522402074244	0.0	True
+Bounding sphere	0.9093003918006054	0.0	True
+K-regular sequence	0.9104996341383041	0.0	True
+Boolean satisfiability problem	0.9137653055988608	0.0	True
+Automatic sequence	0.914274544041638	0.0	True
+Low-rank approximation	0.9175983027103772	0.0	True
+Ε-net (computational geometry)	0.9176186355481172	0.0	True
+Formal language	0.9177563184326024	0.0	True
+Information-based complexity	0.918076427716932	0.0	True
+Logic in computer science	0.9187803179937404	0.0	True
+List of unsolved problems in computer science	0.9235744565787136	0.0	True
+Computational geometry	0.9236810862051392	0.0	True
+Complexity function	0.9259788079013296	0.0	True
+Conformal geometric algebra	0.9302528844216928	0.0	True
+Graph isomorphism problem	0.9306136613054178	0.0	True
+Computational problem	0.9314012550209471	0.0	True
+Parameterized complexity	0.9314203848627894	0.0	True
+Numbering (computability theory)	0.9333100529349644	0.0	True
+Subshift of finite type	0.9341021002095276	0.0	True
+3SUM	0.9344375385101624	0.0	True
+Μ-recursive function	0.9348674756572348	0.0	True
+Zhegalkin polynomial	0.9351318487732226	0.0	True
+Maximum disjoint set	0.9366636144955732	0.0	True
+Geometric spanner	0.9367523162802674	0.0	True
+Theoretical computer science	0.9367795481704341	0.0	True
+Statistical inference	0.9371530983122623	0.0	True
+Computable topology	0.937651729181005	0.0	True
+List of undecidable problems	0.940292403703766	0.0	True
+Computability	0.9408307646633476	0.0	True
+Context of computational complexity	0.9409244556802112	0.0	True
+Smallest-circle problem	0.9484183156981424	0.0	True
+Dirac delta function	0.9506186744891628	0.0	True
+Criss-cross algorithm	0.9525023570852664	0.0	True
+Vector logic	0.953341787054814	0.0	True
+Category:Biological theorems	0.9545402648275894	0.0	True
+Chaitin's constant	0.9552028771744504	0.0	True
+Computational complexity	0.9585220800642188	0.0	True
+P versus NP problem	0.9598689946640241	0.0	True
+Non-constructive algorithm existence proofs	0.9608311437587996	0.0	True
+Generic-case complexity	0.9625499413106944	0.0	True
+Time complexity	0.962793275916518	0.0	True
+Computing the permanent	0.9640468515537416	0.0	True
+Integer factorization	0.9650001433410831	0.0	True
+Computable number	0.9715218504266904	0.0	True
+Theory of computation	0.9718992310563384	0.0	True
+Discrete logarithm	0.9723549533694069	0.0	True
+Linear programming	0.9726175261828206	0.0	True
+Existential theory of the reals	0.9788304174109628	0.0	True
+Computable function	0.9808492374130312	0.0	True
+Computational complexity theory	0.9824266870484116	0.0	True
+Numerical analysis	0.9835204488306416	0.0	True
+LP-type problem	0.9882090970921832	0.0	True

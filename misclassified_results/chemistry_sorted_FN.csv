@@ -1,0 +1,338 @@
+title	predicted	actual	threshold_pred
+Category:Minimal surfaces	0.0022651397829479038	1.0	False
+Wonder Woman (2017 film)	0.002833497959171093	1.0	False
+Erica Klarreich	0.0028665672558218537	1.0	False
+Gold glass	0.00421778127101622	1.0	False
+Vladimir Shukhov	0.004264822102482837	1.0	False
+Martial arts therapy	0.006505026192563264	1.0	False
+Biochemical Predestination	0.007935897668105436	1.0	False
+Tachyonic antitelephone	0.009550224391108244	1.0	False
+Category:Biochemistry literature	0.010292815975677102	1.0	False
+Category:Pharmacology literature	0.010292815975677102	1.0	False
+Category:Bhopal disaster	0.011699217747723888	1.0	False
+Bounded deformation	0.01339846216328612	1.0	False
+Latter Day Saint movement and engraved metal plates	0.0161836065677995	1.0	False
+Jumping library	0.016831587190141953	1.0	False
+Actinorhizal plant	0.01692873755185129	1.0	False
+Fundred Dollar Bill Project	0.017018410098064006	1.0	False
+Matthews correlation coefficient	0.017438739725754975	1.0	False
+Igor Gamow	0.01810411968405026	1.0	False
+Yeshayahu Leibowitz	0.01832997462209096	1.0	False
+Rebecca Chambers (character)	0.019582450071308724	1.0	False
+Category:Hypothetical nuclei	0.020891915387989457	1.0	False
+Thomson problem	0.021077725283396995	1.0	False
+Tolex	0.021940825584053168	1.0	False
+Magnesium transporter	0.021986596966698833	1.0	False
+Chromosome jumping	0.022030600284448587	1.0	False
+Epicyclic frequency	0.02234303875461866	1.0	False
+Flash (Barry Allen)	0.0225239606314832	1.0	False
+Category:PPG people	0.02267981462138145	1.0	False
+Propellant depot	0.022775540491391903	1.0	False
+Paired-end tag	0.023233896588397158	1.0	False
+Impulse excitation technique	0.02380785788070689	1.0	False
+Bronze and brass ornamental work	0.023836200139532124	1.0	False
+Gold compact disc	0.025965758600224657	1.0	False
+Category:Salt flats	0.02686903061782781	1.0	False
+Category:Globally Harmonized System	0.02689206820716274	1.0	False
+Adaptive fluid-infused porous film	0.027731235838151774	1.0	False
+Deca- (prefix)	0.02802963485282137	1.0	False
+Snoezelen	0.029040715265112437	1.0	False
+Dilution assay	0.029070116008399236	1.0	False
+Catalyst Science Discovery Centre	0.029822970022928306	1.0	False
+Pipe Cutting	0.030075015201753992	1.0	False
+Category:IV-VI semiconductors	0.030145649223265663	1.0	False
+Category:II-V semiconductors	0.030145649223265663	1.0	False
+Category:III-V semiconductors	0.030145649223265663	1.0	False
+Category:II-VI semiconductors	0.030145649223265663	1.0	False
+High-frequency impulse-measurement	0.030190317938986	1.0	False
+Standpipe (firefighting)	0.03082465428060249	1.0	False
+Solid-state electronics	0.03084839285572082	1.0	False
+Category:Corrosion prevention	0.033733810522110635	1.0	False
+Category:Iron and steel buildings	0.03448006925659953	1.0	False
+Category:Geopolymers	0.034917042919897	1.0	False
+Emil Rupp	0.03501243263834453	1.0	False
+Relic particles	0.0376376988692075	1.0	False
+Category:Biochemistry journals	0.03784473153029876	1.0	False
+Passing–Bablok regression	0.038266851301554265	1.0	False
+Category:Calcium signaling	0.03973035114935953	1.0	False
+Gene gun	0.0410998399222615	1.0	False
+Polyane	0.04147210328314069	1.0	False
+Category:Oil pressing castes	0.041746739742550366	1.0	False
+Category:Sulfur forms	0.04179146875114104	1.0	False
+Cytel	0.04297088440636259	1.0	False
+Category:Phospholipids	0.043330836838610616	1.0	False
+Category:Herbals	0.04487329674615992	1.0	False
+Opacity (optics)	0.045461894430945886	1.0	False
+Category:Pharmacological societies	0.04621661923454922	1.0	False
+Silver overlay	0.04642280395588761	1.0	False
+Morris J. Berman oil spill	0.04729598283706857	1.0	False
+St. Irvyne	0.04749635658912624	1.0	False
+Cnoidal wave	0.04776123773893128	1.0	False
+Tube bending	0.04800042413062285	1.0	False
+Laplace expansion (potential)	0.04914592397760514	1.0	False
+Category:Chemists by nationality	0.0493801708400045	1.0	False
+Category:Alchemists by nationality	0.0493801708400045	1.0	False
+Ofer Lahav	0.05094410495804217	1.0	False
+Empiric therapy	0.051177145515855886	1.0	False
+Electroformable material	0.05138276819669137	1.0	False
+Category:Group I semiconductors	0.052219398217150416	1.0	False
+John Krige	0.052518620146553285	1.0	False
+Roderick Kingsley	0.052563095674563805	1.0	False
+Copper tape	0.05361345372405772	1.0	False
+Needlestick injury	0.05459426312319947	1.0	False
+Walter White (Breaking Bad)	0.05504152509747167	1.0	False
+Gold certificate	0.05701472468195647	1.0	False
+Fluidics	0.05706957433104084	1.0	False
+Comparative Toxicogenomics Database	0.05842894807234121	1.0	False
+Alfa mannan degradation	0.058671879732557185	1.0	False
+Flexural modulus	0.05892524801765951	1.0	False
+Goodman relation	0.06047006053023051	1.0	False
+Max Factor Sr.	0.06178499042325177	1.0	False
+Ricardo Wolf	0.06201016797727828	1.0	False
+Protein-fragment complementation assay	0.06261071035136846	1.0	False
+Aerodynamic potential-flow code	0.06288883383564453	1.0	False
+Comptes Rendus Chimie	0.06353958683193739	1.0	False
+Amplicon	0.0644813656680482	1.0	False
+Category:Glass coating and surface modification	0.06458741912541123	1.0	False
+List of fungicides	0.06464451358954049	1.0	False
+Katherine Bitting	0.06571152588042	1.0	False
+Category:Synthetic paper	0.06649274405091896	1.0	False
+Occupational hazards of human nail dust	0.06672746236150233	1.0	False
+NOMFET	0.0670372977759153	1.0	False
+Reductive stress	0.0673925109948593	1.0	False
+Cycle of quantification/qualification	0.07058069225021238	1.0	False
+Unus mundus	0.07091989578919003	1.0	False
+Wayne B. Nottingham Prize	0.07144768209281457	1.0	False
+Baseefa	0.07185565102884678	1.0	False
+Leukemia inhibitory factor	0.07187818230818459	1.0	False
+Restriction landmark genomic scanning	0.07245955770315911	1.0	False
+Medicinal jar	0.07260934743045055	1.0	False
+Organotroph	0.0726634509248159	1.0	False
+Category:Thin film deposition	0.0727113068722706	1.0	False
+Conformation–activity relationship	0.07318079634353522	1.0	False
+Golay cell	0.07475285244872934	1.0	False
+Pht01	0.07545095418919731	1.0	False
+B2H4	0.07571119552789386	1.0	False
+Structure function	0.07646184214666463	1.0	False
+Fetal alcohol spectrum disorder	0.07698668163410731	1.0	False
+Category:Group IV semiconductors	0.07717498848195413	1.0	False
+Metal expansion joint	0.07733737618179566	1.0	False
+Paramural body	0.07735127415472072	1.0	False
+Associated Legendre polynomials	0.07808716544000809	1.0	False
+Orocapital	0.07889608392875228	1.0	False
+Homogeneity and heterogeneity	0.07970937899669714	1.0	False
+Thomas J. Goreau	0.07981488281833594	1.0	False
+Solid harmonics	0.08010361638423563	1.0	False
+Delbrück scattering	0.08129031784819367	1.0	False
+Bulk material analyzer	0.08356709253370946	1.0	False
+Category:Hypervalent molecules	0.08409636950447541	1.0	False
+Aircraft disinsection	0.08680147209321581	1.0	False
+Electrostatic lens	0.0876887471931856	1.0	False
+Oil Gas Safety Council	0.08894441525489973	1.0	False
+Category:Metallurgical industry of Ukraine	0.089592431514039	1.0	False
+Thermal desorption spectroscopy	0.09073891371980954	1.0	False
+C3N12	0.0918570716836272	1.0	False
+Back pressure	0.09214005220518913	1.0	False
+Froude–Krylov force	0.09264405065592256	1.0	False
+Nocebo	0.09380072791437696	1.0	False
+Asperity (materials science)	0.094534361997668	1.0	False
+Thure E. Cerling	0.09457996144441026	1.0	False
+Filius philosophorum	0.09469688976487038	1.0	False
+Airflow Sciences Corporation	0.09484655205199913	1.0	False
+Astrophysical fluid dynamics	0.0957066247270647	1.0	False
+Coolfluid	0.09571732234032372	1.0	False
+Category:Iron metabolism	0.09661881697964923	1.0	False
+Carbendazim	0.09668293595365976	1.0	False
+Category:Salt marshes	0.09885073685352216	1.0	False
+Ellipsometry	0.1017158003257944	1.0	False
+Social interaction approach	0.10316496229113636	1.0	False
+Aquatic biomonitoring	0.1033375756425454	1.0	False
+Discharge coefficient	0.10413928898308472	1.0	False
+Category:Therapeutic community	0.1041948367368908	1.0	False
+Category:Radioactive waste	0.10433955372752356	1.0	False
+Magic angle (EELS)	0.10472889956489304	1.0	False
+Expiration date	0.10496952721198954	1.0	False
+Chemosterilant	0.10536934841241168	1.0	False
+Materials informatics	0.10553932128694013	1.0	False
+Cloxacillin	0.1056608587412621	1.0	False
+Acoustoelastic effect	0.10814106269401018	1.0	False
+Airborne visible/infrared imaging spectrometer	0.10817560832750432	1.0	False
+Anthoxanthin	0.10868833845444012	1.0	False
+Indoor mold	0.10986296344087364	1.0	False
+Icky-pick	0.110795644374396	1.0	False
+Apros (Software)	0.11083162317440083	1.0	False
+The OpenMS Proteomics Pipeline	0.11184761264660167	1.0	False
+Seipin	0.11370943409899575	1.0	False
+Adex Mining	0.11384704769217276	1.0	False
+Nested polymerase chain reaction	0.11516091339845895	1.0	False
+Phosphoroscope	0.11599434314590715	1.0	False
+Herbert Hartley	0.11632811568415433	1.0	False
+Bioaerosol	0.11671617381107105	1.0	False
+Athinoula A. Martinos Center for Biomedical Imaging	0.1174497264092027	1.0	False
+Fritz Feigl Prize	0.11807470356930712	1.0	False
+Artificial gene synthesis	0.11807761381288577	1.0	False
+Norman Hackerman Young Author Award	0.11830554979594415	1.0	False
+Category:Biomolecules	0.1198962762633131	1.0	False
+Category:Fertilizer companies	0.12023091256193034	1.0	False
+Category:Nuclear terrorism	0.1203545732333846	1.0	False
+Direct numerical simulation	0.1205504893442657	1.0	False
+In-depth-systemics	0.1209103147044674	1.0	False
+Air changes per hour	0.1221649897000425	1.0	False
+Category:Particulates	0.12231273421523738	1.0	False
+C3H4N2O3	0.12231273421523738	1.0	False
+Category:Metalworking	0.12231273421523738	1.0	False
+Category:Biocides	0.12231273421523738	1.0	False
+Category:Carcinogens	0.12231273421523738	1.0	False
+Category:Mesons	0.12231273421523738	1.0	False
+Category:Glycosides	0.12231273421523738	1.0	False
+Category:Excipients	0.12231273421523738	1.0	False
+C4H5N3O2	0.12231273421523738	1.0	False
+Category:Electrotherapy	0.12231273421523738	1.0	False
+Category:Disinfectants	0.12231273421523738	1.0	False
+Category:Adulteration	0.12231273421523738	1.0	False
+Category:Gels	0.12231273421523738	1.0	False
+Category:Glycopeptides	0.12231273421523738	1.0	False
+Category:Chemists by sub-specialty	0.12231273421523738	1.0	False
+Category:Toxins	0.12231273421523738	1.0	False
+Category:Defoliants	0.12231273421523738	1.0	False
+Category:Foams	0.12231273421523738	1.0	False
+Category:Fermions	0.12231273421523738	1.0	False
+Category:Copernicium	0.12231273421523738	1.0	False
+Category:Metallurgy	0.12231273421523738	1.0	False
+Category:Antioxidants	0.12231273421523738	1.0	False
+Category:Iron	0.12231273421523738	1.0	False
+Category:Carbon	0.12231273421523738	1.0	False
+C3H5N5O2	0.12231273421523738	1.0	False
+Category:Biopharmaceuticals	0.12231273421523738	1.0	False
+Category:Psychopharmacology	0.12231273421523738	1.0	False
+Category:Deoxidizers	0.12231273421523738	1.0	False
+Category:Sugar	0.12231273421523738	1.0	False
+Category:Corrosion	0.12231273421523738	1.0	False
+Category:Neutron	0.12231273421523738	1.0	False
+Category:Biochemists	0.12231273421523738	1.0	False
+Category:Hypnotherapy	0.12231273421523738	1.0	False
+Category:Electron	0.12231273421523738	1.0	False
+Aminothiophenol	0.12231273421523738	1.0	False
+Category:Atoms	0.12231273421523738	1.0	False
+Category:Alchemists	0.12231273421523738	1.0	False
+Category:Hadrons	0.12231273421523738	1.0	False
+Category:Nucleons	0.12231273421523738	1.0	False
+Category:Counseling	0.12231273421523738	1.0	False
+Category:Ironmasters	0.12231273421523738	1.0	False
+Category:Molecules	0.12231273421523738	1.0	False
+Category:Superacids	0.12231273421523738	1.0	False
+Category:Intermetallics	0.12231273421523738	1.0	False
+Category:Thermochemistry	0.12231273421523738	1.0	False
+Category:Alkoxides	0.12231273421523738	1.0	False
+Category:Hydrogen	0.12231273421523738	1.0	False
+C4H7NS	0.12231273421523738	1.0	False
+Category:Copper	0.12231273421523738	1.0	False
+Category:Radiopharmaceuticals	0.12231273421523738	1.0	False
+Category:Aerosols	0.12231273421523738	1.0	False
+Category:Americium	0.12231273421523738	1.0	False
+Category:Baryons	0.12231273421523738	1.0	False
+Category:Astatine	0.12231273421523738	1.0	False
+Category:Clathrates	0.12231273421523738	1.0	False
+Category:Chromatography	0.12231273421523738	1.0	False
+Category:Thiols	0.12231273421523738	1.0	False
+Category:Radioactive quackery	0.12231273421523738	1.0	False
+Category:Quasiparticles	0.12231273421523738	1.0	False
+Olin Palladium Award	0.12287202915732633	1.0	False
+Lely method	0.12346420387198255	1.0	False
+Hole formalism	0.12436603342743452	1.0	False
+Margules activity model	0.12465768497701815	1.0	False
+Deoxycorticosterone	0.12487106846160395	1.0	False
+Microscopic reversibility	0.12497613951046485	1.0	False
+Secondary electrons	0.12527265103504542	1.0	False
+Rosetta@home	0.12532550165766088	1.0	False
+Sleeve (construction)	0.127184062915672	1.0	False
+James T. Grady-James H. Stack Award for Interpreting Chemistry	0.12983009992862765	1.0	False
+Robert Moray	0.13122511793744104	1.0	False
+Baxter Althane disaster	0.13150254063400066	1.0	False
+Category:Imperial Chemical Industries people	0.13161345381544126	1.0	False
+Canadian Journal of Research, Section B: Chemical Sciences	0.1324797401136478	1.0	False
+DePriester chart	0.133759220388191	1.0	False
+EcoLon	0.13494723959016525	1.0	False
+GeSbTe	0.13495944495163742	1.0	False
+Robert H. Brill	0.13533643946864235	1.0	False
+Category:Semiconductor material types	0.13565606015669066	1.0	False
+PageRank algorithm in biochemistry	0.13598361232191716	1.0	False
+File:Mechanism(2).gif	0.13649722214514753	1.0	False
+V particle	0.13741020256652686	1.0	False
+Muhammad Saleh Thattvi	0.14170601430668608	1.0	False
+Anais da Associação Brasileira de Química	0.1423177977146518	1.0	False
+Category:Synthetic fibers	0.1447492706870462	1.0	False
+Gladys Lounsbury Hobby	0.1455833931825963	1.0	False
+Lower flammable limit	0.14571916240660732	1.0	False
+UV pinning	0.14633958629158808	1.0	False
+Cure	0.1464178320451497	1.0	False
+Boron deficiency (medicine)	0.14678013145433105	1.0	False
+Applicability domain	0.1476203978327153	1.0	False
+Oscar Kuipers	0.14788503839715814	1.0	False
+Giemsa stain	0.14896591730452086	1.0	False
+ARC fusion reactor	0.14897705264346525	1.0	False
+Jet fuel	0.14930474680765235	1.0	False
+Cholinergic crisis	0.150518886228557	1.0	False
+Chemical pulping process	0.15174703699477193	1.0	False
+SENSOR-Pesticides	0.1520327793742052	1.0	False
+Multi-parametric surface plasmon resonance	0.1526597212747154	1.0	False
+Copper (color)	0.15309592391145432	1.0	False
+United States House Transportation Subcommittee on Railroads, Pipelines, and Hazardous Materials	0.1541858444614467	1.0	False
+Microbial biodegradation	0.15474662268528078	1.0	False
+Orthokeratology	0.1560334790245139	1.0	False
+PH3	0.156084002776544	1.0	False
+McCumber relation	0.15695082119623335	1.0	False
+Phenoxymethylpenicillin	0.1583896323518313	1.0	False
+Jacques-Louis Soret	0.1600877803806578	1.0	False
+Nuplex Industries	0.16106663840984564	1.0	False
+Armor Survivability Kit	0.1616485643059554	1.0	False
+Inverse polymerase chain reaction	0.16196598291022626	1.0	False
+HAZMAT Class 3 Flammable liquids	0.16220019180042375	1.0	False
+Contactin	0.16351553142806052	1.0	False
+Giovanni (meteorology)	0.16380081023847687	1.0	False
+Category:Metallurgical industry of Mexico	0.16588214076888286	1.0	False
+External water spray system	0.16627037300866968	1.0	False
+Chinese sun and moon mirrors	0.16644509814260566	1.0	False
+Edward Goodrich Acheson Award	0.1667853070060669	1.0	False
+Spin-destruction collision	0.1698367978459858	1.0	False
+Magnetic spin vortex disc	0.17076649893650342	1.0	False
+Crabtree effect	0.1712514698639558	1.0	False
+Jonathan Fishbein	0.17216917478443444	1.0	False
+Venus symbol	0.17273149450122735	1.0	False
+Airborne Real-time Cueing Hyperspectral Enhanced Reconnaissance	0.1727370246665589	1.0	False
+SahysMod	0.17277994932620114	1.0	False
+Grote–Hynes theory	0.17379499447541527	1.0	False
+Amagat	0.1745714538819438	1.0	False
+Kramers' law	0.17484194687065913	1.0	False
+Megavitamin therapy	0.17574414217590684	1.0	False
+Chézy formula	0.17642573088121874	1.0	False
+Category:Fuel taxes	0.1779313286960318	1.0	False
+Base conditions	0.17967752567282275	1.0	False
+Coherent effects in semiconductor optics	0.1809438070568268	1.0	False
+R (cross section ratio)	0.18148596499083214	1.0	False
+Riser clamp	0.18358939045831452	1.0	False
+Cláudio Costa Neto	0.18382982877082804	1.0	False
+Bland–Altman plot	0.18397366564870565	1.0	False
+Industrial process imaging	0.18403812523685686	1.0	False
+-ase	0.18532822807564475	1.0	False
+Coacervate	0.18543834177549468	1.0	False
+Equivalent width	0.18603352500294254	1.0	False
+Inducer	0.18664712426080493	1.0	False
+Policresulen	0.18711853400327014	1.0	False
+Carnitine shuttle	0.1872628958307042	1.0	False
+Category:Sex and drugs	0.1873040570143696	1.0	False
+Astrophysical maser	0.1874822030440987	1.0	False
+Standard dimension ratio	0.1878056035953256	1.0	False
+Category:Bubbles	0.18789981475141188	1.0	False
+Photoassimilate	0.18803444045926607	1.0	False
+FOGBANK	0.18810688800604533	1.0	False
+Category:Lead companies	0.1911293292317024	1.0	False
+Category:Natural products by elemental composition	0.19204236004002645	1.0	False
+Silicate mineral paint	0.1923658754078777	1.0	False
+Dexter Award	0.19262961726922484	1.0	False
+Category:Non-coding DNA	0.1944684039431608	1.0	False
+Nano Today	0.19487865751606048	1.0	False
+Dextranomer	0.19606634261796105	1.0	False
+Selection and amplification binding assay	0.1961969570786931	1.0	False
+Electrochemical Society	0.1979312227542092	1.0	False
+Carbon flaw	0.19818919841799332	1.0	False
