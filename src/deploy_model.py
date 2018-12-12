@@ -6,6 +6,7 @@ import src.page_disector as disector
 import src.model as m
 from pymongo import MongoClient
 from gensim import corpora, models
+from bs4 import BeautifulSoup as bs
 
 
 def deploy_model(file, target, n_grams, feature_count=100000, limit=None):
@@ -21,7 +22,7 @@ def deploy_model(file, target, n_grams, feature_count=100000, limit=None):
     """
     mc = MongoClient()
     db = mc['wiki_cache']
-    collection = db[f'{target}_logistic_predictions_3']
+    collection = db[f'{target}_logistic_predictions_6']
     try:
         dictionary = corpora.Dictionary.load(
             f'nlp_training_data/{target}_full.dict')
@@ -89,3 +90,27 @@ def save_to_db(collection, title, prediction):
     if ping is None:
         document = {'title': title, 'prediction': prediction}
         collection.insert_one(document)
+
+
+def count_dump_articles(files):
+    count = 0
+    for i, file in enumerate(files):
+        print()
+        print(i)
+        print(file)
+        line_gen = wf.get_lines_bz2(file)
+        page_gen = wf.page_generator(line_gen, limit=None)
+        for page in page_gen:
+            soup = bs(page, 'lxml')
+            # handle redirect pages
+            if '#REDIRECT' in soup.select_one('text').text:
+                continue
+            # only accept pages in namespace 0 and 14
+            # articles=0, category page=14
+            namespaces = ['0']
+            if soup.select_one('ns').text in namespaces:
+                count += 1
+                sys.stdout.write('\r' + f'page count = {count}')
+    with open('results/dump_page_count.txt', 'w') as fout:
+        print('total in namespace 0')
+        fout.write(str(count))

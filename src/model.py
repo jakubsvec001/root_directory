@@ -47,7 +47,7 @@ def cross_validate_multinomial_nb(db_name,
         bool: shuffle=True,
         int: feature_count=100000,
         bool: build_sparse_matrices=True
-        
+
         Returns
         -------
         list: y_test,
@@ -98,10 +98,18 @@ def logistic_regression_cv(db_name, collection_name, target,
         ----------
         Parameters
         ----------
-        
+        str: db_name,
+        str: collection_name,
+        str: target,
+        list: Cs,
+        bool: shuffle=True,
+        int: feature_count=100000,
+        int: n_grams=3,
+        bool: build_sparse_matrices=False
+
         Returns
         -------
-        
+
     """
     start = default_timer()
     mc = MongoClient()
@@ -113,8 +121,9 @@ def logistic_regression_cv(db_name, collection_name, target,
     _, X_train_ids, X_test_ids, y_train, y_test, X_pos_train = output
     if build_sparse_matrices:
         output = _build_matrices(start, db_name, collection_name,
-                                 target, n_grams, collection, feature_count,
-                                 X_train_ids, X_test_ids, pos_ids=X_pos_train,
+                                 target, n_grams, collection,
+                                 feature_count, X_train_ids,
+                                 X_test_ids, pos_ids=X_pos_train,
                                  training=True)
         scipy_X_train, scipy_X_test = output
     else:
@@ -176,10 +185,10 @@ def logistic_regression_model(db_name, collection_name,
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     mc = MongoClient()
     db = mc[db_name]
@@ -208,7 +217,8 @@ def logistic_regression_model(db_name, collection_name,
                         n_grams=n_grams)]
         X_train_tfidf = tfidf[train_bow]
         print('Generating and saving scipy_X_train...')
-        scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
+        scipy_X_train = matutils.corpus2csc(
+            X_train_tfidf, num_terms=feature_count).transpose()
         # save sparse matrix
         pickle.dump(scipy_X_train, open(
             'nlp_training_data/{target}_final_scipy_sparse_matrix.pkl', 'wb'))
@@ -229,10 +239,10 @@ def generate_confusion_matrix(y_test, predictions, start=10, stop=90, steps=5):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     matrices = []
     for i in range(start, stop, steps):
@@ -247,10 +257,10 @@ def generate_precision_recall_scores(y_test, predictions, threshold):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     threshold = float(threshold)
     precision = precision_score(y_test, predictions[:, 1] > threshold)
@@ -263,10 +273,10 @@ def generate_feature_importance_graph(target, word_import):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     target_string = target.title().replace('_', ' ')
     title = f'{target_string} Feature Importance'
@@ -292,10 +302,10 @@ def get_confusion_titles(model, target, y_test, prediction, threshold,
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     threshold = float(threshold)
     try:
@@ -351,10 +361,10 @@ def _build_matrices(start, db_name, collection_name,
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     _save_txt_nlp_data(db_name, collection_name, target, pos_ids, training)
     dictionary, _ = _train_save_dictionary_corpus(
@@ -378,7 +388,9 @@ def _build_matrices(start, db_name, collection_name,
     end = default_timer()
     print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
     print('    CONVERTING tfidf training model to scipy sparse matrix...')
-    scipy_X_train = matutils.corpus2csc(X_train_tfidf).transpose()
+    scipy_X_train = matutils.corpus2csc(
+        X_train_tfidf, num_terms=feature_count).transpose()
+    print(f'scipy_X_train shape = {scipy_X_train.shape}')
     pickle.dump(scipy_X_train,
                 open(f'nlp_training_data/{target}_scipy_X_train.pkl',
                      'wb'))
@@ -394,9 +406,11 @@ def _build_matrices(start, db_name, collection_name,
     end = default_timer()
     print(f'        Elapsed time: {round((end-start)/60, 2)} minutes')
     print('    CONVERTING tfidf testing model to scipy sparse matrix...')
-    scipy_X_test = matutils.corpus2csc(X_test_tfidf).transpose()
+    scipy_X_test = matutils.corpus2csc(
+        X_test_tfidf, num_terms=feature_count).transpose()
     pickle.dump(scipy_X_test, open(
                 f'nlp_training_data/{target}_scipy_X_test.pkl', 'wb'))
+    print(f'scipy_X_test shape = {scipy_X_test.shape}')
     return scipy_X_train, scipy_X_test
 
 
@@ -405,10 +419,10 @@ def _plot_roc_curves(model_type, target, y_test, Cs, pred_list, feature_count):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     tprs = []
     aucs = []
@@ -445,10 +459,10 @@ def _save_txt_nlp_data(db_name, collection_name, target,
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     print('Making txt file of subset of target class')
     mc = MongoClient()
@@ -478,10 +492,10 @@ def _train_save_dictionary_corpus(filein, n_grams, target,
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     print('Building dictionary...')
     if training:
@@ -518,10 +532,10 @@ def _train_save_tfidf(filein, target, training=True):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     print('Building TFIDF model')
     if training:
@@ -551,10 +565,10 @@ def _make_temporary_txt(collection, ids):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     with open('/tmp/docs_for_sparse_vectorization.txt', 'w') as fout:
         for id in ids:
@@ -570,10 +584,10 @@ def _get_train_test_ids(collection, target, train_percentage=0.8,
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     i = 0
     if seed:
@@ -619,10 +633,10 @@ def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     if k_folds == 1:
         return _get_train_test_ids(collection, target, train_percentage=0.8)
@@ -678,10 +692,10 @@ def _remove_extra_words(dictionary):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     once_ids = [tokenid for tokenid, docfreq in
                 dictionary.dfs.items() if docfreq <= 2]
@@ -694,10 +708,10 @@ def _list_grams(filein, n_grams):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     with open(filein, 'r') as fin:
         for line in fin:
@@ -710,10 +724,10 @@ def _stem_and_ngramizer(line, n_grams):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     p = PorterStemmer()
     s = SnowballStemmer('english')
@@ -730,10 +744,10 @@ def main(arg1, arg2):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     pass
 

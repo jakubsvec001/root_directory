@@ -230,6 +230,8 @@ def page_generator(lines, limit=None):
             search_count += 1
             inpage = False
             raw_xml = ''.join(page)
+            soup = bs(raw_xml, 'lxml')
+            
             yield raw_xml
             page = []
             # sys.stdout.write('\r' + f'Search count: {search_count}')
