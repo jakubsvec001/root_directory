@@ -93,6 +93,7 @@ def save_to_db(collection, title, prediction):
 
 
 def count_dump_articles(files):
+    """explore wiki_dump and return page statistics"""
     count = 0
     for i, file in enumerate(files):
         print()
