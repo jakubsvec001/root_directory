@@ -109,7 +109,12 @@ def logistic_regression_cv(db_name, collection_name, target,
 
         Returns
         -------
-
+        float: best_score, 
+        sklearn model: best_model, 
+        float: best_predictions,
+        list: y_test,
+        lsit: X_test_ids,
+        scipy sparse matrix: scipy_X_test)
     """
     start = default_timer()
     mc = MongoClient()
@@ -185,10 +190,17 @@ def logistic_regression_model(db_name, collection_name,
         ----------
         Parameters
         ----------
-
+        str: db_name,
+        str: collection_name,
+        str: target,
+        list: C,
+        int: feature_count,
+        int: n_grams
+        bool: build_sparse_matrices
+        
         Returns
         -------
-
+        sklearn model: model
     """
     mc = MongoClient()
     db = mc[db_name]
@@ -239,10 +251,16 @@ def generate_confusion_matrix(y_test, predictions, start=10, stop=90, steps=5):
         ----------
         Parameters
         ----------
-
+        list: y_test,
+        list: predictions,
+        int: start,
+        int:stop,
+        int:step
+        
         Returns
         -------
-
+        int: steps, 
+        list: matrices
     """
     matrices = []
     for i in range(start, stop, steps):
@@ -253,14 +271,18 @@ def generate_confusion_matrix(y_test, predictions, start=10, stop=90, steps=5):
 
 
 def generate_precision_recall_scores(y_test, predictions, threshold):
-    """
+    """generate precision and recall scores given a threshold
         ----------
         Parameters
         ----------
-
+        list: y_test,
+        list: predictions,
+        float: threshold
+        
         Returns
         -------
-
+        float: precision,
+        float: recall
     """
     threshold = float(threshold)
     precision = precision_score(y_test, predictions[:, 1] > threshold)
@@ -273,10 +295,12 @@ def generate_feature_importance_graph(target, word_import):
         ----------
         Parameters
         ----------
-
+        str: target,
+        tuple: word_import
+        
         Returns
         -------
-
+        Pandas DataFrame: df
     """
     target_string = target.title().replace('_', ' ')
     title = f'{target_string} Feature Importance'
@@ -302,10 +326,19 @@ def get_confusion_titles(model, target, y_test, prediction, threshold,
         ----------
         Parameters
         ----------
-
+        sklearn model: model
+        str: target
+        list: y_test
+        list: prediction
+        float: threshold
+        list: X_test_ids
+        
         Returns
         -------
-
+        int: FP
+        int: TN
+        int: FP
+        int: FN
     """
     threshold = float(threshold)
     try:
@@ -361,10 +394,22 @@ def _build_matrices(start, db_name, collection_name,
         ----------
         Parameters
         ----------
-
+        timestamp: start, 
+        str: db_name, 
+        str: collection_name,
+        str: target, 
+        int: n_grams, 
+        mongodb collection: collection,
+        int: feature_count, 
+        list: X_train_ids,
+        list: X_test_ids,
+        list: pos_ids,
+        bool: training
+        
         Returns
         -------
-
+        scipy sparse matrix: scipy_X_train
+        scipy sparse matrix: scipy_X_test
     """
     _save_txt_nlp_data(db_name, collection_name, target, pos_ids, training)
     dictionary, _ = _train_save_dictionary_corpus(
@@ -419,10 +464,16 @@ def _plot_roc_curves(model_type, target, y_test, Cs, pred_list, feature_count):
         ----------
         Parameters
         ----------
-
+        str: model_type, 
+        str: target, 
+        list: y_test, 
+        list: Cs,
+        list: pred_list, 
+        int: feature_count
+        
         Returns
         -------
-
+        None
     """
     tprs = []
     aucs = []
@@ -459,10 +510,15 @@ def _save_txt_nlp_data(db_name, collection_name, target,
         ----------
         Parameters
         ----------
-
+        str: db_name,
+        str: collection_name,
+        str: target,
+        list: pos_ids,
+        bool: training
+        
         Returns
         -------
-
+        None
     """
     print('Making txt file of subset of target class')
     mc = MongoClient()
@@ -492,10 +548,16 @@ def _train_save_dictionary_corpus(filein, n_grams, target,
         ----------
         Parameters
         ----------
-
+        str: filein,
+        int: n_grams,
+        str: target,
+        bool: training=True,
+        int: feature_count
+        
         Returns
         -------
-
+        gensim dictionary: dictionary,
+        gensim corpus: corpus
     """
     print('Building dictionary...')
     if training:
@@ -532,10 +594,13 @@ def _train_save_tfidf(filein, target, training=True):
         ----------
         Parameters
         ----------
-
+        str: filein,
+        str: target,
+        str: training
+        
         Returns
         -------
-
+        gensim tfidf model: tfidf
     """
     print('Building TFIDF model')
     if training:
@@ -565,10 +630,12 @@ def _make_temporary_txt(collection, ids):
         ----------
         Parameters
         ----------
-
+        mongodb collection: collection,
+        list: ids
+        
         Returns
         -------
-
+        None
     """
     with open('/tmp/docs_for_sparse_vectorization.txt', 'w') as fout:
         for id in ids:
@@ -584,10 +651,20 @@ def _get_train_test_ids(collection, target, train_percentage=0.8,
         ----------
         Parameters
         ----------
-
+        mongodb collection: collection,
+        str: target,
+        float: train_percentage,
+        int: seed,
+        bool: shuffle
+        
         Returns
         -------
-
+        int: i,
+        list: X_train_ids,
+        list: X_test_ids,
+        numpy array: y_train,
+        numpy array: y_test,
+        list: X_pos_train)
     """
     i = 0
     if seed:
@@ -633,10 +710,18 @@ def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
         ----------
         Parameters
         ----------
+        mongodb collection: collection,
+        str: target,
+        int: seed
+        int: k_folds
 
-        Returns
+        Yield
         -------
-
+        int: k_folds-1,
+        list: X_train_ids,
+        list: X_test_ids,
+        list: y_train,
+        list: y_test
     """
     if k_folds == 1:
         return _get_train_test_ids(collection, target, train_percentage=0.8)
@@ -687,22 +772,6 @@ def _get_k_fold_ids(collection, target, seed=None, k_folds=5):
     yield k_folds-1, X_train_ids, X_test_ids, y_train, y_test
 
 
-def _remove_extra_words(dictionary):
-    """DEPRICATED! remove words that appear only once
-        ----------
-        Parameters
-        ----------
-
-        Returns
-        -------
-
-    """
-    once_ids = [tokenid for tokenid, docfreq in
-                dictionary.dfs.items() if docfreq <= 2]
-    dictionary.filter_tokens(once_ids)
-    return dictionary
-
-
 def _list_grams(filein, n_grams):
     """for each document, yield a list of strings
         ----------
@@ -724,10 +793,12 @@ def _stem_and_ngramizer(line, n_grams):
         ----------
         Parameters
         ----------
-
+        str: line
+        int: n_grams
+        
         Returns
         -------
-
+        list: stemmed and ngrammed document
     """
     p = PorterStemmer()
     s = SnowballStemmer('english')
