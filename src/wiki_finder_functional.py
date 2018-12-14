@@ -21,10 +21,10 @@ def get_lines_bz2(filename, limit=None):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     for i, line in enumerate(subprocess.Popen(['bzcat'],
                              stdin=open(filename, 'rb'),
@@ -41,10 +41,10 @@ def find_pages(lines, input_titles, limit=None):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     found_count = 0
     search_count = 0
@@ -78,30 +78,38 @@ def parse_page(raw_xml, input_titles):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     # Find math content:
-    re_math = re.compile(r'<math([> ].*?)(</math>|/>)', re.DOTALL|re.UNICODE)
+    re_math = re.compile(
+        r'<math([> ].*?)(</math>|/>)', re.DOTALL | re.UNICODE)
     # Find all other tags:
-    re_all_tags = re.compile(r'<(.*?)>', re.DOTALL|re.UNICODE)
+    re_all_tags = re.compile(
+        r'<(.*?)>', re.DOTALL | re.UNICODE)
     # Find category markup:
-    re_categories = re.compile(r'\[\[Category:[^][]*\]\]', re.UNICODE)
+    re_categories = re.compile(
+        r'\[\[Category:[^][]*\]\]', re.UNICODE)
     # rm File and Image templates:
-    re_rm_file_image = re.compile(r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
+    re_rm_file_image = re.compile(
+        r'\[\[([fF]ile:|[iI]mage)[^]]*(\]\])', re.UNICODE)
     # Capture interlinks text and article linked:
-    re_interlinkstext_link = re.compile(r'\[{2}(.*?)\]{2}', re.UNICODE)
+    re_interlinkstext_link = re.compile(
+        r'\[{2}(.*?)\]{2}', re.UNICODE)
     # Simplify links, keep description:
-    re_simplify_link = re.compile(r'\[([^][]*)\|([^][]*)\]', re.DOTALL|re.UNICODE)
+    re_simplify_link = re.compile(
+        r'\[([^][]*)\|([^][]*)\]', re.DOTALL | re.UNICODE)
     # Keep image Description:
-    re_image_description = re.compile(r'\n\[\[[iI]mage(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
+    re_image_description = re.compile(
+        r'\n\[\[[iI]mage(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
     # Keep file descirption:
-    re_file_description = re.compile(r'\n\[\[[fF]ile(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
+    re_file_description = re.compile(
+        r'\n\[\[[fF]ile(.*?)(\|.*?)*\|(.*?)\]\]', re.UNICODE)
     # External links:
-    re_external_links = re.compile(r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL|re.UNICODE)
-
+    re_external_links = re.compile(
+        r'<nowiki([> ].*?)(</nowiki>|/>)', re.DOTALL | re.UNICODE)
     global target
     soup = bs(raw_xml, 'lxml')
     title = soup.select_one('title').text
@@ -139,7 +147,7 @@ def parse_page(raw_xml, input_titles):
         for link in wiki.filter_wikilinks():
             link = link.strip('[]')
             if 'File:' not in link and \
-               'Category:' not in link and \
+                'Category:' not in link and \
                 'Wikipedia:' not in link and \
                 'en:' not in link and \
                 'Image:' not in link:
@@ -165,18 +173,25 @@ def parse_page(raw_xml, input_titles):
         }
 
 
-input_titles = pd.read_csv('small_seed_data/math_articles_8687', sep='\t', encoding='utf-8', header=None)[0].tolist()
+input_titles = pd.read_csv(
+    'small_seed_data/math_articles_8687',
+    sep='\t',
+    encoding='utf-8',
+    header=None)[0].tolist()
 
-def create_corpus(filein, dir_out='temp_results', input_titles=input_titles, save=True, limit=None):
+
+def create_corpus(filein, dir_out='temp_results',
+                  input_titles=input_titles,
+                  save=True, limit=None):
     """Return a list of articles in a dictionary format OR
        save articles to a mongodb database
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     start = timer()
     name_str = filein.partition('-')[-1].split('.')[-3]
@@ -207,10 +222,10 @@ def strip_stripped_code(wiki):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     stripped = wiki.strip_code()
     cleaned = []
@@ -228,16 +243,19 @@ def multi_process_corpus(dump_file, title_file):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     start = timer()
     global input_titles
     input_titles = title_file
     dump_list = glob.glob(dump_file + '*.bz2')
-    input_titles = pd.read_csv(title_file, sep='\t', encoding='utf-8', header=None)[0].tolist()
+    input_titles = pd.read_csv(
+        title_file, sep='\t',
+        encoding='utf-8',
+        header=None)[0].tolist()
     pool = Pool(processes=os.cpu_count())
 
     # Map (service, tasks), applies function to each partition
@@ -252,14 +270,14 @@ def multi_process_corpus(dump_file, title_file):
 
 
 def main():
-    """   
+    """
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     start = timer()
     n = 8
@@ -267,7 +285,11 @@ def main():
     input_titles = sys.argv[2]
     target = sys.argv[3]
 
-    input_titles = pd.read_csv(str(input_titles), sep='\t', encoding='utf-8', header=None)[0].tolist()
+    input_titles = pd.read_csv(
+        str(input_titles),
+        sep='\t',
+        encoding='utf-8',
+        header=None)[0].tolist()
     if len(sys.argv) != 4:
         print(f"Usage: python wiki_parse.py <dump directory> <target article file> <topic target name>\nArgs given: {len(sys.argv)}")
         sys.exit(1)

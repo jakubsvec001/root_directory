@@ -19,10 +19,10 @@ class WikiFinder(object):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
 
     def __init__(self, titles_csv, target=None, save=True, page_limit=None):
@@ -114,10 +114,10 @@ class CatFinder(object):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
 
     def __init__(self, save=True, page_limit=None):
@@ -195,10 +195,10 @@ def get_lines_bz2(filename, limit=None):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     for i, line in enumerate(subprocess.Popen(['bzcat'],
                              stdin=open(filename, 'rb'),
@@ -214,10 +214,10 @@ def page_generator(lines, limit=None):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     search_count = 0
     page = []
@@ -231,7 +231,7 @@ def page_generator(lines, limit=None):
             inpage = False
             raw_xml = ''.join(page)
             soup = bs(raw_xml, 'lxml')
-            
+
             yield raw_xml
             page = []
             # sys.stdout.write('\r' + f'Search count: {search_count}')
@@ -247,10 +247,10 @@ def identify_page(raw_xml):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
     soup = bs(raw_xml, 'lxml')
     title = soup.select_one('title').text

@@ -16,10 +16,10 @@ class TreeScraper(object):
         ----------
         Parameters
         ----------
-        
+
         Returns
         -------
-        
+
     """
 
     def __init__(self, all_pages=True):
