@@ -15,7 +15,7 @@
 ## **Business Problem**
 ### _- Single-Source Truth on Wikipedia_
 
-The method used to develop Wikipedia into the largest and most comprehensive encyclopedia in the world, and simultaneously the fifth most visited website in the world, is `based the way that readers consume articles and the way that editors collaborate on Wikipedia`. The most important thing readers and editors of Wikipedia share with one another is that they both interact with the website on the article-to-article level. Most Wikipedia articles are found not by using Wikipedia's content curation system, but instead through Google or Bing searches. Very rarely do readers and editors engage with the inter-article relationships of topics This article-level development allowed Wikipedia to grow quickly and produce high-quality articles and it may have been reasonable to hope that an emergent property of Wikipedia's would include a self-organizing, coherent categorization system. 
+The method used to develop Wikipedia into the largest and most comprehensive encyclopedia in the world, and simultaneously the fifth most visited website in the world, is `based the way that readers consume articles and the way that editors collaborate on Wikipedia`. The most important thing readers and editors of Wikipedia share with one another is that they both interact with the website on level of individual articles. Most Wikipedia articles consumed or edited not by using Wikipedia's content curation system, but instead through Google or Bing searches. Very rarely do readers and editors engage with the inter-article relationships of topics. This article-level development allowed Wikipedia to grow quickly and produce high-quality articles and it may have been reasonable to hope that an emergent property of Wikipedia's would include a self-organizing, coherent categorization system. 
 
 This has turned out to not be the case. For proof, see the following links to as sample of different categorization tools:
 
@@ -53,26 +53,11 @@ An example of a toy problem that Wikipedia currently cannot answer is `how many 
 
 - [Wikidata](https://query.wikidata.org/#SELECT%20distinct%20%3Fitem%20%3Farticle%20%3Fsitelink%20%3FlinkTo%20WHERE%20%7B%0A%20%20%20%20%20%20%20%7B%20%3Fitem%20wdt%3AP361%2a%20wd%3AQ395%20.%7D%0A%20%20%20%20%20%20%20union%0A%20%20%20%20%20%20%20%7B%20%3Fitem%20wdt%3AP361%2Fwdt%3AP279%2a%20wd%3AQ395%20.%7D%0A%20%20%20%20%20%20%20union%0A%20%20%20%20%20%20%20%7B%20%3Fitem%20wdt%3AP31%2Fwdt%3AP279%2a%20wd%3AQ1936384%20.%7D%0A%20%20%20%20%20%20%20union%0A%20%20%20%20%20%20%20%7B%20%3Fitem%20wdt%3AP921%2Fwdt%3AP279%2a%20wd%3AQ395%20.%7D%0A%20%20%20%20%20%20%20optional%20%0A%20%20%20%20%20%20%20%7B%20%3Fsitelink%20%5Eschema%3Aname%20%3Farticle%20.%0A%20%20%20%20%20%20%20%20%20%3Farticle%20schema%3Aabout%20%3Fitem%20%3B%0A%20%20%20%20%20%20%20%20%20schema%3AisPartOf%20%3Chttps%3A%2F%2Fen.wikipedia.org%2F%3E%20.%0A%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20OPTIONAL%20%7B%20%3Fitem%20wdt%3AP361%20%3FlinkTo.%20%7D%0A%20%20%20%20%20%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22en%22.%20%7D%0A%20%20%20%20%20%20%20%7D) provides another answer: __23,051__
 
-```sparql
- SELECT distinct ?item ?article ?sitelink ?linkTo WHERE {
-       { ?item wdt:P361* wd:Q395 .}
-       union
-       { ?item wdt:P361/wdt:P279* wd:Q395 .}
-       union
-       { ?item wdt:P31/wdt:P279* wd:Q1936384 .}
-       union
-       { ?item wdt:P921/wdt:P279* wd:Q395 .}
-       optional 
-       { ?sitelink ^schema:name ?article .
-         ?article schema:about ?item ;
-         schema:isPartOf <https://en.wikipedia.org/> .
-       }
-       OPTIONAL { ?item wdt:P361 ?linkTo. }
-       SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-       }
-```
+<img src='images/wikidata_count.png'>
 
-- [PetScan](https://petscan.wmflabs.org/) provides yet another answer:  __34,425__
+- [PetScan](https://petscan.wmflabs.org/) provides yet another answer:  __34,431__
+
+<img src='images/petscan_count.png'>
 
 Moreover, `documentation for these results` is not provided and therefore the `results are not reproducible`, and a remedy is needed.
 
