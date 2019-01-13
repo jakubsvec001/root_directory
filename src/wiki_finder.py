@@ -209,7 +209,7 @@ def get_lines_bz2(filename, limit=None):
             break
 
 
-def page_generator(lines, limit=None):
+def page_generator_articles_only(lines, limit=None):
     """yield each page from wiki_dump
         ----------
         Parameters
@@ -227,12 +227,14 @@ def page_generator(lines, limit=None):
         if line.startswith('<page>'):
             inpage = True
         elif line.startswith('</page>'):
-            search_count += 1
             inpage = False
             raw_xml = ''.join(page)
             soup = bs(raw_xml, 'lxml')
-
-            yield raw_xml
+            namespaces = ['0']
+            if soup.select_one('ns').text in namespaces:
+                if '#REDIRECT' not in soup.select_one('text').text:
+                    search_count += 1
+                    yield raw_xml
             page = []
             # sys.stdout.write('\r' + f'Search count: {search_count}')
             if limit:

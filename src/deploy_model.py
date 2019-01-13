@@ -9,7 +9,8 @@ from gensim import corpora, models
 from bs4 import BeautifulSoup as bs
 
 
-def deploy_model(file, target, n_grams, feature_count=100000, limit=None):
+def deploy_model(file, target, n_grams, col_name, thresh,
+                 feature_count=100000, limit=None):
     """deploy a logistic model
 
         Parameters
@@ -22,7 +23,7 @@ def deploy_model(file, target, n_grams, feature_count=100000, limit=None):
     """
     mc = MongoClient()
     db = mc['wiki_cache']
-    collection = db[f'{target}_logistic_predictions_6']
+    collection = db[col_name]
     try:
         dictionary = corpora.Dictionary.load(
             f'nlp_training_data/{target}_full.dict')
@@ -46,7 +47,8 @@ def deploy_model(file, target, n_grams, feature_count=100000, limit=None):
         print('Could not find Logistic Regression Model at' +
               f'nlp_training_data/{target}_full_logistic_model.pkl')
     line_gen = wf.get_lines_bz2(file)
-    page_gen = wf.page_generator(line_gen, limit=limit)
+    page_gen = wf.page_generator_articles_only(line_gen, limit=limit)
+    print('    Iterating through generator now...')
     results = []
     saved = 0
     searched = 0
@@ -69,7 +71,7 @@ def deploy_model(file, target, n_grams, feature_count=100000, limit=None):
                                                    (row, column)),
                                                    shape=(1, feature_count))
         prediction = model.predict_proba(scipy_sparse_row)
-        if prediction[0][1] >= 0.18:
+        if prediction[0][1] >= thresh:
             saved += 1
             save_to_db(collection, title, prediction=prediction[0][1])
             sys.stdout.write('\r' + f'Searched: {searched}, Saved: {saved}')
@@ -100,7 +102,7 @@ def count_dump_articles(files):
         print(i)
         print(file)
         line_gen = wf.get_lines_bz2(file)
-        page_gen = wf.page_generator(line_gen, limit=None)
+        page_gen = wf.page_generator_articles_only(line_gen, limit=None)
         for page in page_gen:
             soup = bs(page, 'lxml')
             # handle redirect pages
